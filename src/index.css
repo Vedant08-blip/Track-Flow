@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1B6BF5;
+  --color-sidebar: #1A1F2E;
+  --color-background: #F4F6FA;
+  --color-surface: #FFFFFF;
+  --color-accent: #0ABFBC;
+  --color-success: #2ECC71;
+  --color-warning: #F39C12;
+  --color-danger: #E74C3C;
+
+  --font-sans: "Inter", "system-ui", "-apple-system", "sans-serif";
+}
+
+@layer base {
+  html, body {
+    @apply h-full bg-background text-sidebar antialiased;
+    font-family: var(--font-sans);
+  }
+
+  #root {
+    @apply h-full;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Recharts Customization */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: #e2e8f0;
+}
+
+.recharts-text {
+  fill: #64748b;
+  font-size: 12px;
+}
