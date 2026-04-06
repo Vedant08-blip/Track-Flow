@@ -12,11 +12,13 @@ import {
   ExternalLink,
   MessageSquare
 } from 'lucide-react';
-import { Badge, PriorityBadge, StatusBadge, Avatar, Modal } from '../components/shared/UIComponents';
+import { Badge, PriorityBadge, StatusBadge, Avatar, Drawer } from '../components/shared/UIComponents';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useToast } from '../context/ToastContext';
 
 const BacklogPage = () => {
   const { stories, addStory, updateStory, deleteStory, teams, iterations } = useProject();
+  const { addToast } = useToast();
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingStory, setEditingStory] = useState(null);
@@ -62,8 +64,10 @@ const BacklogPage = () => {
     e.preventDefault();
     if (editingStory) {
       updateStory(editingStory.id, formData);
+      addToast(`Story ${editingStory.id} updated successfully.`, 'success');
     } else {
       addStory(formData);
+      addToast('New story created successfully.', 'success');
     }
     handleCloseModal();
   };
@@ -135,12 +139,13 @@ const BacklogPage = () => {
             </thead>
             <tbody className="divide-y divide-slate-50">
               <AnimatePresence>
-                {filteredStories.map((story) => (
+                {filteredStories.map((story, index) => (
                   <motion.tr 
                     key={story.id}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ delay: index * 0.05, duration: 0.2 }}
                     className="hover:bg-slate-50/30 transition-colors group"
                   >
                     <td className="px-6 py-4">
@@ -178,7 +183,10 @@ const BacklogPage = () => {
                           <Edit3 size={16} />
                         </button>
                         <button 
-                          onClick={() => deleteStory(story.id)}
+                          onClick={() => {
+                            deleteStory(story.id);
+                            addToast(`Story ${story.id} deleted.`, 'danger');
+                          }}
                           className="p-2 hover:bg-white hover:text-red-500 rounded-lg text-slate-400 border border-transparent hover:border-slate-100 hover:shadow-sm transition-all"
                         >
                           <Trash2 size={16} />
@@ -202,8 +210,8 @@ const BacklogPage = () => {
         )}
       </div>
 
-      {/* Story Modal */}
-      <Modal 
+      {/* Story Drawer */}
+      <Drawer 
         isOpen={isModalOpen} 
         onClose={handleCloseModal} 
         title={editingStory ? `Edit Story ${editingStory.id}` : 'Create New Story'}
@@ -298,7 +306,7 @@ const BacklogPage = () => {
             </div>
           </div>
         </form>
-      </Modal>
+      </Drawer>
     </div>
   );
 };

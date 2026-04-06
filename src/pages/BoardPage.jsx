@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { useProject } from '../context/ProjectContext';
+import { useToast } from '../context/ToastContext';
 import { PriorityBadge, Avatar } from '../components/shared/UIComponents';
 import { 
   Users, 
@@ -66,6 +67,7 @@ const StoryCard = ({ story, index }) => (
 
 const BoardPage = () => {
   const { stories, updateStory, teams, iterations } = useProject();
+  const { addToast } = useToast();
   const [selectedTeam, setSelectedTeam] = useState('team-1');
   const [selectedIteration, setSelectedIteration] = useState('it-1');
 
@@ -75,6 +77,7 @@ const BoardPage = () => {
     if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
     updateStory(draggableId, { status: destination.droppableId });
+    addToast(`Moved ${draggableId} to ${destination.droppableId}`, 'success');
   };
 
   const getStoriesByStatus = (status) => {
