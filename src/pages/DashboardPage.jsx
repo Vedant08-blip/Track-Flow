@@ -29,21 +29,24 @@ const StatCard = ({ title, value, icon: Icon, trend, trendValue, colorVariant = 
   return (
     <motion.div 
       whileHover={{ y: -4 }}
-      className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm shadow-slate-200/50 dark:shadow-none flex flex-col"
+      className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl p-6 rounded-[24px] border border-white/50 dark:border-slate-800/50 shadow-lg shadow-slate-200/20 dark:shadow-none flex flex-col relative overflow-hidden"
     >
-      <div className="flex items-center justify-between mb-4">
-        <div className={`p-3 rounded-2xl ${colorMap[colorVariant]}`}>
+      {/* Subtle top glare effect for glass */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5"></div>
+      
+      <div className="flex items-center justify-between mb-4 relative z-10">
+        <div className={`p-4 rounded-[18px] ${colorMap[colorVariant]}`}>
           <Icon size={24} />
         </div>
         {trend && (
-          <div className={`flex items-center gap-1 text-sm font-bold ${trendColor}`}>
-            {trend === 'up' ? <ArrowUpRight size={16} /> : <ArrowDownRight size={16} />}
+          <div className={`flex items-center gap-1 text-sm font-bold ${trendColor} bg-white/50 dark:bg-slate-800/50 border border-white/40 dark:border-slate-700/50 px-2.5 py-1 rounded-full backdrop-blur-md`}>
+            {trend === 'up' ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
             {trendValue}
           </div>
         )}
       </div>
-      <div className="text-slate-500 dark:text-slate-400 text-sm font-semibold mb-1 uppercase tracking-wider">{title}</div>
-      <div className="text-3xl font-bold text-slate-900 dark:text-white">{value}</div>
+      <div className="text-slate-500 dark:text-slate-400 text-xs font-bold mb-1 uppercase tracking-widest relative z-10">{title}</div>
+      <div className="text-4xl font-bold text-slate-800 dark:text-white tracking-tight relative z-10">{value}</div>
     </motion.div>
   );
 };
@@ -53,148 +56,166 @@ const DashboardPage = () => {
   const burndownData = getBurndownData();
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto pb-10">
-      {/* Header */}
-      <div className="flex items-center justify-between px-2">
-        <div>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Executive Dashboard</h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium mt-1">Real-time portfolio health & team performance</p>
-        </div>
-        <div className="flex items-center gap-3 bg-white dark:bg-slate-900 p-1.5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm transition-all hover:shadow-md cursor-pointer group">
-          <div className="pl-4 pr-2 font-bold text-sm text-slate-600 dark:text-slate-400 transition-colors group-hover:text-primary">Q1 2025 Release</div>
-          <Calendar className="text-slate-500 dark:text-slate-400 group-hover:text-primary transition-colors" size={18} />
-          <div className="bg-primary/10 text-primary px-3 py-1.5 rounded-xl text-xs font-bold ring-2 ring-primary/5">Active</div>
-        </div>
-      </div>
+    <div className="relative min-h-screen">
+      {/* Ambient Glassmorphism Orbs */}
+      <div className="fixed top-[-10%] left-[-5%] w-[500px] h-[500px] bg-primary/20 dark:bg-primary/20 rounded-full blur-[100px] pointer-events-none z-0"></div>
+      <div className="fixed top-[40%] right-[-10%] w-[400px] h-[400px] bg-teal-400/20 dark:bg-teal-500/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+      <div className="fixed bottom-[-10%] left-[30%] w-[400px] h-[400px] bg-purple-500/10 dark:bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard title="Team Velocity" value="42.5" icon={TrendingUp} trend="up" trendValue="+12%" colorVariant="primary" />
-        <StatCard title="Stories Completed" value="18" icon={CheckCircle2} trend="up" trendValue="+5" colorVariant="success" />
-        <StatCard title="Active Defects" value="4" icon={AlertCircle} trend="down" trendValue="-2" colorVariant="danger" />
-        <StatCard title="Team Capacity" value="92%" icon={Activity} trend="up" trendValue="+3%" colorVariant="accent" />
-      </div>
-
-      {/* Charts Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Velocity Chart */}
-        <div className="bg-white dark:bg-slate-900 p-8 rounded-[32px] border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none overflow-hidden relative flex flex-col">
-          <div className="flex items-center justify-between mb-8">
-             <div className="flex items-center gap-3">
-               <div className="w-1.5 h-6 bg-primary rounded-full"></div>
-               <h3 className="text-xl font-bold text-slate-900 dark:text-white">Team Velocity</h3>
-             </div>
-             <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Last 4 Sprints</div>
+      <div className="space-y-8 max-w-7xl mx-auto pb-10 relative z-10">
+        {/* Header */}
+        <div className="flex items-center justify-between px-2">
+          <div>
+            <h1 className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">Executive Dashboard</h1>
+            <p className="text-slate-500 dark:text-slate-400 font-medium mt-2">Real-time portfolio health & team performance</p>
           </div>
-          <div className="flex-1 w-full min-h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={velocityData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" opacity={0.5} />
-                <XAxis dataKey="name" axisLine={false} tickLine={false} dy={10} tick={{ fontSize: 11, fontWeight: 600, fill: '#64748B' }} />
-                <YAxis axisLine={false} tickLine={false} dx={-10} tick={{ fontSize: 11, fontWeight: 600, fill: '#64748B' }} />
-                <Tooltip 
-                  cursor={{ fill: 'rgba(241, 245, 249, 0.5)' }}
-                  contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)', padding: '12px', backgroundColor: '#fff', color: '#0f172a' }}
-                />
-                <Legend verticalAlign="top" iconType="circle" height={36} wrapperStyle={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: '#64748B' }} />
-                <Bar dataKey="planned" name="Planned" fill="#CBD5E1" radius={[6, 6, 0, 0]} barSize={24} />
-                <Bar dataKey="actual" name="Actual" fill="#1B6BF5" radius={[6, 6, 0, 0]} barSize={24} />
-              </BarChart>
-            </ResponsiveContainer>
+          <div className="flex items-center gap-3 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-1.5 rounded-2xl border border-white/50 dark:border-slate-700/50 shadow-sm transition-all hover:shadow-md cursor-pointer group">
+            <div className="pl-4 pr-2 font-bold text-sm text-slate-600 dark:text-slate-300 transition-colors group-hover:text-primary">Q1 2025 Release</div>
+            <Calendar className="text-slate-500 dark:text-slate-400 group-hover:text-primary transition-colors" size={18} />
+            <div className="bg-primary/10 dark:bg-primary/20 text-primary dark:text-blue-400 px-3 py-1.5 rounded-xl text-xs font-bold ring-2 ring-primary/10">ACTIVE</div>
           </div>
         </div>
 
-        {/* Burndown Chart */}
-        <div className="bg-white dark:bg-slate-900 p-8 rounded-[32px] border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none overflow-hidden relative flex flex-col">
-          <div className="flex items-center justify-between mb-8">
-             <div className="flex items-center gap-3">
-               <div className="w-1.5 h-6 bg-teal-500 rounded-full"></div>
-               <h3 className="text-xl font-bold text-slate-900 dark:text-white">Sprint Burndown</h3>
-             </div>
-             <div className="flex items-center gap-2">
-               <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
-               <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">On Track</span>
-             </div>
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <StatCard title="Team Velocity" value="42.5" icon={TrendingUp} trend="up" trendValue="+12%" colorVariant="primary" />
+          <StatCard title="Stories Completed" value="18" icon={CheckCircle2} trend="up" trendValue="+5" colorVariant="success" />
+          <StatCard title="Active Defects" value="4" icon={AlertCircle} trend="down" trendValue="-2" colorVariant="danger" />
+          <StatCard title="Team Capacity" value="92%" icon={Activity} trend="up" trendValue="+3%" colorVariant="accent" />
+        </div>
+
+        {/* Charts Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Velocity Chart */}
+          <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl p-8 rounded-[32px] border border-white/50 dark:border-slate-800/50 shadow-lg shadow-slate-200/20 dark:shadow-none overflow-hidden relative flex flex-col text-slate-900 dark:text-slate-100">
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5"></div>
+            <div className="flex items-center justify-between mb-8">
+               <div className="flex items-center gap-3">
+                 <div className="w-1.5 h-6 bg-primary rounded-full"></div>
+                 <h3 className="text-xl font-bold dark:text-white">Team Velocity</h3>
+               </div>
+               <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest bg-white/50 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg border border-white/40 dark:border-slate-700/50">Last 4 Sprints</div>
+            </div>
+            <div className="flex-1 w-full min-h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={velocityData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#94a3b8" opacity={0.2} />
+                  <XAxis dataKey="name" axisLine={false} tickLine={false} dy={10} tick={{ fontSize: 11, fontWeight: 600, fill: '#64748B' }} />
+                  <YAxis axisLine={false} tickLine={false} dx={-10} tick={{ fontSize: 11, fontWeight: 600, fill: '#64748B' }} />
+                  <Tooltip 
+                    cursor={{ fill: 'rgba(148, 163, 184, 0.1)' }}
+                    contentStyle={{ borderRadius: '16px', border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)', padding: '12px', backgroundColor: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(12px)', color: '#0f172a' }}
+                  />
+                  <Legend verticalAlign="top" iconType="circle" height={36} wrapperStyle={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: '#64748B' }} />
+                  <Bar dataKey="planned" name="Planned" fill="#cbd5e1" radius={[6, 6, 0, 0]} barSize={24} />
+                  <Bar dataKey="actual" name="Actual" fill="#1B6BF5" radius={[6, 6, 0, 0]} barSize={24} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </div>
-          <div className="flex-1 w-full min-h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={burndownData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" opacity={0.5} />
-                <XAxis dataKey="day" axisLine={false} tickLine={false} dy={10} tick={{ fontSize: 11, fontWeight: 600, fill: '#64748B' }} />
-                <YAxis axisLine={false} tickLine={false} dx={-10} tick={{ fontSize: 11, fontWeight: 600, fill: '#64748B' }} />
-                <Tooltip contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)', padding: '12px', backgroundColor: '#fff', color: '#0f172a' }} />
-                <Legend verticalAlign="top" iconType="circle" height={36} wrapperStyle={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: '#64748B' }} />
-                <Line type="monotone" dataKey="ideal" name="Ideal Trend" stroke="#CBD5E1" strokeDasharray="5 5" strokeWidth={2} dot={false} />
-                <Line type="monotone" dataKey="actual" name="Actual Remaining" stroke="#14b8a6" strokeWidth={3} dot={{ r: 4, strokeWidth: 2, fill: '#FFFFFF' }} activeDot={{ r: 6, strokeWidth: 0 }} />
-              </LineChart>
-            </ResponsiveContainer>
+
+          {/* Burndown Chart */}
+          <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl p-8 rounded-[32px] border border-white/50 dark:border-slate-800/50 shadow-lg shadow-slate-200/20 dark:shadow-none overflow-hidden relative flex flex-col text-slate-900 dark:text-slate-100">
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5"></div>
+            <div className="flex items-center justify-between mb-8">
+               <div className="flex items-center gap-3">
+                 <div className="w-1.5 h-6 bg-teal-500 rounded-full"></div>
+                 <h3 className="text-xl font-bold dark:text-white">Sprint Burndown</h3>
+               </div>
+               <div className="flex items-center gap-2 bg-white/50 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg border border-white/40 dark:border-slate-700/50">
+                 <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></div>
+                 <span className="text-xs font-bold text-slate-500 dark:text-slate-300 uppercase tracking-widest">On Track</span>
+               </div>
+            </div>
+            <div className="flex-1 w-full min-h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={burndownData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#94a3b8" opacity={0.2} />
+                  <XAxis dataKey="day" axisLine={false} tickLine={false} dy={10} tick={{ fontSize: 11, fontWeight: 600, fill: '#64748B' }} />
+                  <YAxis axisLine={false} tickLine={false} dx={-10} tick={{ fontSize: 11, fontWeight: 600, fill: '#64748B' }} />
+                  <Tooltip contentStyle={{ borderRadius: '16px', border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)', padding: '12px', backgroundColor: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(12px)', color: '#0f172a' }} />
+                  <Legend verticalAlign="top" iconType="circle" height={36} wrapperStyle={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: '#64748B' }} />
+                  <Line type="monotone" dataKey="ideal" name="Ideal Trend" stroke="#94a3b8" strokeDasharray="5 5" strokeWidth={2} dot={false} />
+                  <Line type="monotone" dataKey="actual" name="Actual Remaining" stroke="#14b8a6" strokeWidth={3} dot={{ r: 4, strokeWidth: 2, fill: '#FFFFFF' }} activeDot={{ r: 6, strokeWidth: 0 }} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </div>
-      </div>
 
-       {/* Progress Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-[24px] border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none lg:col-span-1">
-          <h4 className="font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
-            <Users className="text-primary" size={18} />
-            Team Allocation
-          </h4>
-          <div className="space-y-5">
-            {[
-              { name: 'Team Alpha', progress: 85, color: '#1B6BF5' },
-              { name: 'Team Beta', progress: 62, color: '#14b8a6' },
-              { name: 'Team Gamma', progress: 45, color: '#f59e0b' }
-            ].map(team => (
-              <div key={team.name} className="space-y-2">
-                <div className="flex justify-between items-center text-sm">
-                  <span className="font-bold text-slate-600 dark:text-slate-400">{team.name}</span>
-                  <span className="font-bold text-slate-900 dark:text-white">{team.progress}%</span>
-                </div>
-                <div className="h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    animate={{ width: `${team.progress}%` }}
-                    transition={{ duration: 1 }}
-                    className="h-full rounded-full" 
-                    style={{ backgroundColor: team.color }}
-                  ></motion.div>
-                </div>
+         {/* Progress Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl p-8 rounded-[32px] border border-white/50 dark:border-slate-800/50 shadow-lg shadow-slate-200/20 dark:shadow-none lg:col-span-1 relative overflow-hidden">
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5"></div>
+            <h4 className="text-lg font-bold text-slate-800 dark:text-white mb-8 flex items-center gap-3">
+              <div className="p-2.5 bg-primary/10 rounded-[14px]">
+                <Users className="text-primary" size={20} />
               </div>
-            ))}
+              Team Allocation
+            </h4>
+            <div className="space-y-7">
+              {[
+                { name: 'Team Alpha', progress: 85, color: '#1B6BF5', bg: 'bg-blue-100 dark:bg-blue-900/30' },
+                { name: 'Team Beta', progress: 62, color: '#14b8a6', bg: 'bg-teal-100 dark:bg-teal-900/30' },
+                { name: 'Team Gamma', progress: 45, color: '#f59e0b', bg: 'bg-amber-100 dark:bg-amber-900/30' }
+              ].map(team => (
+                <div key={team.name} className="space-y-3">
+                  <div className="flex justify-between items-end text-sm">
+                    <span className="font-semibold text-slate-600 dark:text-slate-400">{team.name}</span>
+                    <span className="font-bold text-slate-900 dark:text-white text-base">{team.progress}%</span>
+                  </div>
+                  <div className={`h-2 ${team.bg} rounded-full overflow-hidden`}>
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: `${team.progress}%` }}
+                      transition={{ duration: 1.5, ease: "easeOut" }}
+                      className="h-full rounded-full relative" 
+                      style={{ backgroundColor: team.color }}
+                    >
+                      <div className="absolute inset-0 bg-white/20 w-full h-full"></div>
+                    </motion.div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-        
-        {/* Milestone Card */}
-        <div className="bg-primary p-8 rounded-[32px] lg:col-span-2 text-white relative overflow-hidden shadow-xl shadow-primary/20">
-           {/* Abstract patterns */}
-           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
-           <div className="absolute bottom-0 left-0 w-40 h-40 bg-teal-400/20 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl"></div>
-           
-           <div className="relative z-10 flex flex-col h-full justify-between">
-             <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="text-2xl font-bold mb-2 tracking-tight">Portfolio Milestone Reached!</h3>
-                  <p className="text-white/80 font-medium">Cloud Migration Phase 1 is now 100% complete.</p>
-                </div>
-                <div className="bg-white/20 p-3 rounded-2xl backdrop-blur-md">
-                   <TrendingUp size={24} />
-                </div>
+          
+          <div className="bg-gradient-to-br from-[#0F2557] to-[#061229] p-10 rounded-[32px] lg:col-span-2 text-white relative overflow-hidden shadow-2xl shadow-primary/20 border border-white/10">
+             {/* Abstract glassmorphic patterns */}
+             <div className="absolute top-[-50px] right-[-50px] w-64 h-64 bg-white/5 rounded-full blur-2xl"></div>
+             <div className="absolute bottom-[-50px] left-[20%] w-48 h-48 bg-teal-400/10 rounded-full blur-2xl"></div>
+             
+             <div className="relative z-10 flex flex-col h-full justify-between">
+               <div className="flex items-start justify-between">
+                  <div>
+                    <h3 className="text-3xl flex items-center gap-3 font-bold mb-2 tracking-tight text-white hover:text-white transition-colors">
+                      Portfolio Milestone Reached! <span className="text-3xl">🎯</span>
+                    </h3>
+                    <p className="text-white/60 font-medium text-[15px]">Cloud Migration Phase 1 is now 100% complete.</p>
+                  </div>
+                  <div className="bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/10 shadow-lg">
+                     <TrendingUp size={28} className="text-teal-400" />
+                  </div>
+               </div>
+               <div className="mt-12 flex flex-col sm:flex-row items-center gap-4">
+                  <div className="p-5 overflow-hidden relative bg-white/5 rounded-[20px] backdrop-blur-xl border border-white/10 flex-1 w-full text-center hover:bg-white/10 transition-colors group">
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div className="text-white/50 text-[10px] font-bold uppercase tracking-widest mb-1.5">Efficiency</div>
+                    <div className="text-3xl font-bold text-white">+18%</div>
+                  </div>
+                  <div className="p-5 overflow-hidden relative bg-white/5 rounded-[20px] backdrop-blur-xl border border-white/10 flex-1 w-full text-center hover:bg-white/10 transition-colors group">
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div className="text-white/50 text-[10px] font-bold uppercase tracking-widest mb-1.5">Quality</div>
+                    <div className="text-3xl font-bold text-white">99.2%</div>
+                  </div>
+                  <div className="p-5 overflow-hidden relative bg-white/5 rounded-[20px] backdrop-blur-xl border border-white/10 flex-1 w-full text-center hover:bg-white/10 transition-colors group">
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div className="text-white/50 text-[10px] font-bold uppercase tracking-widest mb-1.5">Uptime</div>
+                    <div className="text-3xl font-bold text-white">4 Nines</div>
+                  </div>
+               </div>
              </div>
-             <div className="mt-8 flex items-center gap-6">
-                <div className="p-4 bg-white/10 rounded-2xl backdrop-blur-md border border-white/10 flex-1">
-                  <div className="text-white/60 text-xs mb-1 font-bold uppercase tracking-widest">Efficiency</div>
-                  <div className="text-2xl font-bold">+18%</div>
-                </div>
-                <div className="p-4 bg-white/10 rounded-2xl backdrop-blur-md border border-white/10 flex-1">
-                  <div className="text-white/60 text-xs mb-1 font-bold uppercase tracking-widest">Quality</div>
-                  <div className="text-2xl font-bold">99.2%</div>
-                </div>
-                <div className="p-4 bg-white/10 rounded-2xl backdrop-blur-md border border-white/10 flex-1">
-                  <div className="text-white/60 text-xs mb-1 font-bold uppercase tracking-widest">Uptime</div>
-                  <div className="text-2xl font-bold">4 Nines</div>
-                </div>
-             </div>
-           </div>
+          </div>
         </div>
       </div>
     </div>
