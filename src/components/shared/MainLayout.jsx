@@ -13,9 +13,13 @@ import {
   Bell,
   Search,
   User as UserIcon,
-  Menu
+  Menu,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
+import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../../utils/helpers';
 
 const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
@@ -35,6 +39,7 @@ const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { user, logout } = useAuth();
+  const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -131,6 +136,26 @@ const MainLayout = () => {
           </div>
 
           <div className="flex items-center gap-4">
+            {/* Theme Toggle */}
+            <motion.button 
+              whileTap={{ scale: 0.9 }}
+              onClick={toggleTheme}
+              className="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors flex items-center justify-center relative overflow-hidden"
+            >
+              <AnimatePresence mode="wait">
+                {isDark ? (
+                  <motion.div key="moon" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} transition={{ duration: 0.2 }}>
+                    <Moon size={20} />
+                  </motion.div>
+                ) : (
+                  <motion.div key="sun" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} transition={{ duration: 0.2 }}>
+                    <Sun size={20} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
+            <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1"></div>
+
              <button className="relative p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors">
               <Bell size={20} />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-surface animate-pulse"></span>
