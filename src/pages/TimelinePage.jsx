@@ -9,7 +9,8 @@ import {
   Target,
   Layers,
   History as TimelineIcon,
-  ArrowRight
+  ArrowRight,
+  CheckCircle2
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
