@@ -11,6 +11,7 @@ import {
   Activity,
   ArrowRight
 } from 'lucide-react';
+import { Avatar } from '../components/shared/UIComponents';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const PortfolioPage = () => {
