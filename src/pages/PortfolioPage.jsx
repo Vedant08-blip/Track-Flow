@@ -40,12 +40,12 @@ const PortfolioPage = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 px-2">
         <div>
-          <h1 className="text-3xl font-bold text-sidebar tracking-tight">Portfolio Vision</h1>
-          <p className="text-slate-500 font-medium mt-1">Strategic initiatives & roadmap execution</p>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Portfolio Vision</h1>
+          <p className="text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium mt-1">Strategic initiatives & roadmap execution</p>
         </div>
         <div className="flex items-center gap-4">
            <div className="flex flex-col items-end">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Global Health</span>
+              <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest leading-none">Global Health</span>
               <span className="text-xl font-black text-success leading-tight">Excellent</span>
            </div>
            <div className="w-12 h-12 rounded-2xl bg-success/10 flex items-center justify-center text-success border border-success/20">
@@ -61,11 +61,11 @@ const PortfolioPage = () => {
             key={initiative.id}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-surface rounded-3xl border border-slate-100 shadow-sm overflow-hidden"
+            className="bg-surface dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden"
           >
             <div 
               onClick={() => toggleInitiative(initiative.id)}
-              className="p-6 cursor-pointer hover:bg-slate-50 transition-all flex items-center justify-between group"
+              className="p-6 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 dark:bg-slate-900 transition-all flex items-center justify-between group"
             >
               <div className="flex items-center gap-6 flex-1">
                 <div 
@@ -75,22 +75,22 @@ const PortfolioPage = () => {
                   <Target size={24} />
                 </div>
                 <div className="space-y-1">
-                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{initiative.id}</div>
-                  <h3 className="text-xl font-bold text-sidebar">{initiative.name}</h3>
+                  <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">{initiative.id}</div>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">{initiative.name}</h3>
                 </div>
               </div>
 
               <div className="flex items-center gap-10">
                 <div className="md:flex hidden items-center gap-4">
                    <div className="flex flex-col items-end">
-                      <span className="text-[11px] font-bold text-slate-400">Execution</span>
-                      <span className="text-sm font-bold text-sidebar">78%</span>
+                      <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400">Execution</span>
+                      <span className="text-sm font-bold text-slate-900 dark:text-white">78%</span>
                    </div>
-                   <div className="w-40 h-2 bg-slate-100 rounded-full overflow-hidden">
+                   <div className="w-40 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                       <div className="h-full bg-primary rounded-full transition-all duration-1000" style={{ width: '78%', backgroundColor: initiative.color }}></div>
                    </div>
                 </div>
-                <div className="p-2 text-slate-400 group-hover:text-primary transition-colors">
+                <div className="p-2 text-slate-500 dark:text-slate-400 group-hover:text-primary transition-colors">
                    {expandedInitiatives.includes(initiative.id) ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
                 </div>
               </div>
@@ -104,21 +104,21 @@ const PortfolioPage = () => {
                   exit={{ height: 0, opacity: 0 }}
                   className="px-6 pb-6"
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4 border-t border-slate-100">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4 border-t border-slate-100 dark:border-slate-800">
                     {getFeaturesByInitiative(initiative.id).map(feature => (
-                      <div key={feature.id} className="bg-slate-50/50 p-6 rounded-2xl border border-slate-100 group/feature hover:border-primary/30 transition-all hover:bg-white hover:shadow-xl hover:shadow-primary/5">
+                      <div key={feature.id} className="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 group/feature hover:border-primary/30 transition-all hover:bg-white dark:hover:bg-slate-800 dark:bg-slate-900 hover:shadow-xl hover:shadow-primary/5">
                         <div className="flex items-center justify-between mb-4">
                           <Layers size={18} className="text-primary" />
-                          <span className="text-[10px] font-black text-slate-400 uppercase">{feature.id}</span>
+                          <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase">{feature.id}</span>
                         </div>
-                        <h4 className="text-sm font-bold text-sidebar mb-6 group-hover/feature:text-primary transition-colors">{feature.name}</h4>
+                        <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-6 group-hover/feature:text-primary transition-colors">{feature.name}</h4>
                         
                         <div className="space-y-4">
                           <div className="flex justify-between items-center text-[11px] font-bold">
-                            <span className="text-slate-400">Total Progress</span>
-                            <span className="text-sidebar">{getStoryProgress(feature.id)}%</span>
+                            <span className="text-slate-500 dark:text-slate-400">Total Progress</span>
+                            <span className="text-slate-900 dark:text-white">{getStoryProgress(feature.id)}%</span>
                           </div>
-                          <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                          <div className="h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                             <div 
                               className="h-full bg-accent rounded-full transition-all duration-1000" 
                               style={{ width: `${getStoryProgress(feature.id)}%` }}

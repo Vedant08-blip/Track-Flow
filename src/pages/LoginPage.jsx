@@ -18,13 +18,13 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="h-screen bg-background flex items-center justify-center p-4">
+    <div className="h-screen bg-background dark:bg-slate-950 flex items-center justify-center p-4">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="max-w-md w-full"
       >
-        <div className="bg-surface rounded-3xl shadow-xl shadow-slate-200/50 p-10 border border-slate-100 overflow-hidden relative">
+        <div className="bg-surface dark:bg-slate-900 rounded-3xl shadow-xl shadow-slate-200/50 p-10 border border-slate-100 dark:border-slate-800 overflow-hidden relative">
            {/* Decorative elements */}
           <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl"></div>
           <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-accent/5 rounded-full blur-3xl"></div>
@@ -33,20 +33,20 @@ const LoginPage = () => {
             <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary/20 rotate-12 group hover:rotate-0 transition-transform">
               <ShieldCheck className="text-white w-8 h-8" />
             </div>
-            <h1 className="text-3xl font-bold text-sidebar tracking-tight">TrackFlow</h1>
-            <p className="text-slate-400 mt-2 font-medium">Enterprise Agile Intelligence</p>
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">TrackFlow</h1>
+            <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">Enterprise Agile Intelligence</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6 relative">
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2 pl-1">Email Address</label>
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2 pl-1">Email Address</label>
               <div className="relative group">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
                 <input 
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-sm font-medium"
+                  className="w-full pl-12 pr-4 py-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-sm font-medium"
                   placeholder="name@company.com"
                   required
                 />
@@ -54,14 +54,14 @@ const LoginPage = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2 pl-1">Password</label>
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2 pl-1">Password</label>
               <div className="relative group">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
                 <input 
                   type="password" 
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-sm font-medium"
+                  className="w-full pl-12 pr-4 py-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-sm font-medium"
                   placeholder="••••••••"
                   required
                 />
@@ -69,11 +69,11 @@ const LoginPage = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2 pl-1">Select Role</label>
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2 pl-1">Select Role</label>
               <select 
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
-                className="w-full px-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-sm font-semibold text-slate-700"
+                className="w-full px-4 py-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-sm font-semibold text-slate-700 dark:text-slate-200"
               >
                 <option value="Admin">Administrator</option>
                 <option value="Scrum Master">Scrum Master</option>
@@ -92,15 +92,15 @@ const LoginPage = () => {
             </motion.button>
           </form>
 
-          <div className="mt-8 pt-8 border-t border-slate-100 text-center">
+          <div className="mt-8 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
              <button className="text-primary text-sm font-bold hover:underline">Forgot password?</button>
-             <div className="mt-4 text-xs text-slate-400 font-medium">
+             <div className="mt-4 text-xs text-slate-500 dark:text-slate-400 font-medium">
                New to TrackFlow? <a href="/register" className="text-primary hover:underline">Contact Sales</a>
              </div>
           </div>
         </div>
 
-        <p className="text-center text-slate-400 mt-8 text-sm font-medium">
+        <p className="text-center text-slate-500 dark:text-slate-400 mt-8 text-sm font-medium">
           &copy; 2025 TrackFlow Inc. All rights reserved.
         </p>
       </motion.div>

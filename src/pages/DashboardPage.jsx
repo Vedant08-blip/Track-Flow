@@ -28,7 +28,7 @@ const StatCard = ({ title, value, icon: Icon, trend, trendValue, colorVariant = 
   return (
     <motion.div 
       whileHover={{ y: -4 }}
-      className="bg-surface p-6 rounded-3xl border border-slate-100 shadow-sm shadow-slate-200/50 flex flex-col"
+      className="bg-surface dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm shadow-slate-200/50 flex flex-col"
     >
       <div className="flex items-center justify-between mb-4">
         <div className={cn("p-3 rounded-2xl", colorMap[colorVariant])}>
@@ -41,8 +41,8 @@ const StatCard = ({ title, value, icon: Icon, trend, trendValue, colorVariant = 
           </div>
         )}
       </div>
-      <div className="text-slate-400 text-sm font-semibold mb-1 uppercase tracking-wider">{title}</div>
-      <div className="text-3xl font-bold text-sidebar">{value}</div>
+      <div className="text-slate-500 dark:text-slate-400 text-sm font-semibold mb-1 uppercase tracking-wider">{title}</div>
+      <div className="text-3xl font-bold text-slate-900 dark:text-white">{value}</div>
     </motion.div>
   );
 };
@@ -56,12 +56,12 @@ const DashboardPage = () => {
       {/* Header */}
       <div className="flex items-center justify-between px-2">
         <div>
-          <h1 className="text-3xl font-bold text-sidebar tracking-tight">Executive Dashboard</h1>
-          <p className="text-slate-500 font-medium mt-1">Real-time portfolio health & team performance</p>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Executive Dashboard</h1>
+          <p className="text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium mt-1">Real-time portfolio health & team performance</p>
         </div>
-        <div className="flex items-center gap-3 bg-surface p-1.5 rounded-2xl border border-slate-200 shadow-sm transition-all hover:shadow-md cursor-pointer group">
-          <div className="pl-4 pr-2 font-bold text-sm text-slate-600 transition-colors group-hover:text-primary">Q1 2025 Release</div>
-          <Calendar className="text-slate-400 group-hover:text-primary transition-colors" size={18} />
+        <div className="flex items-center gap-3 bg-surface dark:bg-slate-900 p-1.5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm transition-all hover:shadow-md cursor-pointer group">
+          <div className="pl-4 pr-2 font-bold text-sm text-slate-600 dark:text-slate-500 dark:text-slate-400 transition-colors group-hover:text-primary">Q1 2025 Release</div>
+          <Calendar className="text-slate-500 dark:text-slate-400 group-hover:text-primary transition-colors" size={18} />
           <div className="bg-primary/10 text-primary px-3 py-1.5 rounded-xl text-xs font-bold ring-2 ring-primary/5">Active</div>
         </div>
       </div>
@@ -77,13 +77,13 @@ const DashboardPage = () => {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Velocity Chart */}
-        <div className="bg-surface p-8 rounded-[32px] border border-slate-100 shadow-sm shadow-slate-200/50 overflow-hidden relative">
+        <div className="bg-surface dark:bg-slate-900 p-8 rounded-[32px] border border-slate-100 dark:border-slate-800 shadow-sm shadow-slate-200/50 overflow-hidden relative">
           <div className="flex items-center justify-between mb-8">
              <div className="flex items-center gap-3">
                <div className="w-1.5 h-6 bg-primary rounded-full"></div>
-               <h3 className="text-xl font-bold text-sidebar">Team Velocity</h3>
+               <h3 className="text-xl font-bold text-slate-900 dark:text-white">Team Velocity</h3>
              </div>
-             <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Last 4 Sprints</div>
+             <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Last 4 Sprints</div>
           </div>
           <div className="h-80 w-full">
             <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
@@ -104,15 +104,15 @@ const DashboardPage = () => {
         </div>
 
         {/* Burndown Chart */}
-        <div className="bg-surface p-8 rounded-[32px] border border-slate-100 shadow-sm shadow-slate-200/50 overflow-hidden relative">
+        <div className="bg-surface dark:bg-slate-900 p-8 rounded-[32px] border border-slate-100 dark:border-slate-800 shadow-sm shadow-slate-200/50 overflow-hidden relative">
           <div className="flex items-center justify-between mb-8">
              <div className="flex items-center gap-3">
                <div className="w-1.5 h-6 bg-accent rounded-full"></div>
-               <h3 className="text-xl font-bold text-sidebar">Sprint Burndown</h3>
+               <h3 className="text-xl font-bold text-slate-900 dark:text-white">Sprint Burndown</h3>
              </div>
              <div className="flex items-center gap-2">
                <div className="w-2 h-2 rounded-full bg-success"></div>
-               <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">On Track</span>
+               <span className="text-xs font-bold text-slate-500 dark:text-slate-500 dark:text-slate-400 uppercase tracking-widest">On Track</span>
              </div>
           </div>
           <div className="h-80 w-full">
@@ -133,8 +133,8 @@ const DashboardPage = () => {
 
        {/* Progress Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="bg-surface p-6 rounded-[24px] border border-slate-100 shadow-sm lg:col-span-1">
-          <h4 className="font-bold text-slate-900 mb-6 flex items-center gap-2">
+        <div className="bg-surface dark:bg-slate-900 p-6 rounded-[24px] border border-slate-100 dark:border-slate-800 shadow-sm lg:col-span-1">
+          <h4 className="font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
             <Users className="text-primary" size={18} />
             Team Allocation
           </h4>
@@ -146,10 +146,10 @@ const DashboardPage = () => {
             ].map(team => (
               <div key={team.name} className="space-y-2">
                 <div className="flex justify-between items-center text-sm">
-                  <span className="font-bold text-slate-600">{team.name}</span>
-                  <span className="font-bold text-slate-900">{team.progress}%</span>
+                  <span className="font-bold text-slate-600 dark:text-slate-500 dark:text-slate-400">{team.name}</span>
+                  <span className="font-bold text-slate-900 dark:text-white">{team.progress}%</span>
                 </div>
-                <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div className="h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                   <motion.div 
                     initial={{ width: 0 }}
                     animate={{ width: `${team.progress}%` }}
@@ -165,7 +165,7 @@ const DashboardPage = () => {
         
         <div className="bg-primary p-8 rounded-[32px] lg:col-span-2 text-white relative overflow-hidden shadow-xl shadow-primary/20">
            {/* Abstract patterns */}
-           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+           <div className="absolute top-0 right-0 w-64 h-64 bg-white dark:bg-slate-900/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
            <div className="absolute bottom-0 left-0 w-40 h-40 bg-accent/20 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl"></div>
            
            <div className="relative z-10 flex flex-col h-full justify-between">
@@ -174,20 +174,20 @@ const DashboardPage = () => {
                   <h3 className="text-2xl font-bold mb-2">Portfolio Milestone Reached!</h3>
                   <p className="text-white/80 font-medium">Cloud Migration Phase 1 is now 100% complete.</p>
                 </div>
-                <div className="bg-white/20 p-3 rounded-2xl backdrop-blur-md">
+                <div className="bg-white dark:bg-slate-900/20 p-3 rounded-2xl backdrop-blur-md">
                    <TrendingUp size={24} />
                 </div>
              </div>
              <div className="mt-8 flex items-center gap-6">
-                <div className="p-4 bg-white/10 rounded-2xl backdrop-blur-md border border-white/10 flex-1">
+                <div className="p-4 bg-white dark:bg-slate-900/10 rounded-2xl backdrop-blur-md border border-white/10 flex-1">
                   <div className="text-white/60 text-xs mb-1 font-bold uppercase tracking-widest">Efficiency</div>
                   <div className="text-2xl font-bold">+18%</div>
                 </div>
-                <div className="p-4 bg-white/10 rounded-2xl backdrop-blur-md border border-white/10 flex-1">
+                <div className="p-4 bg-white dark:bg-slate-900/10 rounded-2xl backdrop-blur-md border border-white/10 flex-1">
                   <div className="text-white/60 text-xs mb-1 font-bold uppercase tracking-widest">Quality</div>
                   <div className="text-2xl font-bold">99.2%</div>
                 </div>
-                <div className="p-4 bg-white/10 rounded-2xl backdrop-blur-md border border-white/10 flex-1">
+                <div className="p-4 bg-white dark:bg-slate-900/10 rounded-2xl backdrop-blur-md border border-white/10 flex-1">
                   <div className="text-white/60 text-xs mb-1 font-bold uppercase tracking-widest">Uptime</div>
                   <div className="text-2xl font-bold">4 Nines</div>
                 </div>

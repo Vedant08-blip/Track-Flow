@@ -51,13 +51,13 @@ export const ToastContainer = () => {
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9, opacity: 0 }}
-            className="bg-surface border border-slate-100 shadow-2xl shadow-slate-200/50 rounded-2xl p-4 flex items-center gap-4 min-w-[300px] pointer-events-auto"
+            className="bg-surface dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xl shadow-slate-200/50 rounded-2xl p-4 flex items-center gap-4 min-w-[300px] pointer-events-auto"
           >
             {getIcon(toast.type)}
-            <p className="font-bold text-sm text-sidebar flex-1">{toast.message}</p>
+            <p className="font-bold text-sm text-slate-900 dark:text-white flex-1">{toast.message}</p>
             <button 
               onClick={() => removeToast(toast.id)}
-              className="text-slate-400 hover:text-slate-600 transition-colors"
+              className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 dark:text-slate-500 dark:text-slate-400 transition-colors"
             >
               <X size={16} />
             </button>
