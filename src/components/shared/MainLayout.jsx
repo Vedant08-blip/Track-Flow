@@ -113,9 +113,9 @@ const MainLayout = () => {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
         {/* Top Navbar */}
-        <header className="h-16 bg-surface border-b border-gray-200 flex items-center justify-between px-6 z-40 sticky top-0">
+        <header className="h-16 bg-white/70 backdrop-blur-xl border-b border-gray-200/50 flex items-center justify-between px-6 z-40 sticky top-0 shadow-sm shadow-slate-100">
           <div className="flex items-center gap-4 flex-1">
             <button className="md:hidden p-2 hover:bg-gray-100 rounded-lg text-gray-500">
               <Menu size={20} />
