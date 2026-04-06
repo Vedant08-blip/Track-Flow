@@ -102,7 +102,7 @@ const BoardPage = () => {
               <button 
                 key={t.id}
                 onClick={() => setSelectedTeam(t.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${selectedTeam === t.id ? 'bg-primary text-white shadow-md shadow-primary/20' : 'text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 dark:bg-slate-900'}`}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${selectedTeam === t.id ? 'bg-primary text-white shadow-md shadow-primary/20' : 'text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
               >
                 {t.name}
               </button>

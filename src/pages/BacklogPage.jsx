@@ -127,7 +127,7 @@ const BacklogPage = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 text-[11px] font-bold uppercase tracking-widest border-b border-slate-100 dark:border-slate-800">
+              <tr className="bg-slate-50/50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 text-[11px] font-bold uppercase tracking-widest border-b border-slate-100 dark:border-slate-800">
                 <th className="px-6 py-4 w-28">ID</th>
                 <th className="px-6 py-4">Title & Description</th>
                 <th className="px-6 py-4 w-24">Points</th>
@@ -146,7 +146,7 @@ const BacklogPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ delay: index * 0.05, duration: 0.2 }}
-                    className="hover:bg-slate-50 dark:hover:bg-slate-800 dark:bg-slate-900/30 transition-colors group"
+                    className="hover:bg-slate-50/30 dark:hover:bg-slate-800/30 transition-colors group"
                   >
                     <td className="px-6 py-4">
                       <span className="text-sm font-bold text-primary hover:underline cursor-pointer">{story.id}</span>
@@ -178,7 +178,7 @@ const BacklogPage = () => {
                       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button 
                           onClick={() => handleOpenModal(story)}
-                          className="p-2 hover:bg-white dark:hover:bg-slate-800 dark:bg-slate-900 hover:text-primary rounded-lg text-slate-500 dark:text-slate-400 border border-transparent hover:border-slate-100 dark:hover:border-slate-700 dark:border-slate-800 hover:shadow-sm transition-all"
+                          className="p-2 hover:bg-white dark:hover:bg-slate-800 hover:text-primary rounded-lg text-slate-500 dark:text-slate-400 border border-transparent hover:border-slate-100 dark:hover:border-slate-700 dark:border-slate-800 hover:shadow-sm transition-all"
                         >
                           <Edit3 size={16} />
                         </button>
@@ -187,7 +187,7 @@ const BacklogPage = () => {
                             deleteStory(story.id);
                             addToast(`Story ${story.id} deleted.`, 'danger');
                           }}
-                          className="p-2 hover:bg-white dark:hover:bg-slate-800 dark:bg-slate-900 hover:text-red-500 rounded-lg text-slate-500 dark:text-slate-400 border border-transparent hover:border-slate-100 dark:hover:border-slate-700 dark:border-slate-800 hover:shadow-sm transition-all"
+                          className="p-2 hover:bg-white dark:hover:bg-slate-800 hover:text-red-500 rounded-lg text-slate-500 dark:text-slate-400 border border-transparent hover:border-slate-100 dark:hover:border-slate-700 dark:border-slate-800 hover:shadow-sm transition-all"
                         >
                           <Trash2 size={16} />
                         </button>

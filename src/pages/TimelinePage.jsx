@@ -29,9 +29,9 @@ const TimelinePage = () => {
           <p className="text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium mt-1">Cross-team feature timeline and dependencies</p>
         </div>
         <div className="flex items-center gap-2 bg-surface dark:bg-slate-900 p-1.5 rounded-2xl border border-slate-200 dark:border-slate-700">
-          <button className="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 dark:bg-slate-900 rounded-xl text-slate-500 dark:text-slate-400 transition-colors"><ChevronLeft size={18} /></button>
+          <button className="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl text-slate-500 dark:text-slate-400 transition-colors"><ChevronLeft size={18} /></button>
           <div className="px-4 font-bold text-sm text-slate-900 dark:text-white">H1 2025</div>
-          <button className="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 dark:bg-slate-900 rounded-xl text-slate-500 dark:text-slate-400 transition-colors"><ChevronRight size={18} /></button>
+          <button className="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl text-slate-500 dark:text-slate-400 transition-colors"><ChevronRight size={18} /></button>
         </div>
       </div>
 
@@ -39,8 +39,8 @@ const TimelinePage = () => {
       <div className="bg-surface dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm flex-1 flex flex-col overflow-hidden min-h-[600px]">
         {/* Timeline Header */}
         <div className="flex border-b border-slate-100 dark:border-slate-800">
-           <div className="w-64 p-6 border-r border-slate-100 dark:border-slate-800 font-bold text-slate-500 dark:text-slate-400 text-[10px] uppercase tracking-widest bg-slate-50 dark:bg-slate-900/50">Features & Teams</div>
-           <div className="flex-1 flex bg-slate-50 dark:bg-slate-900/50">
+           <div className="w-64 p-6 border-r border-slate-100 dark:border-slate-800 font-bold text-slate-500 dark:text-slate-400 text-[10px] uppercase tracking-widest bg-slate-50/50 dark:bg-slate-900/50">Features & Teams</div>
+           <div className="flex-1 flex bg-slate-50/50 dark:bg-slate-900/50">
               {months.map(m => (
                 <div key={m} className="flex-1 p-6 text-center font-bold text-slate-900 dark:text-white text-xs border-r border-slate-100 dark:border-slate-800 last:border-r-0">{m} 2025</div>
               ))}
@@ -66,7 +66,7 @@ const TimelinePage = () => {
 
                {/* Features Rows for this Release */}
                {features.map((feature, fIdx) => (
-                 <div key={feature.id} className="flex border-b border-slate-100 dark:border-slate-800 last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-800 dark:bg-slate-900/30 transition-all group">
+                 <div key={feature.id} className="flex border-b border-slate-100 dark:border-slate-800 last:border-b-0 hover:bg-slate-50/30 dark:hover:bg-slate-800/30 transition-all group">
                     <div className="w-64 p-6 border-r border-slate-100 dark:border-slate-800 flex items-center gap-3">
                        <Layers size={14} className="text-slate-500 dark:text-slate-400 group-hover:text-primary transition-colors" />
                        <div className="flex flex-col">
@@ -97,7 +97,7 @@ const TimelinePage = () => {
         </div>
 
         {/* Legend */}
-        <div className="p-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50">
+        <div className="p-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-900/50">
            <div className="flex items-center gap-6">
               <div className="flex items-center gap-2">
                  <div className="w-3 h-3 bg-primary rounded-full"></div>

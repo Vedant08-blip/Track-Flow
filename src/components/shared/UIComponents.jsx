@@ -78,13 +78,13 @@ export const Modal = ({ isOpen, onClose, title, children, footer }) => {
       <div className="bg-surface dark:bg-slate-900 w-full max-w-2xl rounded-3xl shadow-2xl relative z-10 overflow-hidden border border-slate-100 dark:border-slate-800">
         <div className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
           <h3 className="text-xl font-bold text-slate-900 dark:text-white">{title}</h3>
-          <button onClick={onClose} className="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 dark:bg-slate-900 rounded-xl text-slate-500 dark:text-slate-400 transition-colors">&times;</button>
+          <button onClick={onClose} className="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl text-slate-500 dark:text-slate-400 transition-colors">&times;</button>
         </div>
         <div className="px-8 py-6 max-h-[70vh] overflow-y-auto">
           {children}
         </div>
         {footer && (
-          <div className="px-8 py-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex justify-end gap-3 shrink-0">
+          <div className="px-8 py-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex justify-end gap-3 shrink-0">
             {footer}
           </div>
         )}
@@ -114,7 +114,7 @@ export const Drawer = ({ isOpen, onClose, title, children, footer }) => {
         exit={{ x: '100%', transition: { ease: 'easeInOut', duration: 0.2 } }}
         className="w-full max-w-md bg-surface dark:bg-slate-900 h-full shadow-2xl relative z-10 flex flex-col border-l border-slate-100 dark:border-slate-800"
       >
-        <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between shrink-0 bg-white dark:bg-slate-900/50 backdrop-blur-md">
+        <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between shrink-0 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md">
           <h3 className="text-lg font-bold text-slate-900 dark:text-white">{title}</h3>
           <button 
             onClick={onClose} 

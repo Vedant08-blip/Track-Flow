@@ -65,7 +65,7 @@ const PortfolioPage = () => {
           >
             <div 
               onClick={() => toggleInitiative(initiative.id)}
-              className="p-6 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 dark:bg-slate-900 transition-all flex items-center justify-between group"
+              className="p-6 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all flex items-center justify-between group"
             >
               <div className="flex items-center gap-6 flex-1">
                 <div 
@@ -106,7 +106,7 @@ const PortfolioPage = () => {
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4 border-t border-slate-100 dark:border-slate-800">
                     {getFeaturesByInitiative(initiative.id).map(feature => (
-                      <div key={feature.id} className="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 group/feature hover:border-primary/30 transition-all hover:bg-white dark:hover:bg-slate-800 dark:bg-slate-900 hover:shadow-xl hover:shadow-primary/5">
+                      <div key={feature.id} className="bg-slate-50/50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 group/feature hover:border-primary/30 transition-all hover:bg-white dark:hover:bg-slate-800 hover:shadow-xl hover:shadow-primary/5">
                         <div className="flex items-center justify-between mb-4">
                           <Layers size={18} className="text-primary" />
                           <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase">{feature.id}</span>

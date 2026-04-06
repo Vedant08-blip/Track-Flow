@@ -70,7 +70,7 @@ const PlanningPage = () => {
                            <h4 className="font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">{it.name}</h4>
                            <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">{it.startDate} — {it.endDate}</div>
                         </div>
-                        <button className="p-1 hover:bg-slate-50 dark:hover:bg-slate-800 dark:bg-slate-900 rounded-lg text-slate-500 dark:text-slate-400">
+                        <button className="p-1 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg text-slate-500 dark:text-slate-400">
                            <MoreVertical size={16} />
                         </button>
                      </div>
@@ -119,7 +119,7 @@ const PlanningPage = () => {
 
                {/* Add Iteration Placeholder */}
                <div className="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[28px] p-6 flex flex-col items-center justify-center text-center gap-3 cursor-pointer hover:border-primary/50 hover:bg-primary/5 transition-all group">
-                  <div className="w-12 h-12 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-primary group-hover:bg-white dark:hover:bg-slate-800 dark:bg-slate-900 group-hover:shadow-lg transition-all">
+                  <div className="w-12 h-12 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-primary group-hover:bg-white dark:hover:bg-slate-800 group-hover:shadow-lg transition-all">
                      <Plus size={24} />
                   </div>
                   <div className="text-sm font-bold text-slate-500 dark:text-slate-400 group-hover:text-primary">New Iteration</div>

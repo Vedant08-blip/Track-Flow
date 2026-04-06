@@ -165,7 +165,7 @@ const DashboardPage = () => {
         
         <div className="bg-primary p-8 rounded-[32px] lg:col-span-2 text-white relative overflow-hidden shadow-xl shadow-primary/20">
            {/* Abstract patterns */}
-           <div className="absolute top-0 right-0 w-64 h-64 bg-white dark:bg-slate-900/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
            <div className="absolute bottom-0 left-0 w-40 h-40 bg-accent/20 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl"></div>
            
            <div className="relative z-10 flex flex-col h-full justify-between">
@@ -174,20 +174,20 @@ const DashboardPage = () => {
                   <h3 className="text-2xl font-bold mb-2">Portfolio Milestone Reached!</h3>
                   <p className="text-white/80 font-medium">Cloud Migration Phase 1 is now 100% complete.</p>
                 </div>
-                <div className="bg-white dark:bg-slate-900/20 p-3 rounded-2xl backdrop-blur-md">
+                <div className="bg-white/20 p-3 rounded-2xl backdrop-blur-md">
                    <TrendingUp size={24} />
                 </div>
              </div>
              <div className="mt-8 flex items-center gap-6">
-                <div className="p-4 bg-white dark:bg-slate-900/10 rounded-2xl backdrop-blur-md border border-white/10 flex-1">
+                <div className="p-4 bg-white/10 rounded-2xl backdrop-blur-md border border-white/10 flex-1">
                   <div className="text-white/60 text-xs mb-1 font-bold uppercase tracking-widest">Efficiency</div>
                   <div className="text-2xl font-bold">+18%</div>
                 </div>
-                <div className="p-4 bg-white dark:bg-slate-900/10 rounded-2xl backdrop-blur-md border border-white/10 flex-1">
+                <div className="p-4 bg-white/10 rounded-2xl backdrop-blur-md border border-white/10 flex-1">
                   <div className="text-white/60 text-xs mb-1 font-bold uppercase tracking-widest">Quality</div>
                   <div className="text-2xl font-bold">99.2%</div>
                 </div>
-                <div className="p-4 bg-white dark:bg-slate-900/10 rounded-2xl backdrop-blur-md border border-white/10 flex-1">
+                <div className="p-4 bg-white/10 rounded-2xl backdrop-blur-md border border-white/10 flex-1">
                   <div className="text-white/60 text-xs mb-1 font-bold uppercase tracking-widest">Uptime</div>
                   <div className="text-2xl font-bold">4 Nines</div>
                 </div>
