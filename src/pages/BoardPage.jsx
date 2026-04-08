@@ -28,8 +28,9 @@ const StoryCard = ({ story, index }) => (
         ref={provided.innerRef}
         {...provided.draggableProps}
         {...provided.dragHandleProps}
-        className={`bg-surface dark:bg-slate-900 p-4 rounded-2xl border ${snapshot.isDragging ? 'border-primary ring-4 ring-primary/5 shadow-xl rotate-1 z-50' : 'border-slate-100 dark:border-slate-800 shadow-sm'} mb-3 transition-all duration-200 group relative overflow-hidden`}
+        className={`bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl p-4 rounded-[20px] border ${snapshot.isDragging ? 'border-primary ring-4 ring-primary/20 shadow-2xl scale-105 z-50' : 'border-slate-200/50 dark:border-slate-700/50 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/40'} mb-3 transition-all duration-200 group relative overflow-hidden`}
       >
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent dark:via-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
         <div className="flex justify-between items-start mb-3">
           <span className="text-[10px] font-extrabold text-primary tracking-tighter uppercase">{story.id}</span>
           <button className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 dark:text-slate-500 dark:text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -121,13 +122,13 @@ const BoardPage = () => {
         <div className="flex-1 overflow-x-auto pb-6">
           <div className="flex gap-6 min-w-[1000px] h-full">
             {COLUMNS.map(column => (
-              <div key={column.id} className="flex-1 flex flex-col min-w-[280px]">
+              <div key={column.id} className="flex-1 flex flex-col min-w-[280px] bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl rounded-[32px] p-4 border border-white/50 dark:border-slate-800/50 shadow-lg shadow-slate-200/20 dark:shadow-none">
                 <div className="flex items-center justify-between mb-4 px-2">
                   <div className="flex items-center gap-2">
                     <div className={`w-2.5 h-2.5 rounded-full ${column.color}`}></div>
                     <h3 className="font-bold text-slate-700 dark:text-slate-200 uppercase tracking-widest text-[11px]">{column.title}</h3>
                   </div>
-                  <div className="text-[10px] font-black text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/50 px-2 py-0.5 rounded-md">
+                  <div className="text-[10px] font-black text-slate-500 dark:text-slate-400 bg-white/60 dark:bg-slate-800/80 px-2 py-0.5 rounded-md border border-slate-200/50 dark:border-slate-700/50">
                     {getStoriesByStatus(column.id).length}
                   </div>
                 </div>
@@ -137,7 +138,7 @@ const BoardPage = () => {
                     <div
                       ref={provided.innerRef}
                       {...provided.droppableProps}
-                      className={`flex-1 transition-all duration-300 rounded-[20px] p-2 overflow-y-auto ${snapshot.isDraggingOver ? 'bg-primary/5' : 'bg-transparent'}`}
+                      className={`flex-1 transition-all duration-300 rounded-[20px] p-1 overflow-y-auto ${snapshot.isDraggingOver ? 'bg-primary/5 ring-2 ring-primary/20 shadow-inner' : 'bg-transparent'}`}
                     >
                       {getStoriesByStatus(column.id).map((story, index) => (
                         <StoryCard key={story.id} story={story} index={index} />
