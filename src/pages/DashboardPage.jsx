@@ -101,11 +101,11 @@ const DashboardPage = () => {
                       </svg>
                     </div>
                     <h3 className="text-2xl font-bold tracking-tight">
-                      Master your workflow with TrackFlow
+                      Welcome to the TrackFlow Executive Dashboard
                     </h3>
                   </div>
                   <p className="text-white/80 text-[15px] font-medium leading-relaxed">
-                    We've designed TrackFlow to make agile management effortless. The dashboard below gives you a bird's-eye view of your portfolio's health. Not sure what a metric means? Click the <button onClick={() => setIsGuideOpen(true)} className="inline-flex items-center justify-center bg-white/20 hover:bg-white/30 transition-colors px-2 py-0.5 rounded-lg mx-1 font-bold text-white shadow-sm ring-1 ring-white/40 cursor-pointer hover:scale-105 active:scale-95"><Info size={14} className="mr-1" /> Guide</button> button to master your agile methodology.
+                    TrackFlow provides a comprehensive overview of your agile portfolio's performance. The metrics below offer real-time insights into your team's progress and project health. For detailed explanations of the terminology and reporting metrics used throughout the application, please consult the <button onClick={() => setIsGuideOpen(true)} className="inline-flex items-center justify-center bg-white/20 hover:bg-white/30 transition-colors px-2 py-0.5 rounded-lg mx-1 font-bold text-white shadow-sm ring-1 ring-white/40 cursor-pointer hover:scale-105 active:scale-95"><Info size={14} className="mr-1" /> Guide</button>.
                   </p>
                 </div>
                 

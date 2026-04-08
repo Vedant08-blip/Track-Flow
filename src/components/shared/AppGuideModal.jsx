@@ -37,7 +37,7 @@ const guideSteps = [
   },
   {
     id: 'board',
-    title: ' The Kanban Board',
+    title: ' The Board',
     icon: Kanban,
     color: 'text-emerald-500',
     bg: 'bg-emerald-500/10',
@@ -52,9 +52,9 @@ const AppGuideModal = ({ isOpen, onClose }) => {
   const ActiveStepIcon = guideSteps[activeStep].icon;
 
   return (
-    <Modal 
-      isOpen={isOpen} 
-      onClose={onClose} 
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
       title={
         <div className="flex items-center gap-3">
           <div className="bg-primary/10 p-2 rounded-xl">
@@ -75,7 +75,7 @@ const AppGuideModal = ({ isOpen, onClose }) => {
           </div>
           <div className="flex gap-2">
             {activeStep > 0 && (
-              <button 
+              <button
                 onClick={() => setActiveStep(prev => prev - 1)}
                 className="px-4 py-2 rounded-xl text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-sm"
               >
@@ -83,14 +83,14 @@ const AppGuideModal = ({ isOpen, onClose }) => {
               </button>
             )}
             {activeStep < guideSteps.length - 1 ? (
-              <button 
+              <button
                 onClick={() => setActiveStep(prev => prev + 1)}
                 className="px-6 py-2 bg-primary text-white rounded-xl font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 text-sm flex items-center gap-2"
               >
                 Next <ChevronRight size={16} />
               </button>
             ) : (
-              <button 
+              <button
                 onClick={onClose}
                 className="px-6 py-2 bg-emerald-500 text-white rounded-xl font-bold hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-500/20 text-sm"
               >
@@ -112,13 +112,13 @@ const AppGuideModal = ({ isOpen, onClose }) => {
                 onClick={() => setActiveStep(index)}
                 className={cn(
                   "text-left px-4 py-4 rounded-2xl border transition-all duration-300 group relative overflow-hidden",
-                  isActive 
-                    ? `bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-md ring-1 ring-primary/10` 
+                  isActive
+                    ? `bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-md ring-1 ring-primary/10`
                     : `bg-transparent border-transparent hover:bg-slate-50 dark:hover:bg-slate-800/50`
                 )}
               >
                 {isActive && (
-                  <motion.div 
+                  <motion.div
                     layoutId="activeIndicator"
                     className="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-r-full"
                   />
@@ -155,11 +155,11 @@ const AppGuideModal = ({ isOpen, onClose }) => {
               <div className={cn("inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-bold uppercase tracking-widest mb-6", guideSteps[activeStep].bg, guideSteps[activeStep].color, guideSteps[activeStep].border)}>
                 <ActiveStepIcon size={14} /> Concept
               </div>
-              
+
               <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
                 {guideSteps[activeStep].short}
               </h3>
-              
+
               <div className="space-y-4 text-slate-600 dark:text-slate-300 text-[15px] leading-relaxed">
                 {guideSteps[activeStep].details.split('\n').map((paragraph, i) => (
                   <p key={i}>{paragraph}</p>
