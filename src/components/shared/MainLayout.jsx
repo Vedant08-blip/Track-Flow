@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  Layers, 
-  Kanban, 
-  CalendarRange, 
-  History as GanttIcon, 
+import {
+  LayoutDashboard,
+  Layers,
+  Kanban,
+  CalendarRange,
+  History as GanttIcon,
   Briefcase,
   ChevronLeft,
   ChevronRight,
@@ -36,12 +36,25 @@ const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
     {!collapsed && <span className="font-medium whitespace-nowrap">{label}</span>}
   </NavLink>
 );
-
+{/* Navbar Component */ }
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
+
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [notifications, setNotifications] = useState([
+    { id: 1, title: 'New story assigned', message: 'You were assigned to "Implement Login UI"', time: '2m ago', read: false },
+    { id: 2, title: 'Sprint started', message: 'Sprint 14 has officially started', time: '1h ago', read: false },
+    { id: 3, title: 'Mentioned you', message: 'Alex mentioned you in a comment', time: '2h ago', read: true },
+  ]);
+
+  const unreadCount = notifications.filter(n => !n.read).length;
+
+  const markAllAsRead = () => {
+    setNotifications(notifications.map(n => ({ ...n, read: true })));
+  };
 
   const handleLogout = () => {
     logout();
@@ -63,7 +76,7 @@ const MainLayout = () => {
     <div className="flex h-screen overflow-hidden bg-background dark:bg-slate-950 relative">
       <AmbientBackground />
       {/* Sidebar */}
-      <aside 
+      <aside
         className={cn(
           "bg-sidebar dark:bg-slate-900/90 dark:border-r dark:border-slate-800 text-white p-4 transition-all duration-300 flex flex-col z-50 shadow-2xl relative backdrop-blur-xl",
           collapsed ? "w-20" : "w-64"
@@ -79,7 +92,7 @@ const MainLayout = () => {
           {collapsed && (
             <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center font-bold text-xl mx-auto">T</div>
           )}
-          <button 
+          <button
             onClick={() => setCollapsed(!collapsed)}
             className="p-1.5 rounded-md hover:bg-slate-800 text-slate-500 dark:text-slate-400 absolute -right-3 top-10 bg-sidebar border border-slate-700 md:flex hidden"
           >
@@ -89,12 +102,12 @@ const MainLayout = () => {
 
         <nav className="flex-1 space-y-1">
           {filteredNavItems.map(item => (
-            <SidebarItem 
-              key={item.to} 
-              to={item.to} 
-              icon={item.icon} 
-              label={item.label} 
-              collapsed={collapsed} 
+            <SidebarItem
+              key={item.to}
+              to={item.to}
+              icon={item.icon}
+              label={item.label}
+              collapsed={collapsed}
             />
           ))}
         </nav>
@@ -106,7 +119,7 @@ const MainLayout = () => {
               <div className="text-sm font-medium text-primary-flow">{user?.role}</div>
             </div>
           )}
-          <button 
+          <button
             onClick={handleLogout}
             className={cn(
               "flex items-center gap-3 w-full px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-red-500/10 hover:text-red-500 transition-all duration-200",
@@ -129,9 +142,9 @@ const MainLayout = () => {
             </button>
             <div className="relative max-w-md w-full md:flex hidden group">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors" size={18} />
-              <input 
-                type="text" 
-                placeholder="Search stories, tasks, defects..." 
+              <input
+                type="text"
+                placeholder="Search stories, tasks, defects..."
                 className="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary dark:focus:ring-primary/20 dark:text-white transition-all text-sm backdrop-blur-sm"
               />
             </div>
@@ -139,7 +152,7 @@ const MainLayout = () => {
 
           <div className="flex items-center gap-4">
             {/* Theme Toggle */}
-            <motion.button 
+            <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={toggleTheme}
               className="p-2 text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 dark:bg-slate-800 dark:hover:bg-slate-800 rounded-full transition-colors flex items-center justify-center relative overflow-hidden"
@@ -158,11 +171,75 @@ const MainLayout = () => {
             </motion.button>
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1"></div>
 
-             <button className="relative p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors">
-              <Bell size={20} />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-surface animate-pulse"></span>
-            </button>
-            
+            <div className="relative">
+              <button
+                onClick={() => setNotificationsOpen(!notificationsOpen)}
+                className="relative p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 rounded-full transition-colors focus:ring-2 focus:ring-primary/50 outline-none"
+              >
+                <Bell size={20} />
+                {unreadCount > 0 && (
+                  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900 animate-pulse"></span>
+                )}
+              </button>
+
+              <AnimatePresence>
+                {notificationsOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute right-0 mt-4 w-80 bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border border-slate-200/60 dark:border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden z-50 text-left"
+                  >
+                    <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between relative z-10">
+                      <h3 className="font-bold text-slate-800 dark:text-white">Notifications</h3>
+                      {unreadCount > 0 && (
+                        <button
+                          onClick={markAllAsRead}
+                          className="text-xs font-bold text-primary hover:text-primary/80 transition-colors"
+                        >
+                          Mark all as read
+                        </button>
+                      )}
+                    </div>
+                    <div className="max-h-[300px] overflow-y-auto relative z-10">
+                      {notifications.length > 0 ? (
+                        notifications.map(notification => (
+                          <div
+                            key={notification.id}
+                            onClick={() => {
+                              setNotifications(notifications.map(n => n.id === notification.id ? { ...n, read: true } : n));
+                            }}
+                            className={cn(
+                              "px-4 py-3 border-b border-slate-50 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/80 cursor-pointer transition-colors",
+                              !notification.read ? "bg-primary/5 border-l-2 border-l-primary" : "border-l-2 border-l-transparent"
+                            )}
+                          >
+                            <div className="flex justify-between items-start mb-1">
+                              <span className={cn("text-sm font-semibold", !notification.read ? "text-slate-900 dark:text-white" : "text-slate-600 dark:text-slate-400")}>
+                                {notification.title}
+                              </span>
+                              <span className="text-[10px] text-slate-400 font-medium whitespace-nowrap ml-2">{notification.time}</span>
+                            </div>
+                            <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{notification.message}</p>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="p-6 text-center text-sm text-slate-500 font-medium">
+                          No notifications
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-3 bg-slate-50 dark:bg-slate-800/80 border-t border-slate-100 dark:border-slate-800 text-center relative z-10">
+                      <button className="text-xs font-bold text-primary hover:text-primary/80 transition-colors">
+                        View all notifications
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
             <div className="h-8 w-px bg-gray-200 mx-1"></div>
 
             <div className="flex items-center gap-3 pl-2">
@@ -172,7 +249,7 @@ const MainLayout = () => {
               </div>
               <div className="relative group">
                 <div className="w-10 h-10 rounded-xl overflow-hidden ring-2 ring-transparent group-hover:ring-primary/20 transition-all cursor-pointer bg-gray-100 p-0.5">
-                   <img src={user?.avatar} alt={user?.name} className="w-full h-full object-cover rounded-lg" />
+                  <img src={user?.avatar} alt={user?.name} className="w-full h-full object-cover rounded-lg" />
                 </div>
               </div>
             </div>
