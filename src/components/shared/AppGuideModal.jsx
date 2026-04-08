@@ -140,10 +140,7 @@ const AppGuideModal = ({ isOpen, onClose }) => {
         </div>
 
         {/* Content Area */}
-        <div className="w-full md:w-2/3 bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl rounded-[32px] p-8 border border-white/60 dark:border-slate-800 shadow-inner flex flex-col justify-center relative overflow-hidden">
-          {/* Abstract glow behind content */}
-          <div className={cn("absolute -top-20 -right-20 w-64 h-64 rounded-full blur-3xl pointer-events-none transition-colors duration-1000", guideSteps[activeStep].bg)}></div>
-
+        <div className="w-full md:w-2/3 p-4 md:p-8 flex flex-col justify-center relative">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeStep}
