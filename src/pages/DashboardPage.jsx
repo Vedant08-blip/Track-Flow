@@ -12,7 +12,8 @@ import {
   ArrowUpRight,
   ArrowDownRight,
   Activity,
-  X
+  X,
+  Info
 } from 'lucide-react';
 import { getVelocityData, getBurndownData } from '../utils/mockData';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -74,7 +75,7 @@ const DashboardPage = () => {
           </div>
         </div>
 
-        {/* Welcome Banner */}
+        {/* Premium Welcome Banner */}
         <AnimatePresence>
           {showBanner && (
             <motion.div 
@@ -83,21 +84,43 @@ const DashboardPage = () => {
               exit={{ opacity: 0, y: -20, height: 0 }}
               className="overflow-hidden"
             >
-              <div className="bg-gradient-to-r from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 border border-primary/20 dark:border-primary/30 p-5 rounded-3xl relative backdrop-blur-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div>
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                    👋 Welcome to TrackFlow!
-                  </h3>
-                  <p className="text-slate-600 dark:text-slate-300 text-sm mt-1 max-w-2xl font-medium">
-                    TrackFlow helps you organize tasks, manage your team's workload, and track progress over time. Hover over the <InfoTooltip content="This is an info tooltip! It will explain complex charts." position="top" /> icons below to learn how to read your agile metrics.
+              <div className="bg-gradient-to-br from-primary/90 to-[#061229] dark:from-[#0F2557] dark:to-[#061229] p-8 rounded-[32px] relative overflow-hidden shadow-2xl shadow-primary/20 border border-white/10 dark:border-white/5 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-6 mt-2">
+                {/* Abstract glare elements */}
+                <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute bottom-0 left-[20%] w-48 h-48 bg-accent/20 rounded-full blur-2xl pointer-events-none"></div>
+                
+                <div className="relative z-10 text-white max-w-3xl">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="bg-white/20 p-2 rounded-xl backdrop-blur-md">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M12 16V12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M12 8H12.01" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
+                    <h3 className="text-2xl font-bold tracking-tight">
+                      Master your workflow with TrackFlow
+                    </h3>
+                  </div>
+                  <p className="text-white/80 text-[15px] font-medium leading-relaxed">
+                    We've designed TrackFlow to make agile management effortless. The dashboard below gives you a bird's-eye view of your portfolio's health. Not sure what a metric means? Just hover over the <span className="inline-flex items-center justify-center bg-white/20 px-2 py-0.5 rounded-md mx-1 font-bold text-white shadow-sm ring-1 ring-white/30"><Info size={14} className="mr-1" /> info</span> icons embedded next to the charts for simple, jargon-free explanations.
                   </p>
                 </div>
-                <button 
-                  onClick={() => setShowBanner(false)}
-                  className="p-2 rounded-xl text-slate-500 hover:text-slate-700 hover:bg-black/5 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/10 transition-colors shrink-0"
-                >
-                  <X size={20} />
-                </button>
+                
+                <div className="relative z-10 flex items-center gap-3 w-full md:w-auto">
+                  <button 
+                    onClick={() => setShowBanner(false)}
+                    className="flex-1 md:flex-none px-6 py-3 bg-white text-slate-900 rounded-xl font-bold hover:bg-slate-100 transition-colors shadow-lg shadow-white/10 whitespace-nowrap"
+                  >
+                    Got it, thanks!
+                  </button>
+                  <button 
+                    onClick={() => setShowBanner(false)}
+                    className="p-3 bg-white/10 text-white hover:bg-white/20 border border-white/20 rounded-xl transition-colors backdrop-blur-md"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
               </div>
             </motion.div>
           )}
