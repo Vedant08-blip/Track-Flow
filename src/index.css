@@ -12,12 +12,12 @@
   --color-warning: #F39C12;
   --color-danger: #E74C3C;
 
-  --font-sans: "Inter", "system-ui", "-apple-system", "sans-serif";
+  --font-sans: "Outfit", "Inter", "system-ui", "-apple-system", "sans-serif";
 }
 
 @layer base {
   html, body {
-    @apply h-full bg-background text-sidebar antialiased;
+    @apply h-full bg-background text-sidebar antialiased transition-colors duration-500;
     font-family: var(--font-sans);
   }
 
