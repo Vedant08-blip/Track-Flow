@@ -63,9 +63,10 @@ const PlanningPage = () => {
                    <motion.div 
                      key={it.id}
                      whileHover={{ y: -4 }}
-                     className="bg-surface dark:bg-slate-900 p-6 rounded-[28px] border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:shadow-slate-200/50 transition-all group"
+                     className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl p-6 rounded-[28px] border border-white/50 dark:border-slate-800/50 shadow-lg shadow-slate-200/20 dark:shadow-none hover:shadow-xl hover:border-primary/30 transition-all group relative overflow-hidden"
                    >
-                     <div className="flex justify-between items-start mb-6">
+                     <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent dark:via-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                     <div className="flex justify-between items-start mb-6 relative z-10">
                         <div className="space-y-1">
                            <h4 className="font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">{it.name}</h4>
                            <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">{it.startDate} — {it.endDate}</div>
@@ -86,12 +87,16 @@ const PlanningPage = () => {
                            </div>
                         </div>
 
-                        <div className="space-y-2">
-                           <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                              <div 
-                                className={`h-full rounded-full transition-all duration-1000 ${isOverCapacity ? 'bg-danger' : 'bg-primary'}`}
-                                style={{ width: `${Math.min(capacityPct, 100)}%` }}
-                              ></div>
+                        <div className="space-y-2 relative z-10">
+                           <div className="h-2 bg-white/50 dark:bg-slate-800 rounded-full overflow-hidden backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 shadow-inner relative">
+                              <motion.div 
+                                initial={{ width: 0 }}
+                                animate={{ width: `${Math.min(capacityPct, 100)}%` }}
+                                transition={{ duration: 1.5, ease: "easeOut" }}
+                                className={`h-full rounded-full relative overflow-hidden ${isOverCapacity ? 'bg-danger shadow-[0_0_10px_rgba(231,76,60,0.5)]' : 'bg-primary shadow-[0_0_10px_rgba(27,107,245,0.5)]'}`}
+                              >
+                                 <div className="absolute inset-0 bg-white/20 w-full h-full"></div>
+                              </motion.div>
                            </div>
                            <div className="flex justify-between text-[11px] font-bold">
                               <span className="text-slate-500 dark:text-slate-400">Total Capacity</span>
@@ -99,7 +104,7 @@ const PlanningPage = () => {
                            </div>
                         </div>
 
-                        <div className="pt-4 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between">
+                        <div className="pt-4 border-t border-slate-200/50 dark:border-slate-800/50 flex items-center justify-between relative z-10">
                            <div className="flex -space-x-1.5">
                               {getIterationStories(it.id).slice(0, 3).map((s, i) => (
                                 <div key={i} className="w-7 h-7 rounded-full bg-slate-200 dark:bg-slate-700 border-2 border-white flex items-center justify-center text-[10px] font-black text-slate-500 dark:text-slate-500 dark:text-slate-400">
