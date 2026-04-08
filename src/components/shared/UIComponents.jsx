@@ -70,71 +70,86 @@ export const Avatar = ({ name, src, size = 'md', className = '' }) => {
 };
 
 export const Modal = ({ isOpen, onClose, title, children, footer }) => {
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-sidebar/40 backdrop-blur-sm" onClick={onClose}></div>
-      <div className="bg-surface dark:bg-slate-900 w-full max-w-2xl rounded-3xl shadow-2xl relative z-10 overflow-hidden border border-slate-100 dark:border-slate-800">
-        <div className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white">{title}</h3>
-          <button onClick={onClose} className="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl text-slate-500 dark:text-slate-400 transition-colors">&times;</button>
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-sidebar/60 backdrop-blur-sm"
+            onClick={onClose}
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0, transition: { type: 'spring', damping: 25, stiffness: 300 } }}
+            exit={{ opacity: 0, scale: 0.95, y: 20, transition: { duration: 0.15, ease: 'easeIn' } }}
+            className="bg-surface dark:bg-slate-900 w-full max-w-2xl rounded-3xl shadow-2xl relative z-10 overflow-hidden border border-slate-100 dark:border-slate-800"
+          >
+            <div className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white">{title}</h3>
+              <button onClick={onClose} className="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl text-slate-500 dark:text-slate-400 transition-colors">&times;</button>
+            </div>
+            <div className="px-8 py-6 max-h-[70vh] overflow-y-auto">
+              {children}
+            </div>
+            {footer && (
+              <div className="px-8 py-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex justify-end gap-3 shrink-0">
+                {footer}
+              </div>
+            )}
+          </motion.div>
         </div>
-        <div className="px-8 py-6 max-h-[70vh] overflow-y-auto">
-          {children}
-        </div>
-        {footer && (
-          <div className="px-8 py-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex justify-end gap-3 shrink-0">
-            {footer}
-          </div>
-        )}
-      </div>
-    </div>
+      )}
+    </AnimatePresence>
   );
 };
 
 export const Drawer = ({ isOpen, onClose, title, children, footer }) => {
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-[60] flex justify-end">
-      {/* Backdrop */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="absolute inset-0 bg-sidebar/30 backdrop-blur-sm" 
-        onClick={onClose}
-      />
-      
-      {/* Drawer */}
-      <motion.div 
-        initial={{ x: '100%' }}
-        animate={{ x: 0, transition: { type: 'spring', damping: 25, stiffness: 200 } }}
-        exit={{ x: '100%', transition: { ease: 'easeInOut', duration: 0.2 } }}
-        className="w-full max-w-md bg-surface dark:bg-slate-900 h-full shadow-2xl relative z-10 flex flex-col border-l border-slate-100 dark:border-slate-800"
-      >
-        <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between shrink-0 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white">{title}</h3>
-          <button 
-            onClick={onClose} 
-            className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 dark:bg-slate-800 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 dark:text-slate-500 dark:text-slate-400 transition-colors"
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[60] flex justify-end">
+          {/* Backdrop */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-sidebar/40 backdrop-blur-sm" 
+            onClick={onClose}
+          />
+          
+          {/* Drawer */}
+          <motion.div 
+            initial={{ x: '100%' }}
+            animate={{ x: 0, transition: { type: 'spring', damping: 25, stiffness: 200 } }}
+            exit={{ x: '100%', transition: { type: 'spring', damping: 30, stiffness: 300 } }}
+            className="w-full max-w-md bg-surface dark:bg-slate-900 h-full shadow-2xl relative z-10 flex flex-col border-l border-slate-100 dark:border-slate-800"
           >
-            &times;
-          </button>
+            <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between shrink-0 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white">{title}</h3>
+              <button 
+                onClick={onClose} 
+                className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 dark:bg-slate-800 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+              >
+                &times;
+              </button>
+            </div>
+            
+            <div className="px-6 py-6 flex-1 overflow-y-auto">
+              {children}
+            </div>
+            
+            {footer && (
+              <div className="px-6 py-5 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 flex justify-end gap-3 shrink-0">
+                {footer}
+              </div>
+            )}
+          </motion.div>
         </div>
-        
-        <div className="px-6 py-6 flex-1 overflow-y-auto">
-          {children}
-        </div>
-        
-        {footer && (
-          <div className="px-6 py-5 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 flex justify-end gap-3 shrink-0">
-            {footer}
-          </div>
-        )}
-      </motion.div>
-    </div>
+      )}
+    </AnimatePresence>
   );
 };
 
@@ -161,12 +176,11 @@ export const InfoTooltip = ({ content, position = 'top' }) => {
       <AnimatePresence>
         {isVisible && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.15 }}
+            initial={{ opacity: 0, scale: 0.9, y: 5 }}
+            animate={{ opacity: 1, scale: 1, y: 0, transition: { type: 'spring', damping: 20, stiffness: 300 } }}
+            exit={{ opacity: 0, scale: 0.95, y: 2, transition: { duration: 0.1 } }}
             className={cn(
-              "absolute w-64 z-[999] bg-slate-900/95 dark:bg-white/95 backdrop-blur-xl text-white dark:text-slate-900 text-xs font-medium p-3 rounded-xl shadow-xl border border-white/10 dark:border-slate-800/10 pointer-events-none text-center leading-relaxed",
+              "absolute w-64 z-[999] bg-slate-900/95 dark:bg-white/95 backdrop-blur-xl text-white dark:text-slate-900 text-xs font-medium p-3 rounded-xl shadow-2xl border border-white/10 dark:border-slate-800/10 pointer-events-none text-center leading-relaxed",
               posClasses[position]
             )}
           >
@@ -177,3 +191,16 @@ export const InfoTooltip = ({ content, position = 'top' }) => {
     </div>
   );
 };
+
+export const PageWrapper = ({ children, className = '' }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 15, filter: 'blur(4px)' }}
+    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+    exit={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
+    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+    className={cn("w-full h-full", className)}
+  >
+    {children}
+  </motion.div>
+);
+
