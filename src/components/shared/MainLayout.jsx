@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
   Layers,
@@ -22,6 +22,7 @@ import { useTheme } from '../../context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../../utils/helpers';
 import AmbientBackground from './AmbientBackground';
+import { PageWrapper } from './UIComponents';
 
 const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
   <NavLink
@@ -42,6 +43,7 @@ const MainLayout = () => {
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [notifications, setNotifications] = useState([
@@ -257,8 +259,12 @@ const MainLayout = () => {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto p-8 scroll-smooth">
-          <Outlet />
+        <main className="flex-1 overflow-y-auto p-8 scroll-smooth overflow-x-hidden relative">
+          <AnimatePresence mode="wait">
+            <PageWrapper key={location.pathname}>
+              <Outlet />
+            </PageWrapper>
+          </AnimatePresence>
         </main>
       </div>
     </div>
