@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { LogIn, Mail, Lock, ShieldCheck, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import AmbientBackground from '../components/shared/AmbientBackground';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('demo@trackflow.ai');
@@ -18,16 +19,15 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="h-screen bg-background dark:bg-slate-950 flex items-center justify-center p-4">
+    <div className="h-screen bg-background dark:bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
+      <AmbientBackground />
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-md w-full"
+        className="max-w-md w-full relative z-10"
       >
-        <div className="bg-surface dark:bg-slate-900 rounded-3xl shadow-xl shadow-slate-200/50 p-10 border border-slate-100 dark:border-slate-800 overflow-hidden relative">
-           {/* Decorative elements */}
-          <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-accent/5 rounded-full blur-3xl"></div>
+        <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-3xl rounded-[32px] shadow-2xl shadow-slate-200/50 dark:shadow-none p-10 border border-white/60 dark:border-slate-800/60 overflow-hidden relative">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent dark:via-white/20"></div>
 
           <div className="text-center mb-10 relative">
             <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary/20 rotate-12 group hover:rotate-0 transition-transform">
@@ -46,7 +46,7 @@ const LoginPage = () => {
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-sm font-medium"
+                  className="w-full pl-12 pr-4 py-3.5 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary dark:text-white transition-all text-sm font-medium shadow-inner"
                   placeholder="name@company.com"
                   required
                 />
@@ -61,7 +61,7 @@ const LoginPage = () => {
                   type="password" 
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-sm font-medium"
+                  className="w-full pl-12 pr-4 py-3.5 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary dark:text-white transition-all text-sm font-medium shadow-inner"
                   placeholder="••••••••"
                   required
                 />
@@ -73,7 +73,7 @@ const LoginPage = () => {
               <select 
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
-                className="w-full px-4 py-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-sm font-semibold text-slate-700 dark:text-slate-200"
+                className="w-full px-4 py-3.5 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm font-semibold text-slate-700 dark:text-slate-200 shadow-inner"
               >
                 <option value="Admin">Administrator</option>
                 <option value="Scrum Master">Scrum Master</option>
