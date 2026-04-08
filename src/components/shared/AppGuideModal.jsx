@@ -111,10 +111,10 @@ const AppGuideModal = ({ isOpen, onClose }) => {
                 key={step.id}
                 onClick={() => setActiveStep(index)}
                 className={cn(
-                  "text-left px-4 py-4 rounded-2xl border transition-all duration-300 group relative overflow-hidden",
+                  "text-left px-4 py-4 rounded-2xl border transition-all duration-300 group relative overflow-hidden focus:outline-none",
                   isActive
                     ? `bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-md ring-1 ring-primary/10`
-                    : `bg-transparent border-transparent hover:bg-slate-50 dark:hover:bg-slate-800/50`
+                    : `bg-transparent border-transparent hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:scale-[1.02] active:scale-[0.98]`
                 )}
               >
                 {isActive && (
@@ -139,28 +139,28 @@ const AppGuideModal = ({ isOpen, onClose }) => {
         </div>
 
         {/* Content Area */}
-        <div className="w-full md:w-2/3 bg-slate-50 dark:bg-slate-900/50 rounded-3xl p-6 border border-slate-100 dark:border-slate-800 flex flex-col justify-center relative overflow-hidden">
+        <div className="w-full md:w-2/3 bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl rounded-[32px] p-8 border border-white/60 dark:border-slate-800 shadow-inner flex flex-col justify-center relative overflow-hidden">
           {/* Abstract glow behind content */}
-          <div className="absolute -top-20 -right-20 w-48 h-48 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+          <div className={cn("absolute -top-20 -right-20 w-64 h-64 rounded-full blur-3xl pointer-events-none transition-colors duration-1000", guideSteps[activeStep].bg)}></div>
 
           <AnimatePresence mode="wait">
             <motion.div
               key={activeStep}
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -10 }}
-              transition={{ duration: 0.2 }}
+              initial={{ opacity: 0, y: 15, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, y: -15, filter: 'blur(4px)' }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="relative z-10"
             >
-              <div className={cn("inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-bold uppercase tracking-widest mb-6", guideSteps[activeStep].bg, guideSteps[activeStep].color, guideSteps[activeStep].border)}>
+              <div className={cn("inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-[11px] font-bold uppercase tracking-widest mb-6 shadow-sm", guideSteps[activeStep].bg, guideSteps[activeStep].color, guideSteps[activeStep].border)}>
                 <ActiveStepIcon size={14} /> Concept
               </div>
 
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
+              <h3 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">
                 {guideSteps[activeStep].short}
               </h3>
 
-              <div className="space-y-4 text-slate-600 dark:text-slate-300 text-[15px] leading-relaxed">
+              <div className="space-y-4 text-slate-600 dark:text-slate-300 text-[15px] leading-relaxed font-medium">
                 {guideSteps[activeStep].details.split('\n').map((paragraph, i) => (
                   <p key={i}>{paragraph}</p>
                 ))}
