@@ -21,6 +21,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../../utils/helpers';
+import AmbientBackground from './AmbientBackground';
 
 const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
   <NavLink
@@ -59,11 +60,12 @@ const MainLayout = () => {
   const filteredNavItems = navItems.filter(item => !item.roles || item.roles.includes(user?.role));
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background dark:bg-slate-950">
+    <div className="flex h-screen overflow-hidden bg-background dark:bg-slate-950 relative">
+      <AmbientBackground />
       {/* Sidebar */}
       <aside 
         className={cn(
-          "bg-sidebar text-white p-4 transition-all duration-300 flex flex-col z-50 shadow-2xl",
+          "bg-sidebar dark:bg-slate-900/90 dark:border-r dark:border-slate-800 text-white p-4 transition-all duration-300 flex flex-col z-50 shadow-2xl relative backdrop-blur-xl",
           collapsed ? "w-20" : "w-64"
         )}
       >
@@ -130,7 +132,7 @@ const MainLayout = () => {
               <input 
                 type="text" 
                 placeholder="Search stories, tasks, defects..." 
-                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 dark:border-gray-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm"
+                className="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary dark:focus:ring-primary/20 dark:text-white transition-all text-sm backdrop-blur-sm"
               />
             </div>
           </div>
