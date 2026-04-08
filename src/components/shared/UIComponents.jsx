@@ -137,3 +137,43 @@ export const Drawer = ({ isOpen, onClose, title, children, footer }) => {
     </div>
   );
 };
+
+export const InfoTooltip = ({ content, position = 'top' }) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const posClasses = {
+    top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
+    bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
+    left: 'right-full top-1/2 -translate-y-1/2 mr-2',
+    right: 'left-full top-1/2 -translate-y-1/2 ml-2'
+  };
+
+  return (
+    <div 
+      className="relative inline-flex items-center"
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}
+    >
+      <div className="p-1 rounded-full text-slate-400 hover:text-primary hover:bg-primary/10 transition-colors cursor-help">
+        <Info size={16} />
+      </div>
+      
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.15 }}
+            className={cn(
+              "absolute w-64 z-[999] bg-slate-900/95 dark:bg-white/95 backdrop-blur-xl text-white dark:text-slate-900 text-xs font-medium p-3 rounded-xl shadow-xl border border-white/10 dark:border-slate-800/10 pointer-events-none text-center leading-relaxed",
+              posClasses[position]
+            )}
+          >
+            {content}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
