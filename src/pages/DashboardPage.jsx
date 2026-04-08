@@ -18,6 +18,7 @@ import {
 import { getVelocityData, getBurndownData } from '../utils/mockData';
 import { motion, AnimatePresence } from 'framer-motion';
 import { InfoTooltip } from '../components/shared/UIComponents';
+import AppGuideModal from '../components/shared/AppGuideModal';
 
 const StatCard = ({ title, value, icon: Icon, trend, trendValue, colorVariant = 'primary' }) => {
   const colorMap = {
@@ -56,6 +57,7 @@ const StatCard = ({ title, value, icon: Icon, trend, trendValue, colorVariant = 
 
 const DashboardPage = () => {
   const [showBanner, setShowBanner] = useState(true);
+  const [isGuideOpen, setIsGuideOpen] = useState(false);
   const velocityData = getVelocityData();
   const burndownData = getBurndownData();
 
@@ -103,20 +105,21 @@ const DashboardPage = () => {
                     </h3>
                   </div>
                   <p className="text-white/80 text-[15px] font-medium leading-relaxed">
-                    We've designed TrackFlow to make agile management effortless. The dashboard below gives you a bird's-eye view of your portfolio's health. Not sure what a metric means? Just hover over the <span className="inline-flex items-center justify-center bg-white/20 px-2 py-0.5 rounded-md mx-1 font-bold text-white shadow-sm ring-1 ring-white/30"><Info size={14} className="mr-1" /> info</span> icons embedded next to the charts for simple, jargon-free explanations.
+                    We've designed TrackFlow to make agile management effortless. The dashboard below gives you a bird's-eye view of your portfolio's health. Not sure what a metric means? Click the <button onClick={() => setIsGuideOpen(true)} className="inline-flex items-center justify-center bg-white/20 hover:bg-white/30 transition-colors px-2 py-0.5 rounded-lg mx-1 font-bold text-white shadow-sm ring-1 ring-white/40 cursor-pointer hover:scale-105 active:scale-95"><Info size={14} className="mr-1" /> Guide</button> button to master your agile methodology.
                   </p>
                 </div>
                 
                 <div className="relative z-10 flex items-center gap-3 w-full md:w-auto">
                   <button 
-                    onClick={() => setShowBanner(false)}
+                    onClick={() => setIsGuideOpen(true)}
                     className="flex-1 md:flex-none px-6 py-3 bg-white text-slate-900 rounded-xl font-bold hover:bg-slate-100 transition-colors shadow-lg shadow-white/10 whitespace-nowrap"
                   >
-                    Got it, thanks!
+                    Open Full Guide
                   </button>
                   <button 
                     onClick={() => setShowBanner(false)}
                     className="p-3 bg-white/10 text-white hover:bg-white/20 border border-white/20 rounded-xl transition-colors backdrop-blur-md"
+                    title="Dismiss Banner"
                   >
                     <X size={20} />
                   </button>
@@ -271,10 +274,13 @@ const DashboardPage = () => {
                     <div className="text-3xl font-bold text-white">4 Nines</div>
                   </div>
                </div>
-             </div>
-          </div>
+              </div>
+           </div>
         </div>
       </div>
+      
+      {/* App Guide Modal */}
+      <AppGuideModal isOpen={isGuideOpen} onClose={() => setIsGuideOpen(false)} />
     </div>
   );
 };
