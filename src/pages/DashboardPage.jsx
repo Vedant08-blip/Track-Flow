@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
   LineChart, Line
@@ -11,10 +11,12 @@ import {
   Calendar,
   ArrowUpRight,
   ArrowDownRight,
-  Activity
+  Activity,
+  X
 } from 'lucide-react';
 import { getVelocityData, getBurndownData } from '../utils/mockData';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { InfoTooltip } from '../components/shared/UIComponents';
 
 const StatCard = ({ title, value, icon: Icon, trend, trendValue, colorVariant = 'primary' }) => {
   const colorMap = {
@@ -52,6 +54,7 @@ const StatCard = ({ title, value, icon: Icon, trend, trendValue, colorVariant = 
 };
 
 const DashboardPage = () => {
+  const [showBanner, setShowBanner] = useState(true);
   const velocityData = getVelocityData();
   const burndownData = getBurndownData();
 
@@ -71,6 +74,35 @@ const DashboardPage = () => {
           </div>
         </div>
 
+        {/* Welcome Banner */}
+        <AnimatePresence>
+          {showBanner && (
+            <motion.div 
+              initial={{ opacity: 0, y: -20, height: 0 }}
+              animate={{ opacity: 1, y: 0, height: 'auto' }}
+              exit={{ opacity: 0, y: -20, height: 0 }}
+              className="overflow-hidden"
+            >
+              <div className="bg-gradient-to-r from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 border border-primary/20 dark:border-primary/30 p-5 rounded-3xl relative backdrop-blur-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    👋 Welcome to TrackFlow!
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-300 text-sm mt-1 max-w-2xl font-medium">
+                    TrackFlow helps you organize tasks, manage your team's workload, and track progress over time. Hover over the <InfoTooltip content="This is an info tooltip! It will explain complex charts." position="top" /> icons below to learn how to read your agile metrics.
+                  </p>
+                </div>
+                <button 
+                  onClick={() => setShowBanner(false)}
+                  className="p-2 rounded-xl text-slate-500 hover:text-slate-700 hover:bg-black/5 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/10 transition-colors shrink-0"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <StatCard title="Team Velocity" value="42.5" icon={TrendingUp} trend="up" trendValue="+12%" colorVariant="primary" />
@@ -84,10 +116,13 @@ const DashboardPage = () => {
           {/* Velocity Chart */}
           <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl p-8 rounded-[32px] border border-white/50 dark:border-slate-800/50 shadow-lg shadow-slate-200/20 dark:shadow-none overflow-hidden relative flex flex-col text-slate-900 dark:text-slate-100">
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5"></div>
-            <div className="flex items-center justify-between mb-8">
+             <div className="flex items-center justify-between mb-8">
                <div className="flex items-center gap-3">
                  <div className="w-1.5 h-6 bg-primary rounded-full"></div>
-                 <h3 className="text-xl font-bold dark:text-white">Team Velocity</h3>
+                 <h3 className="text-xl font-bold dark:text-white flex items-center gap-2">
+                   Team Velocity
+                   <InfoTooltip content="Velocity measures how much work your team typically completes in a single sprint. It helps accurately predict how much you can handle in the future." />
+                 </h3>
                </div>
                <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest bg-white/50 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg border border-white/40 dark:border-slate-700/50">Last 4 Sprints</div>
             </div>
@@ -115,7 +150,10 @@ const DashboardPage = () => {
             <div className="flex items-center justify-between mb-8">
                <div className="flex items-center gap-3">
                  <div className="w-1.5 h-6 bg-teal-500 rounded-full"></div>
-                 <h3 className="text-xl font-bold dark:text-white">Sprint Burndown</h3>
+                 <h3 className="text-xl font-bold dark:text-white flex items-center gap-2">
+                   Sprint Burndown
+                   <InfoTooltip content="Shows work remaining over the sprint. The solid line is actual work left; the dashed line is the ideal pace. If actual is below ideal, you're ahead of schedule!" />
+                 </h3>
                </div>
                <div className="flex items-center gap-2 bg-white/50 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg border border-white/40 dark:border-slate-700/50">
                  <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></div>
@@ -147,6 +185,7 @@ const DashboardPage = () => {
                 <Users className="text-primary" size={20} />
               </div>
               Team Allocation
+              <InfoTooltip content="Shows how much of each team's maximum capacity is currently assigned to active items." position="left" />
             </h4>
             <div className="space-y-7">
               {[
