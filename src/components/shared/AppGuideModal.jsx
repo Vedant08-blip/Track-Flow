@@ -7,7 +7,7 @@ import { cn } from '../../utils/helpers';
 const guideSteps = [
   {
     id: 'dashboard',
-    title: ' Executive Dashboard',
+    title: 'Executive Dashboard',
     icon: TrendingUp,
     color: 'text-primary',
     bg: 'bg-primary/10',
@@ -17,7 +17,7 @@ const guideSteps = [
   },
   {
     id: 'backlog',
-    title: ' The Backlog',
+    title: 'The Backlog',
     icon: Layers,
     color: 'text-purple-500',
     bg: 'bg-purple-500/10',
@@ -27,7 +27,7 @@ const guideSteps = [
   },
   {
     id: 'planning',
-    title: ' Iteration Planning',
+    title: 'Iteration Planning',
     icon: CalendarRange,
     color: 'text-amber-500',
     bg: 'bg-amber-500/10',
@@ -37,7 +37,7 @@ const guideSteps = [
   },
   {
     id: 'board',
-    title: ' The Board',
+    title: 'The Board',
     icon: Kanban,
     color: 'text-emerald-500',
     bg: 'bg-emerald-500/10',
@@ -55,6 +55,7 @@ const AppGuideModal = ({ isOpen, onClose }) => {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
+      maxWidth="max-w-4xl"
       title={
         <div className="flex items-center gap-3">
           <div className="bg-primary/10 p-2 rounded-xl">
@@ -156,7 +157,7 @@ const AppGuideModal = ({ isOpen, onClose }) => {
                 <ActiveStepIcon size={14} /> Concept
               </div>
 
-              <h3 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
                 {guideSteps[activeStep].short}
               </h3>
 

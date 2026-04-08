@@ -69,7 +69,7 @@ export const Avatar = ({ name, src, size = 'md', className = '' }) => {
   );
 };
 
-export const Modal = ({ isOpen, onClose, title, children, footer }) => {
+export const Modal = ({ isOpen, onClose, title, children, footer, maxWidth = 'max-w-2xl' }) => {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -78,14 +78,14 @@ export const Modal = ({ isOpen, onClose, title, children, footer }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-sidebar/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
             onClick={onClose}
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0, transition: { type: 'spring', damping: 25, stiffness: 300 } }}
             exit={{ opacity: 0, scale: 0.95, y: 20, transition: { duration: 0.15, ease: 'easeIn' } }}
-            className="bg-surface dark:bg-slate-900 w-full max-w-2xl rounded-3xl shadow-2xl relative z-10 overflow-hidden border border-slate-100 dark:border-slate-800"
+            className={cn("bg-surface dark:bg-slate-900 w-full rounded-3xl shadow-2xl relative z-10 overflow-hidden border border-slate-100 dark:border-slate-800", maxWidth)}
           >
             <div className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
               <h3 className="text-xl font-bold text-slate-900 dark:text-white">{title}</h3>
