@@ -13,6 +13,7 @@ import {
   AlertCircle,
   Calendar,
   FileJson,
+  Users,
 } from 'lucide-react';
 import { useProject } from '../context/ProjectContext';
 import { useToast } from '../context/ToastContext';

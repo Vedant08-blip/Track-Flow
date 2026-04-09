@@ -7,6 +7,7 @@ import {
   CalendarRange,
   History as GanttIcon,
   Briefcase,
+  FileText,
   ChevronLeft,
   ChevronRight,
   LogOut,
@@ -73,6 +74,7 @@ const MainLayout = () => {
     { to: '/planning', icon: CalendarRange, label: 'Planning', roles: ['Admin', 'Scrum Master'] },
     { to: '/timeline', icon: GanttIcon, label: 'Timeline' },
     { to: '/portfolio', icon: Briefcase, label: 'Portfolio' },
+    { to: '/reports', icon: FileText, label: 'Reports' },
   ];
 
   const filteredNavItems = navItems.filter(item => !item.roles || item.roles.includes(user?.role));
