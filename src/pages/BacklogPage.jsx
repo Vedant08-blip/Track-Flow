@@ -15,13 +15,22 @@ import {
 } from 'lucide-react';
 import { Badge, PriorityBadge, StatusBadge, Avatar } from '../components/shared/UIComponents';
 import TaskFormDrawer from '../components/shared/TaskFormDrawer';
+import FilterBar from '../components/shared/FilterBar';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from '../context/ToastContext';
 
 const BacklogPage = () => {
-  const { stories, addStory, updateStory, deleteStory, teams, iterations } = useProject();
+  const { 
+    stories, 
+    addStory, 
+    updateStory, 
+    deleteStory, 
+    teams, 
+    iterations,
+    searchTerm,
+    activeFilters
+  } = useProject();
   const { addToast } = useToast();
-  const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingStory, setEditingStory] = useState(null);
 
@@ -35,10 +44,18 @@ const BacklogPage = () => {
     setTimeout(() => setEditingStory(null), 300); // clear after animation
   };
 
-  const filteredStories = stories.filter(s => 
-    s.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    s.id.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredStories = stories.filter(s => {
+    const matchSearch = !searchTerm || 
+      s.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      s.id.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchPriorityFilter = activeFilters.priority.length === 0 || 
+      activeFilters.priority.includes(s.priority);
+      
+    const matchGlobalTeam = !activeFilters.teamId || s.teamId === activeFilters.teamId;
+
+    return matchSearch && matchPriorityFilter && matchGlobalTeam;
+  });
 
   const getTeamName = (id) => teams.find(t => t.id === id)?.name || 'Unknown Team';
 
@@ -61,29 +78,7 @@ const BacklogPage = () => {
         </motion.button>
       </div>
 
-      {/* Filters & Search */}
-      <div className="bg-surface dark:bg-slate-900 p-4 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col md:flex-row gap-4">
-        <div className="relative flex-1 group">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
-          <input 
-            type="text" 
-            placeholder="Search by ID or title..." 
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm font-medium"
-          />
-        </div>
-        <div className="flex gap-2">
-          <button className="flex items-center gap-2 px-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl text-slate-600 dark:text-slate-500 dark:text-slate-400 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 dark:bg-slate-800 transition-colors">
-            <Filter size={18} />
-            Filters
-          </button>
-          <button className="flex items-center gap-2 px-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl text-slate-600 dark:text-slate-500 dark:text-slate-400 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 dark:bg-slate-800 transition-colors">
-            <ArrowUpDown size={18} />
-            Sort
-          </button>
-        </div>
-      </div>
+      <FilterBar />
 
       {/* Backlog List */}
       <div className="bg-surface dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden min-h-[400px]">
