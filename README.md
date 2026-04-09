@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="public/favicon.svg" width="80" height="80" alt="TrackFlow Logo" />
+  <img src="./public/favicon.svg" width="80" height="80" alt="TrackFlow Logo" />
   <h1>TrackFlow</h1>
   <p><b>Elevate your enterprise agile workflow with precision analytics and premium design.</b></p>
 
@@ -22,12 +22,12 @@ Built with a **Glassmorphic UI**, TrackFlow offers a premium user experience tha
 ### 📊 Executive Dashboard
 Gain instant insights into your project's heartbeat. Monitor **Team Velocity**, track **Sprint Burndown** in real-time, and oversee **Team Allocation** across your entire portfolio.
 
-![Dashboard Preview](public/screenshots/dashboard.png)
+![Dashboard Preview](./public/screenshots/dashboard.png)
 
 ### 📋 Interactive Team Board
 A fluid, drag-and-drop Kanban environment that provides total transparency on work-in-progress. Filter by priority, team, or status to find exactly what you need.
 
-![Board Preview](public/screenshots/board.png)
+![Board Preview](./public/screenshots/board.png)
 
 ### 🗓️ Smart Planning & Backlog
 - **Backlog Grooming**: Rank and estimate stories with ease.
