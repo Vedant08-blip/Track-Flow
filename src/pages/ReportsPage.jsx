@@ -22,8 +22,8 @@ import {
   generateCSVReport,
   reportTemplates,
 } from '../utils/reportGenerator';
-import ReportBuilder from './reports/ReportBuilder';
-import SavedReports from './reports/SavedReports';
+import ReportBuilder from '../components/reports/ReportBuilder';
+import SavedReports from '../components/reports/SavedReports';
 
 const ReportsPage = () => {
   const { projects, iterations, stories } = useProject();
