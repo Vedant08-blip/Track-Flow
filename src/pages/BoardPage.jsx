@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DragDropContext, Droppable, Draggable, AnimatePresence } from '@hello-pangea/dnd';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { useProject } from '../context/ProjectContext';
 import { useToast } from '../context/ToastContext';
 import { PriorityBadge, Avatar } from '../components/shared/UIComponents';
@@ -15,7 +15,7 @@ import {
   IterationCw,
   Zap
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const COLUMNS = [
   { id: 'Defined', title: 'Defined', color: 'bg-slate-400' },
