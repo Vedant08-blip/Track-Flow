@@ -19,10 +19,12 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
+import { useProject } from '../../context/ProjectContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../../utils/helpers';
 import AmbientBackground from './AmbientBackground';
 import { PageWrapper } from './UIComponents';
+import { X as CloseIcon } from 'lucide-react';
 
 const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
   <NavLink
@@ -42,6 +44,7 @@ const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
+  const { searchTerm, setSearchTerm } = useProject();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -146,9 +149,19 @@ const MainLayout = () => {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors" size={18} />
               <input
                 type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search stories, tasks, defects..."
-                className="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary dark:focus:ring-primary/20 dark:text-white transition-all text-sm backdrop-blur-sm"
+                className="w-full pl-10 pr-10 py-2 bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary dark:focus:ring-primary/20 dark:text-white transition-all text-sm backdrop-blur-sm"
               />
+              {searchTerm && (
+                <button 
+                  onClick={() => setSearchTerm('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary transition-colors"
+                >
+                  <CloseIcon size={14} />
+                </button>
+              )}
             </div>
           </div>
 

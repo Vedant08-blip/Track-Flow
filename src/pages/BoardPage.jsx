@@ -4,6 +4,7 @@ import { useProject } from '../context/ProjectContext';
 import { useToast } from '../context/ToastContext';
 import { PriorityBadge, Avatar } from '../components/shared/UIComponents';
 import TaskFormDrawer from '../components/shared/TaskFormDrawer';
+import FilterBar from '../components/shared/FilterBar';
 import {
   Users, 
   MessageSquare, 
@@ -74,7 +75,15 @@ const StoryCard = ({ story, index, onEdit }) => (
 );
 
 const BoardPage = () => {
-  const { stories, updateStory, reorderGlobalStories, teams, iterations } = useProject();
+  const { 
+    stories, 
+    updateStory, 
+    reorderGlobalStories, 
+    teams, 
+    iterations,
+    searchTerm,
+    activeFilters 
+  } = useProject();
   const { addToast } = useToast();
   const [selectedTeam, setSelectedTeam] = useState('team-1');
   const [selectedIteration, setSelectedIteration] = useState('it-1');
@@ -99,11 +108,23 @@ const BoardPage = () => {
   };
 
   const getStoriesByStatus = (status) => {
-    return stories.filter(s => 
-      s.status === status && 
-      (!selectedTeam || s.teamId === selectedTeam) &&
-      (!selectedIteration || s.iterationId === selectedIteration)
-    );
+    return stories.filter(s => {
+      const matchStatus = s.status === status;
+      const matchTeam = !selectedTeam || s.teamId === selectedTeam;
+      const matchIteration = !selectedIteration || s.iterationId === selectedIteration;
+      
+      // Global Filters
+      const matchSearch = !searchTerm || 
+        s.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        s.id.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      const matchPriorityFilter = activeFilters.priority.length === 0 || 
+        activeFilters.priority.includes(s.priority);
+        
+      const matchGlobalTeam = !activeFilters.teamId || s.teamId === activeFilters.teamId;
+
+      return matchStatus && matchTeam && matchIteration && matchSearch && matchPriorityFilter && matchGlobalTeam;
+    });
   };
 
   const onDragEnd = (result) => {
@@ -153,6 +174,8 @@ const BoardPage = () => {
           </div>
         </div>
       </div>
+
+      <FilterBar />
 
       {/* Kanban Board */}
       <DragDropContext onDragEnd={onDragEnd}>
