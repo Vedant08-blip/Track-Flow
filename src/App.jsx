@@ -4,6 +4,7 @@ import { AuthProvider } from './context/AuthContext'
 import { ProjectProvider } from './context/ProjectContext'
 import { ToastProvider, ToastContainer } from './context/ToastContext'
 import { ThemeProvider } from './context/ThemeContext'
+import { CollaborationProvider } from './context/CollaborationContext'
 import AppRouter from './routes/AppRouter'
 import './index.css'
 
@@ -14,8 +15,10 @@ function App() {
         <ToastProvider>
           <AuthProvider>
             <ProjectProvider>
-              <AppRouter />
-              <ToastContainer />
+              <CollaborationProvider>
+                <AppRouter />
+                <ToastContainer />
+              </CollaborationProvider>
             </ProjectProvider>
           </AuthProvider>
         </ToastProvider>

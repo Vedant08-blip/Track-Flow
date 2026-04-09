@@ -23,7 +23,7 @@ const COLUMNS = [
   { id: 'Accepted', title: 'Accepted', color: 'bg-success' }
 ];
 
-const StoryCard = ({ story, index, onEdit }) => (
+const StoryCard = ({ story, index, onEdit, onComments }) => (
   <Draggable draggableId={story.id} index={index}>
     {(provided, snapshot) => (
       <div
@@ -59,10 +59,16 @@ const StoryCard = ({ story, index, onEdit }) => (
             <Avatar name={story.assignee} size="sm" className="ring-2 ring-surface" />
           </div>
           <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400">
-            <div className="flex items-center gap-1">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onComments(story.id);
+              }}
+              className="flex items-center gap-1 hover:text-primary transition-colors"
+            >
               <MessageSquare size={12} />
               <span className="text-[10px] font-bold text-slate-500 dark:text-slate-500 dark:text-slate-400">2</span>
-            </div>
+            </button>
             <div className="flex items-center gap-1">
               <Paperclip size={12} />
               <span className="text-[10px] font-bold text-slate-500 dark:text-slate-500 dark:text-slate-400">0</span>
