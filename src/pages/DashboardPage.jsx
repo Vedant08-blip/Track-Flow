@@ -19,6 +19,7 @@ import { getVelocityData, getBurndownData } from '../utils/mockData';
 import { motion, AnimatePresence } from 'framer-motion';
 import { InfoTooltip } from '../components/shared/UIComponents';
 import AppGuideModal from '../components/shared/AppGuideModal';
+import { useProject } from '../context/ProjectContext';
 
 const StatCard = ({ title, value, icon: Icon, trend, trendValue, colorVariant = 'primary' }) => {
   const colorMap = {
@@ -56,10 +57,73 @@ const StatCard = ({ title, value, icon: Icon, trend, trendValue, colorVariant = 
 };
 
 const DashboardPage = () => {
+  const { 
+    stories, 
+    iterations, 
+    teams, 
+    searchTerm, 
+    activeFilters 
+  } = useProject();
+  
   const [showBanner, setShowBanner] = useState(true);
   const [isGuideOpen, setIsGuideOpen] = useState(false);
-  const velocityData = getVelocityData();
-  const burndownData = getBurndownData();
+
+  // 1. Dynamic Filtering for all Dashboard Data
+  const filteredStories = stories.filter(s => {
+    const matchSearch = !searchTerm || 
+      s.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      s.id.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchPriorityFilter = activeFilters.priority.length === 0 || 
+      activeFilters.priority.includes(s.priority);
+      
+    const matchGlobalTeam = !activeFilters.teamId || s.teamId === activeFilters.teamId;
+
+    return matchSearch && matchPriorityFilter && matchGlobalTeam;
+  });
+
+  // 2. Metrics Calculations
+  const storiesCompleted = filteredStories.filter(s => ['Completed', 'Accepted'].includes(s.status)).length;
+  const activeDefects = filteredStories.filter(s => s.id.startsWith('DE-') && s.status !== 'Accepted').length;
+  
+  // Velocity Calculation (Average points per iteration)
+  const acceptedStories = filteredStories.filter(s => s.status === 'Accepted');
+  const totalPoints = acceptedStories.reduce((acc, s) => acc + (s.points || 0), 0);
+  const avgVelocity = iterations.length > 0 ? (totalPoints / iterations.length).toFixed(1) : 0;
+
+  // Capacity / Allocation (Current iteration vs Team Capacity)
+  // Let's take the first active iteration for the preview
+  const currentIteration = iterations[0];
+  const iterationStories = filteredStories.filter(s => s.iterationId === currentIteration?.id);
+  const committedPoints = iterationStories.reduce((acc, s) => acc + (s.points || 0), 0);
+  const capacityLoad = currentIteration ? Math.round((committedPoints / currentIteration.capacity) * 100) : 0;
+
+  // 3. Chart Data Generation
+  const dynamicVelocityData = iterations.slice(0, 4).map(it => {
+    const itStories = filteredStories.filter(s => s.iterationId === it.id);
+    const planned = it.capacity || 0;
+    const actual = itStories
+      .filter(s => ['Completed', 'Accepted'].includes(s.status))
+      .reduce((acc, s) => acc + (s.points || 0), 0);
+    
+    return { name: it.name, planned, actual };
+  });
+
+  const dynamicBurndownData = Array.from({ length: 10 }).map((_, i) => {
+    const day = `Day ${i + 1}`;
+    const ideal = Math.max(0, 100 - (i * 10)); // Fixed 10 day ideal trend
+    // Calculate actual remaining points based on stories current completion
+    const totalSprintPoints = iterationStories.reduce((acc, s) => acc + (s.points || 0), 0);
+    const finishedPoints = iterationStories
+      .filter(s => ['Completed', 'Accepted'].includes(s.status))
+      .reduce((acc, s) => acc + (s.points || 0), 0);
+    
+    // Simulate a decline for the chart beauty
+    const progressFactor = finishedPoints / (totalSprintPoints || 1);
+    const actual = Math.max(0, totalSprintPoints - (totalSprintPoints * progressFactor * (i / 10)));
+    
+    return { day, ideal, actual: Math.round(actual) };
+  });
 
   return (
     <div className="relative min-h-screen">
@@ -131,10 +195,10 @@ const DashboardPage = () => {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <StatCard title="Team Velocity" value="42.5" icon={TrendingUp} trend="up" trendValue="+12%" colorVariant="primary" />
-          <StatCard title="Stories Completed" value="18" icon={CheckCircle2} trend="up" trendValue="+5" colorVariant="success" />
-          <StatCard title="Active Defects" value="4" icon={AlertCircle} trend="down" trendValue="-2" colorVariant="danger" />
-          <StatCard title="Team Capacity" value="92%" icon={Activity} trend="up" trendValue="+3%" colorVariant="accent" />
+          <StatCard title="Team Velocity" value={avgVelocity} icon={TrendingUp} trend="up" trendValue="+12%" colorVariant="primary" />
+          <StatCard title="Stories Completed" value={storiesCompleted} icon={CheckCircle2} trend="up" trendValue="+5" colorVariant="success" />
+          <StatCard title="Active Defects" value={activeDefects} icon={AlertCircle} trend={activeDefects > 5 ? "up" : "down"} trendValue={activeDefects} colorVariant="danger" />
+          <StatCard title="Capacity Load" value={`${capacityLoad}%`} icon={Activity} trend={capacityLoad > 90 ? "up" : "down"} trendValue={capacityLoad > 100 ? "OVER" : "SAFE"} colorVariant="accent" />
         </div>
 
         {/* Charts Grid */}
@@ -154,7 +218,7 @@ const DashboardPage = () => {
             </div>
             <div className="flex-1 w-full min-h-[300px]">
               <ResponsiveContainer width="100%" height="100%" minWidth={0}>
-                <BarChart data={velocityData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <BarChart data={dynamicVelocityData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#94a3b8" opacity={0.2} />
                   <XAxis dataKey="name" axisLine={false} tickLine={false} dy={10} tick={{ fontSize: 11, fontWeight: 600, fill: '#64748B' }} />
                   <YAxis axisLine={false} tickLine={false} dx={-10} tick={{ fontSize: 11, fontWeight: 600, fill: '#64748B' }} />
@@ -188,7 +252,7 @@ const DashboardPage = () => {
             </div>
             <div className="flex-1 w-full min-h-[300px]">
               <ResponsiveContainer width="100%" height="100%" minWidth={0}>
-                <LineChart data={burndownData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <LineChart data={dynamicBurndownData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#94a3b8" opacity={0.2} />
                   <XAxis dataKey="day" axisLine={false} tickLine={false} dy={10} tick={{ fontSize: 11, fontWeight: 600, fill: '#64748B' }} />
                   <YAxis axisLine={false} tickLine={false} dx={-10} tick={{ fontSize: 11, fontWeight: 600, fill: '#64748B' }} />
@@ -214,29 +278,33 @@ const DashboardPage = () => {
               <InfoTooltip content="Shows how much of each team's maximum capacity is currently assigned to active items." position="left" />
             </h4>
             <div className="space-y-7">
-              {[
-                { name: 'Team Alpha', progress: 85, color: '#1B6BF5', bg: 'bg-blue-100 dark:bg-blue-900/30' },
-                { name: 'Team Beta', progress: 62, color: '#14b8a6', bg: 'bg-teal-100 dark:bg-teal-900/30' },
-                { name: 'Team Gamma', progress: 45, color: '#f59e0b', bg: 'bg-amber-100 dark:bg-amber-900/30' }
-              ].map(team => (
-                <div key={team.name} className="space-y-3">
-                  <div className="flex justify-between items-end text-sm">
-                    <span className="font-semibold text-slate-600 dark:text-slate-400">{team.name}</span>
-                    <span className="font-bold text-slate-900 dark:text-white text-base">{team.progress}%</span>
+              {teams.map(team => {
+                const teamStories = filteredStories.filter(s => s.teamId === team.id);
+                const teamPoints = teamStories.reduce((acc, s) => acc + (s.points || 0), 0);
+                const teamCapacity = 40; // Default mock capacity since teams don't have individual limits yet
+                const teamProgress = Math.min(Math.round((teamPoints / teamCapacity) * 100), 100);
+                const bgClass = team.id === 'team-1' ? 'bg-blue-100 dark:bg-blue-900/30' : team.id === 'team-2' ? 'bg-teal-100 dark:bg-teal-900/30' : 'bg-amber-100 dark:bg-amber-900/30';
+                
+                return (
+                  <div key={team.id} className="space-y-3">
+                    <div className="flex justify-between items-end text-sm">
+                      <span className="font-semibold text-slate-600 dark:text-slate-400">{team.name}</span>
+                      <span className="font-bold text-slate-900 dark:text-white text-base">{teamProgress}%</span>
+                    </div>
+                    <div className={`h-2 ${bgClass} rounded-full overflow-hidden`}>
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        animate={{ width: `${teamProgress}%` }}
+                        transition={{ duration: 1.5, ease: "easeOut" }}
+                        className="h-full rounded-full relative" 
+                        style={{ backgroundColor: team.color }}
+                      >
+                        <div className="absolute inset-0 bg-white/20 w-full h-full"></div>
+                      </motion.div>
+                    </div>
                   </div>
-                  <div className={`h-2 ${team.bg} rounded-full overflow-hidden`}>
-                    <motion.div 
-                      initial={{ width: 0 }}
-                      animate={{ width: `${team.progress}%` }}
-                      transition={{ duration: 1.5, ease: "easeOut" }}
-                      className="h-full rounded-full relative" 
-                      style={{ backgroundColor: team.color }}
-                    >
-                      <div className="absolute inset-0 bg-white/20 w-full h-full"></div>
-                    </motion.div>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
           
