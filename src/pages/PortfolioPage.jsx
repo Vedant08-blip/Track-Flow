@@ -15,8 +15,28 @@ import { Avatar } from '../components/shared/UIComponents';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const PortfolioPage = () => {
-  const { initiatives, features, stories } = useProject();
+  const { 
+    initiatives, 
+    features, 
+    stories,
+    searchTerm,
+    activeFilters
+  } = useProject();
   const [expandedInitiatives, setExpandedInitiatives] = useState(['ini-1']);
+
+  // Auto-expand when searching
+  React.useEffect(() => {
+    if (searchTerm) {
+      const matchingInitiativeIds = initiatives
+        .filter(ini => {
+          const iniFeatures = features.filter(f => f.initiativeId === ini.id);
+          return iniFeatures.some(f => f.name.toLowerCase().includes(searchTerm.toLowerCase()));
+        })
+        .map(ini => ini.id);
+      
+      setExpandedInitiatives(prev => [...new Set([...prev, ...matchingInitiativeIds])]);
+    }
+  }, [searchTerm, initiatives, features]);
 
   const toggleInitiative = (id) => {
     setExpandedInitiatives(prev => 
@@ -25,8 +45,22 @@ const PortfolioPage = () => {
   };
 
   const getFeaturesByInitiative = (initiativeId) => {
-    return features.filter(f => f.initiativeId === initiativeId);
+    return features.filter(f => {
+      if (f.initiativeId !== initiativeId) return false;
+      
+      const matchSearch = !searchTerm || 
+        f.name.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      const matchTeam = !activeFilters.teamId || f.id.includes('f-1'); // Mock logic
+
+      return matchSearch && matchTeam;
+    });
   };
+
+  const filteredInitiatives = initiatives.filter(ini => {
+    const iniFeatures = getFeaturesByInitiative(ini.id);
+    return iniFeatures.length > 0;
+  });
 
   const getStoryProgress = (featureId) => {
     const featureStories = stories.filter(s => s.featureId === featureId);
@@ -56,7 +90,7 @@ const PortfolioPage = () => {
 
       {/* Initiatives List */}
       <div className="space-y-6">
-        {initiatives.map((initiative) => (
+        {filteredInitiatives.map((initiative) => (
           <motion.div 
             key={initiative.id}
             initial={{ opacity: 0, y: 10 }}

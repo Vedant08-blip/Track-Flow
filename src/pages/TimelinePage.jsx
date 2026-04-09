@@ -15,7 +15,27 @@ import {
 import { motion } from 'framer-motion';
 
 const TimelinePage = () => {
-  const { releases, features, teams } = useProject();
+  const { 
+    releases, 
+    features, 
+    teams,
+    searchTerm,
+    activeFilters 
+  } = useProject();
+
+  const filteredFeatures = (releaseId) => {
+    return features.filter(f => {
+      if (f.releaseId !== releaseId) return false;
+      
+      const matchSearch = !searchTerm || 
+        f.name.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      // Feature doesn't have a team directly in mock, but we can assume one for filtering visualization
+      const matchTeam = !activeFilters.teamId || f.id.includes('f-1'); // Mock logic for demo
+      
+      return matchSearch && matchTeam;
+    });
+  };
 
   // Mock timeline dates for visualization
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
@@ -65,7 +85,7 @@ const TimelinePage = () => {
                </div>
 
                {/* Features Rows for this Release */}
-               {features.map((feature, fIdx) => (
+               {filteredFeatures(release.id).map((feature, fIdx) => (
                  <div key={feature.id} className="flex border-b border-slate-100 dark:border-slate-800 last:border-b-0 hover:bg-slate-50/30 dark:hover:bg-slate-800/30 transition-all group">
                     <div className="w-64 p-6 border-r border-slate-100 dark:border-slate-800 flex items-center gap-3">
                        <Layers size={14} className="text-slate-500 dark:text-slate-400 group-hover:text-primary transition-colors" />
