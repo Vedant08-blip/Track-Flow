@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { STORIES, TEAMS, RELEASES, ITERATIONS, FEATURES, INITIATIVES } from '../utils/mockData';
+import { STORIES, TEAMS, RELEASES, ITERATIONS, FEATURES, INITIATIVES, PROJECTS } from '../utils/mockData';
 
 const ProjectContext = createContext(null);
 
 export const ProjectProvider = ({ children }) => {
   const [stories, setStories] = useState(STORIES);
   const [teams, setTeams] = useState(TEAMS);
+  const [projects, setProjects] = useState(PROJECTS);
   const [releases, setReleases] = useState(RELEASES);
   const [iterations, setIterations] = useState(ITERATIONS);
   const [features, setFeatures] = useState(FEATURES);
@@ -88,6 +89,7 @@ export const ProjectProvider = ({ children }) => {
     <ProjectContext.Provider value={{
       stories,
       teams,
+      projects,
       releases,
       iterations,
       features,

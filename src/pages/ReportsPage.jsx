@@ -26,7 +26,7 @@ import ReportBuilder from '../components/reports/ReportBuilder';
 import SavedReports from '../components/reports/SavedReports';
 
 const ReportsPage = () => {
-  const { projects, iterations, stories } = useProject();
+  const { projects = [], iterations = [], stories = [] } = useProject() || {};
   const { showToast } = useToast();
   const [activeTab, setActiveTab] = useState('quick-reports');
   const [showBuilder, setShowBuilder] = useState(false);

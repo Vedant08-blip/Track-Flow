@@ -1,5 +1,11 @@
 import { addDays, format, subDays } from 'date-fns';
 
+export const PROJECTS = [
+  { id: 'proj-1', name: 'TrackFlow Core', description: 'Main project management platform', status: 'Active', createdDate: '2024-01-15' },
+  { id: 'proj-2', name: 'Analytics Engine', description: 'Real-time analytics and reporting', status: 'Active', createdDate: '2024-03-20' },
+  { id: 'proj-3', name: 'Mobile App', description: 'iOS and Android applications', status: 'Active', createdDate: '2024-06-10' },
+];
+
 export const TEAMS = [
   { id: 'team-1', name: 'Team Alpha', color: '#1B6BF5' },
   { id: 'team-2', name: 'Team Beta', color: '#0ABFBC' },

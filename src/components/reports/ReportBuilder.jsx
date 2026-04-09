@@ -16,7 +16,7 @@ import {
 } from '../../utils/reportGenerator';
 
 const ReportBuilder = ({ onClose }) => {
-  const { projects, iterations, teams } = useProject();
+  const { projects = [], iterations = [], teams = [] } = useProject() || {};
   const { showToast } = useToast();
   const [currentStep, setCurrentStep] = useState(1);
   const [reportConfig, setReportConfig] = useState({
