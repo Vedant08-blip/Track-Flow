@@ -16,9 +16,7 @@ import {
   User as UserIcon,
   Menu,
   Sun,
-  Moon,
-  Palette,
-  Settings
+  Moon
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -27,7 +25,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../../utils/helpers';
 import AmbientBackground from './AmbientBackground';
 import { PageWrapper } from './UIComponents';
-import ThemeCustomizer from './ThemeCustomizer';
 import { X as CloseIcon } from 'lucide-react';
 
 const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
@@ -46,7 +43,6 @@ const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
 {/* Navbar Component */ }
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [showThemeCustomizer, setShowThemeCustomizer] = useState(false);
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const { searchTerm, setSearchTerm } = useProject();
@@ -79,7 +75,6 @@ const MainLayout = () => {
     { to: '/timeline', icon: GanttIcon, label: 'Timeline' },
     { to: '/portfolio', icon: Briefcase, label: 'Portfolio' },
     { to: '/reports', icon: FileText, label: 'Reports' },
-    { to: '/theme-settings', icon: Palette, label: 'Theme' },
   ];
 
   const filteredNavItems = navItems.filter(item => !item.roles || item.roles.includes(user?.role));
@@ -193,17 +188,6 @@ const MainLayout = () => {
             </motion.button>
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1"></div>
 
-            {/* Theme Customizer Button */}
-            <motion.button
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setShowThemeCustomizer(true)}
-              className="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors flex items-center justify-center"
-              title="Customize theme"
-            >
-              <Palette size={20} />
-            </motion.button>
-            <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1"></div>
-
             <div className="relative">
               <button
                 onClick={() => setNotificationsOpen(!notificationsOpen)}
@@ -298,9 +282,6 @@ const MainLayout = () => {
           </AnimatePresence>
         </main>
       </div>
-
-      {/* Theme Customizer Modal */}
-      <ThemeCustomizer isOpen={showThemeCustomizer} onClose={() => setShowThemeCustomizer(false)} />
     </div>
   );
 };

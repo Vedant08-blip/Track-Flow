@@ -257,15 +257,15 @@ const ReportsPage = () => {
                 <h3 className="font-bold text-slate-900 dark:text-white text-lg mb-2">
                   {report.title}
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                <p className="text-slate-600 dark:text-slate-400 text-sm mb-5">
                   {report.description}
                 </p>
-                <div className="flex gap-2">
+                <div className="flex gap-3 pt-2">
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => handleGenerateReport(report.title, 'pdf')}
-                    className="flex-1 flex items-center justify-center gap-2 bg-primary/10 text-primary hover:bg-primary/20 px-4 py-2 rounded-[12px] font-semibold transition-colors"
+                    className="flex-1 flex items-center justify-center gap-2 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-500/20 px-4 py-2.5 rounded-[12px] font-semibold text-sm transition-all duration-200 border border-blue-200/50 dark:border-blue-500/20"
                   >
                     <Download size={16} />
                     PDF
@@ -274,7 +274,7 @@ const ReportsPage = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => handleGenerateReport(report.title, 'csv')}
-                    className="flex-1 flex items-center justify-center gap-2 bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20 px-4 py-2 rounded-[12px] font-semibold transition-colors"
+                    className="flex-1 flex items-center justify-center gap-2 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 px-4 py-2.5 rounded-[12px] font-semibold text-sm transition-all duration-200 border border-emerald-200/50 dark:border-emerald-500/20"
                   >
                     <FileJson size={16} />
                     CSV
