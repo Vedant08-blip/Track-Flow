@@ -12,9 +12,17 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import SprintPlannerModal from '../components/shared/SprintPlannerModal';
 
 const PlanningPage = () => {
   const { releases, iterations, teams, stories } = useProject();
+  const [isPlannerOpen, setIsPlannerOpen] = useState(false);
+  const [selectedIterationId, setSelectedIterationId] = useState(null);
+
+  const handleOpenPlanner = (itId) => {
+    setSelectedIterationId(itId);
+    setIsPlannerOpen(true);
+  };
 
   const getIterationStories = (itId) => stories.filter(s => s.iterationId === itId);
   
@@ -112,7 +120,10 @@ const PlanningPage = () => {
                                 </div>
                               ))}
                            </div>
-                           <button className="flex items-center gap-1.5 text-xs font-bold text-primary group-hover:translate-x-1 transition-all">
+                           <button 
+                             onClick={() => handleOpenPlanner(it.id)}
+                             className="flex items-center gap-1.5 text-xs font-bold text-primary group-hover:translate-x-1 transition-all"
+                           >
                               Plan Sprint
                               <ArrowRight size={14} />
                            </button>
@@ -133,6 +144,12 @@ const PlanningPage = () => {
           </div>
         ))}
       </div>
+
+      <SprintPlannerModal
+        isOpen={isPlannerOpen}
+        onClose={() => setIsPlannerOpen(false)}
+        iterationId={selectedIterationId}
+      />
     </div>
   );
 };
