@@ -28,7 +28,7 @@ const StoryCard = ({ story, index }) => (
         ref={provided.innerRef}
         {...provided.draggableProps}
         {...provided.dragHandleProps}
-        className={`bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl p-4 rounded-[20px] border ${snapshot.isDragging ? 'border-primary ring-4 ring-primary/20 shadow-2xl scale-105 z-50' : 'border-slate-200/50 dark:border-slate-700/50 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/40'} mb-3 transition-all duration-200 group relative overflow-hidden`}
+        className={`bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl p-4 rounded-[20px] border ${snapshot.isDragging ? 'border-primary ring-4 ring-primary/20 shadow-2xl scale-105 z-50 cursor-grabbing rotate-2' : 'border-slate-200/50 dark:border-slate-700/50 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/40 cursor-grab'} mb-3 transition-all duration-200 group relative overflow-hidden`}
       >
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent dark:via-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
         <div className="flex justify-between items-start mb-3">
@@ -67,19 +67,10 @@ const StoryCard = ({ story, index }) => (
 );
 
 const BoardPage = () => {
-  const { stories, updateStory, teams, iterations } = useProject();
+  const { stories, updateStory, reorderGlobalStories, teams, iterations } = useProject();
   const { addToast } = useToast();
   const [selectedTeam, setSelectedTeam] = useState('team-1');
   const [selectedIteration, setSelectedIteration] = useState('it-1');
-
-  const onDragEnd = (result) => {
-    const { destination, source, draggableId } = result;
-    if (!destination) return;
-    if (destination.droppableId === source.droppableId && destination.index === source.index) return;
-
-    updateStory(draggableId, { status: destination.droppableId });
-    addToast(`Moved ${draggableId} to ${destination.droppableId}`, 'success');
-  };
 
   const getStoriesByStatus = (status) => {
     return stories.filter(s => 
@@ -88,6 +79,26 @@ const BoardPage = () => {
       (!selectedIteration || s.iterationId === selectedIteration)
     );
   };
+
+  const onDragEnd = (result) => {
+    const { destination, source, draggableId } = result;
+    if (!destination) return;
+    if (destination.droppableId === source.droppableId && destination.index === source.index) return;
+
+    const destList = getStoriesByStatus(destination.droppableId);
+
+    reorderGlobalStories({
+      draggableId,
+      destList,
+      destIndex: destination.index,
+      newStatus: destination.droppableId
+    });
+
+    if (source.droppableId !== destination.droppableId) {
+      addToast(`Moved task to ${destination.droppableId}`, 'success');
+    }
+  };
+
 
   return (
     <div className="h-full flex flex-col space-y-6">
