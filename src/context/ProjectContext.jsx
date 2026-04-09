@@ -10,6 +10,14 @@ export const ProjectProvider = ({ children }) => {
   const [iterations, setIterations] = useState(ITERATIONS);
   const [features, setFeatures] = useState(FEATURES);
   const [initiatives, setInitiatives] = useState(INITIATIVES);
+  
+  // Search & Filter State
+  const [searchTerm, setSearchTerm] = useState('');
+  const [activeFilters, setActiveFilters] = useState({
+    priority: [],
+    teamId: null,
+    status: []
+  });
 
   // CRUD Operations
   const addStory = (story) => {
@@ -60,6 +68,22 @@ export const ProjectProvider = ({ children }) => {
 
   const getStoryById = (id) => stories.find(s => s.id === id);
 
+  const updateFilters = (key, value) => {
+    setActiveFilters(prev => ({
+      ...prev,
+      [key]: value
+    }));
+  };
+
+  const clearAllFilters = () => {
+    setSearchTerm('');
+    setActiveFilters({
+      priority: [],
+      teamId: null,
+      status: []
+    });
+  };
+
   return (
     <ProjectContext.Provider value={{
       stories,
@@ -72,7 +96,12 @@ export const ProjectProvider = ({ children }) => {
       updateStory,
       reorderGlobalStories,
       deleteStory,
-      getStoryById
+      getStoryById,
+      searchTerm,
+      setSearchTerm,
+      activeFilters,
+      updateFilters,
+      clearAllFilters
     }}>
       {children}
     </ProjectContext.Provider>
