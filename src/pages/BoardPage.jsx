@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import { DragDropContext, Droppable, Draggable, AnimatePresence } from '@hello-pangea/dnd';
 import { useProject } from '../context/ProjectContext';
 import { useToast } from '../context/ToastContext';
 import { PriorityBadge, Avatar } from '../components/shared/UIComponents';
 import TaskFormDrawer from '../components/shared/TaskFormDrawer';
+import TaskComments from '../components/shared/TaskComments';
 import FilterBar from '../components/shared/FilterBar';
 import {
   Users, 
@@ -96,6 +97,7 @@ const BoardPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingStory, setEditingStory] = useState(null);
   const [defaultStatus, setDefaultStatus] = useState('Defined');
+  const [showComments, setShowComments] = useState(null);
 
   const handleOpenCreate = (status) => {
     setDefaultStatus(status);
@@ -207,7 +209,7 @@ const BoardPage = () => {
                       className={`flex-1 transition-all duration-300 rounded-[20px] p-1 overflow-y-auto ${snapshot.isDraggingOver ? 'bg-primary/5 ring-2 ring-primary/20 shadow-inner' : 'bg-transparent'}`}
                     >
                       {getStoriesByStatus(column.id).map((story, index) => (
-                        <StoryCard key={story.id} story={story} index={index} onEdit={handleOpenEdit} />
+                        <StoryCard key={story.id} story={story} index={index} onEdit={handleOpenEdit} onComments={setShowComments} />
                       ))}
                       {provided.placeholder}
                       
@@ -235,6 +237,13 @@ const BoardPage = () => {
         defaultTeamId={selectedTeam}
         defaultIterationId={selectedIteration}
       />
+
+      {/* Task Comments Drawer */}
+      <AnimatePresence>
+        {showComments && (
+          <TaskComments taskId={showComments} onClose={() => setShowComments(null)} />
+        )}
+      </AnimatePresence>
     </div>
   );
 };
