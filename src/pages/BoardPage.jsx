@@ -3,7 +3,8 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { useProject } from '../context/ProjectContext';
 import { useToast } from '../context/ToastContext';
 import { PriorityBadge, Avatar } from '../components/shared/UIComponents';
-import { 
+import TaskFormDrawer from '../components/shared/TaskFormDrawer';
+import {
   Users, 
   MessageSquare, 
   Paperclip, 
@@ -21,7 +22,7 @@ const COLUMNS = [
   { id: 'Accepted', title: 'Accepted', color: 'bg-success' }
 ];
 
-const StoryCard = ({ story, index }) => (
+const StoryCard = ({ story, index, onEdit }) => (
   <Draggable draggableId={story.id} index={index}>
     {(provided, snapshot) => (
       <div
@@ -33,7 +34,13 @@ const StoryCard = ({ story, index }) => (
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent dark:via-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
         <div className="flex justify-between items-start mb-3">
           <span className="text-[10px] font-extrabold text-primary tracking-tighter uppercase">{story.id}</span>
-          <button className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 dark:text-slate-500 dark:text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              onEdit(story);
+            }}
+            className="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity"
+          >
             <MoreHorizontal size={14} />
           </button>
         </div>
@@ -71,6 +78,25 @@ const BoardPage = () => {
   const { addToast } = useToast();
   const [selectedTeam, setSelectedTeam] = useState('team-1');
   const [selectedIteration, setSelectedIteration] = useState('it-1');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingStory, setEditingStory] = useState(null);
+  const [defaultStatus, setDefaultStatus] = useState('Defined');
+
+  const handleOpenCreate = (status) => {
+    setDefaultStatus(status);
+    setEditingStory(null);
+    setIsModalOpen(true);
+  };
+
+  const handleOpenEdit = (story) => {
+    setEditingStory(story);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setEditingStory(null), 300);
+  };
 
   const getStoriesByStatus = (status) => {
     return stories.filter(s => 
@@ -152,11 +178,14 @@ const BoardPage = () => {
                       className={`flex-1 transition-all duration-300 rounded-[20px] p-1 overflow-y-auto ${snapshot.isDraggingOver ? 'bg-primary/5 ring-2 ring-primary/20 shadow-inner' : 'bg-transparent'}`}
                     >
                       {getStoriesByStatus(column.id).map((story, index) => (
-                        <StoryCard key={story.id} story={story} index={index} />
+                        <StoryCard key={story.id} story={story} index={index} onEdit={handleOpenEdit} />
                       ))}
                       {provided.placeholder}
                       
-                      <button className="w-full py-4 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl flex items-center justify-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-bold hover:border-primary hover:text-primary hover:bg-primary/5 transition-all mt-2 group">
+                      <button 
+                        onClick={() => handleOpenCreate(column.id)}
+                        className="w-full py-4 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl flex items-center justify-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-bold hover:border-primary hover:text-primary hover:bg-primary/5 transition-all mt-2 group"
+                      >
                         <Zap size={14} className="group-hover:animate-pulse" />
                         Quick Add Item
                       </button>
@@ -168,6 +197,15 @@ const BoardPage = () => {
           </div>
         </div>
       </DragDropContext>
+
+      <TaskFormDrawer 
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        editingStory={editingStory}
+        defaultStatus={defaultStatus}
+        defaultTeamId={selectedTeam}
+        defaultIterationId={selectedIteration}
+      />
     </div>
   );
 };
