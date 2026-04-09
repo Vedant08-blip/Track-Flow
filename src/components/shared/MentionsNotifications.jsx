@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   AtSign,
   Check,
-  CheckAll,
+  CheckSquare2,
   Trash2,
   MessageCircle,
   Clock,

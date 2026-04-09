@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
@@ -22,12 +22,14 @@ import {
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useProject } from '../../context/ProjectContext';
+import { useCollaboration } from '../../context/CollaborationContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../../utils/helpers';
 import AmbientBackground from './AmbientBackground';
 import { PageWrapper } from './UIComponents';
 import { X as CloseIcon } from 'lucide-react';
 import ThemeCustomizer from './ThemeCustomizer';
+import MentionsNotifications from './MentionsNotifications';
 
 const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
   <NavLink
@@ -46,9 +48,11 @@ const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [showThemeCustomizer, setShowThemeCustomizer] = useState(false);
+  const [showMentionsModal, setShowMentionsModal] = useState(false);
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const { searchTerm, setSearchTerm } = useProject();
+  const { getUnreadMentions } = useCollaboration();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -59,11 +63,8 @@ const MainLayout = () => {
     { id: 3, title: 'Mentioned you', message: 'Alex mentioned you in a comment', time: '2h ago', read: true },
   ]);
 
-  const unreadCount = notifications.filter(n => !n.read).length;
-
-  const markAllAsRead = () => {
-    setNotifications(notifications.map(n => ({ ...n, read: true })));
-  };
+  const unreadMentions = getUnreadMentions();
+  const unreadCount = notifications.filter(n => !n.read).length + unreadMentions.length;
 
   const handleLogout = () => {
     logout();
@@ -204,7 +205,7 @@ const MainLayout = () => {
 
             <div className="relative">
               <button
-                onClick={() => setNotificationsOpen(!notificationsOpen)}
+                onClick={() => setShowMentionsModal(true)}
                 className="relative p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 rounded-full transition-colors focus:ring-2 focus:ring-primary/50 outline-none"
               >
                 <Bell size={20} />
@@ -212,63 +213,6 @@ const MainLayout = () => {
                   <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900 animate-pulse"></span>
                 )}
               </button>
-
-              <AnimatePresence>
-                {notificationsOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute right-0 mt-4 w-80 bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border border-slate-200/60 dark:border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden z-50 text-left"
-                  >
-                    <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between relative z-10">
-                      <h3 className="font-bold text-slate-800 dark:text-white">Notifications</h3>
-                      {unreadCount > 0 && (
-                        <button
-                          onClick={markAllAsRead}
-                          className="text-xs font-bold text-primary hover:text-primary/80 transition-colors"
-                        >
-                          Mark all as read
-                        </button>
-                      )}
-                    </div>
-                    <div className="max-h-[300px] overflow-y-auto relative z-10">
-                      {notifications.length > 0 ? (
-                        notifications.map(notification => (
-                          <div
-                            key={notification.id}
-                            onClick={() => {
-                              setNotifications(notifications.map(n => n.id === notification.id ? { ...n, read: true } : n));
-                            }}
-                            className={cn(
-                              "px-4 py-3 border-b border-slate-50 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/80 cursor-pointer transition-colors",
-                              !notification.read ? "bg-primary/5 border-l-2 border-l-primary" : "border-l-2 border-l-transparent"
-                            )}
-                          >
-                            <div className="flex justify-between items-start mb-1">
-                              <span className={cn("text-sm font-semibold", !notification.read ? "text-slate-900 dark:text-white" : "text-slate-600 dark:text-slate-400")}>
-                                {notification.title}
-                              </span>
-                              <span className="text-[10px] text-slate-400 font-medium whitespace-nowrap ml-2">{notification.time}</span>
-                            </div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{notification.message}</p>
-                          </div>
-                        ))
-                      ) : (
-                        <div className="p-6 text-center text-sm text-slate-500 font-medium">
-                          No notifications
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-3 bg-slate-50 dark:bg-slate-800/80 border-t border-slate-100 dark:border-slate-800 text-center relative z-10">
-                      <button className="text-xs font-bold text-primary hover:text-primary/80 transition-colors">
-                        View all notifications
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
 
             <div className="h-8 w-px bg-gray-200 mx-1"></div>
@@ -299,6 +243,9 @@ const MainLayout = () => {
 
       {/* Theme Customizer Modal */}
       <ThemeCustomizer isOpen={showThemeCustomizer} onClose={() => setShowThemeCustomizer(false)} />
+
+      {/* Mentions & Notifications Modal */}
+      <MentionsNotifications isOpen={showMentionsModal} onClose={() => setShowMentionsModal(false)} />
     </div>
   );
 };
