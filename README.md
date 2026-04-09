@@ -107,5 +107,5 @@ src/
 ---
 
 <div align="center">
-  <p>Built with ❤️ by the TrackFlow Team</p>
+  <p>Built with ❤️ by Vedant Trivedi</p>
 </div>
