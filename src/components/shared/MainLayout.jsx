@@ -96,12 +96,12 @@ const MainLayout = () => {
         <div className="flex items-center justify-between mb-8 px-2 overflow-hidden">
           {!collapsed && (
             <div className="flex items-center gap-2">
-              <img src="/FFavicon.svg" alt="TrackFlow Logo" className="w-8 h-8 rounded-lg" />
+              <img src="/FFavicon.jpg" alt="TrackFlow Logo" className="w-8 h-8 rounded-lg" />
               <h1 className="text-xl font-bold tracking-tight">TrackFlow</h1>
             </div>
           )}
           {collapsed && (
-            <img src="/FFavicon.svg" alt="TrackFlow Logo" className="w-10 h-10 rounded-lg mx-auto" />
+            <img src="/FFavicon.jpg" alt="TrackFlow Logo" className="w-10 h-10 rounded-lg mx-auto" />
           )}
           <button
             onClick={() => setCollapsed(!collapsed)}
