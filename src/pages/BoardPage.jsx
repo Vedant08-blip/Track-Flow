@@ -31,48 +31,48 @@ const StoryCard = ({ story, index, onEdit, onComments }) => (
         ref={provided.innerRef}
         {...provided.draggableProps}
         {...provided.dragHandleProps}
-        className={`bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl p-4 rounded-[20px] border ${snapshot.isDragging ? 'border-primary ring-4 ring-primary/20 shadow-2xl scale-105 z-50 cursor-grabbing rotate-2' : 'border-slate-200/50 dark:border-slate-700/50 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/40 cursor-grab'} mb-3 transition-all duration-200 group relative overflow-hidden`}
+        className={`bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl p-3 lg:p-4 rounded-lg lg:rounded-[20px] border ${snapshot.isDragging ? 'border-primary ring-2 lg:ring-4 ring-primary/20 shadow-2xl scale-105 z-50 cursor-grabbing rotate-1 lg:rotate-2' : 'border-slate-200/50 dark:border-slate-700/50 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/40 cursor-grab'} mb-2 lg:mb-3 transition-all duration-200 group relative overflow-hidden`}
       >
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent dark:via-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-        <div className="flex justify-between items-start mb-3">
-          <span className="text-[10px] font-extrabold text-primary tracking-tighter uppercase">{story.id}</span>
+        <div className="flex justify-between items-start mb-2 lg:mb-3">
+          <span className="text-[8px] lg:text-[10px] font-extrabold text-primary tracking-tighter uppercase shrink-0">{story.id}</span>
           <button 
             onClick={(e) => {
               e.stopPropagation();
               onEdit(story);
             }}
-            className="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity"
+            className="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
           >
             <MoreHorizontal size={14} />
           </button>
         </div>
-        <h4 className="text-sm font-bold text-slate-900 dark:text-white leading-snug mb-3 group-hover:text-primary transition-colors">{story.title}</h4>
+        <h4 className="text-xs lg:text-sm font-bold text-slate-900 dark:text-white leading-snug mb-2 lg:mb-3 group-hover:text-primary transition-colors line-clamp-2">{story.title}</h4>
         
-        <div className="flex items-center gap-2 mb-4">
+        <div className="flex items-center gap-1.5 lg:gap-2 mb-3 lg:mb-4">
           <PriorityBadge priority={story.priority} />
-          <div className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-500 dark:text-slate-400 rounded text-[10px] font-bold">
+          <div className="px-1.5 lg:px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded text-[8px] lg:text-[10px] font-bold shrink-0">
             {story.points} PTS
           </div>
         </div>
 
-        <div className="flex items-center justify-between pt-3 border-t border-slate-50 dark:border-slate-800">
+        <div className="flex items-center justify-between pt-2 lg:pt-3 border-t border-slate-50 dark:border-slate-800">
           <div className="flex -space-x-2">
-            <Avatar name={story.assignee} size="sm" className="ring-2 ring-surface" />
+            <Avatar name={story.assignee} size="sm" className="ring-2 ring-surface w-6 h-6 lg:w-7 lg:h-7" />
           </div>
-          <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-2 lg:gap-3 text-slate-500 dark:text-slate-400">
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 onComments(story.id);
               }}
-              className="flex items-center gap-1 hover:text-primary transition-colors"
+              className="flex items-center gap-0.5 lg:gap-1 hover:text-primary transition-colors shrink-0"
             >
               <MessageSquare size={12} />
-              <span className="text-[10px] font-bold text-slate-500 dark:text-slate-500 dark:text-slate-400">2</span>
+              <span className="text-[8px] lg:text-[10px] font-bold text-slate-500 dark:text-slate-400">2</span>
             </button>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-0.5 lg:gap-1 shrink-0">
               <Paperclip size={12} />
-              <span className="text-[10px] font-bold text-slate-500 dark:text-slate-500 dark:text-slate-400">0</span>
+              <span className="text-[8px] lg:text-[10px] font-bold text-slate-500 dark:text-slate-400">0</span>
             </div>
           </div>
         </div>
@@ -156,29 +156,29 @@ const BoardPage = () => {
 
 
   return (
-    <div className="h-full flex flex-col space-y-6">
+    <div className="h-full flex flex-col space-y-4 lg:space-y-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 px-2">
-        <div>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Team Board</h1>
-          <p className="text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium mt-1">Manage flow and velocity for {teams.find(t => t.id === selectedTeam)?.name}</p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 lg:gap-4 px-0">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight truncate">Team Board</h1>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-1 truncate">Manage flow for {teams.find(t => t.id === selectedTeam)?.name}</p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-surface dark:bg-slate-900 p-1 rounded-xl border border-slate-200 dark:border-slate-700">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 lg:gap-3">
+          <div className="flex items-center gap-1 bg-surface dark:bg-slate-900 p-1 rounded-lg lg:rounded-xl border border-slate-200 dark:border-slate-700 overflow-x-auto">
             {teams.map(t => (
               <button 
                 key={t.id}
                 onClick={() => setSelectedTeam(t.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${selectedTeam === t.id ? 'bg-primary text-white shadow-md shadow-primary/20' : 'text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
+                className={`px-2 lg:px-3 py-1.5 rounded-lg text-[10px] lg:text-xs font-bold transition-all shrink-0 ${selectedTeam === t.id ? 'bg-primary text-white shadow-md shadow-primary/20' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
               >
                 {t.name}
               </button>
             ))}
           </div>
-          <div className="flex items-center gap-2 bg-surface dark:bg-slate-900 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm cursor-pointer hover:border-primary transition-all">
-             <IterationCw size={16} className="text-primary" />
-             <span className="text-sm font-bold text-slate-600 dark:text-slate-500 dark:text-slate-400">{iterations.find(i => i.id === selectedIteration)?.name}</span>
-             <ChevronDown size={14} className="text-slate-500 dark:text-slate-400" />
+          <div className="flex items-center gap-2 bg-surface dark:bg-slate-900 px-3 lg:px-4 py-2 rounded-lg lg:rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm cursor-pointer hover:border-primary transition-all shrink-0">
+             <IterationCw size={14} className="lg:w-4 lg:h-4 text-primary flex-shrink-0" />
+             <span className="text-[10px] lg:text-sm font-bold text-slate-600 dark:text-slate-400 truncate">{iterations.find(i => i.id === selectedIteration)?.name}</span>
+             <ChevronDown size={12} className="lg:w-3.5 lg:h-3.5 text-slate-500 dark:text-slate-400 flex-shrink-0" />
           </div>
         </div>
       </div>
@@ -187,16 +187,16 @@ const BoardPage = () => {
 
       {/* Kanban Board */}
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="flex-1 overflow-x-auto pb-6">
-          <div className="flex gap-6 min-w-[1000px] h-full">
+        <div className="flex-1 overflow-x-auto pb-4 lg:pb-6 -mx-4 lg:mx-0 px-4 lg:px-0">
+          <div className="flex gap-4 lg:gap-6 min-w-[320px] lg:min-w-full h-full">
             {COLUMNS.map(column => (
-              <div key={column.id} className="flex-1 flex flex-col min-w-[280px] bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl rounded-[32px] p-4 border border-white/50 dark:border-slate-800/50 shadow-lg shadow-slate-200/20 dark:shadow-none">
-                <div className="flex items-center justify-between mb-4 px-2">
-                  <div className="flex items-center gap-2">
-                    <div className={`w-2.5 h-2.5 rounded-full ${column.color}`}></div>
-                    <h3 className="font-bold text-slate-700 dark:text-slate-200 uppercase tracking-widest text-[11px]">{column.title}</h3>
+              <div key={column.id} className="flex-1 flex flex-col min-w-[280px] bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl rounded-xl lg:rounded-[32px] p-3 lg:p-4 border border-white/50 dark:border-slate-800/50 shadow-lg shadow-slate-200/20 dark:shadow-none">
+                <div className="flex items-center justify-between mb-3 lg:mb-4 px-2">
+                  <div className="flex items-center gap-2 min-w-0 flex-1">
+                    <div className={`w-2 lg:w-2.5 h-2 lg:h-2.5 rounded-full shrink-0 ${column.color}`}></div>
+                    <h3 className="font-bold text-slate-700 dark:text-slate-200 uppercase tracking-widest text-[9px] lg:text-[11px] truncate">{column.title}</h3>
                   </div>
-                  <div className="text-[10px] font-black text-slate-500 dark:text-slate-400 bg-white/60 dark:bg-slate-800/80 px-2 py-0.5 rounded-md border border-slate-200/50 dark:border-slate-700/50">
+                  <div className="text-[8px] lg:text-[10px] font-black text-slate-500 dark:text-slate-400 bg-white/60 dark:bg-slate-800/80 px-2 py-0.5 rounded-md border border-slate-200/50 dark:border-slate-700/50 shrink-0">
                     {getStoriesByStatus(column.id).length}
                   </div>
                 </div>

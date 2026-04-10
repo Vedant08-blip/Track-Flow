@@ -150,42 +150,42 @@ const DashboardPage = () => {
               exit={{ opacity: 0, y: -20, height: 0 }}
               className="overflow-hidden"
             >
-              <div className="bg-gradient-to-br from-primary/90 to-[#061229] dark:from-[#0F2557] dark:to-[#061229] p-8 rounded-[32px] relative overflow-hidden shadow-2xl shadow-primary/20 border border-white/10 dark:border-white/5 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-6 mt-2">
+              <div className="bg-gradient-to-br from-primary/90 to-[#061229] dark:from-[#0F2557] dark:to-[#061229] p-6 lg:p-8 rounded-2xl lg:rounded-[32px] relative overflow-hidden shadow-2xl shadow-primary/20 border border-white/10 dark:border-white/5 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 lg:gap-8 mb-6 mt-2">
                 {/* Abstract glare elements */}
-                <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
-                <div className="absolute bottom-0 left-[20%] w-48 h-48 bg-accent/20 rounded-full blur-2xl pointer-events-none"></div>
+                <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none hidden lg:block"></div>
+                <div className="absolute bottom-0 left-[20%] w-48 h-48 bg-accent/20 rounded-full blur-2xl pointer-events-none hidden lg:block"></div>
                 
                 <div className="relative z-10 text-white max-w-3xl">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="bg-white/20 p-2 rounded-xl backdrop-blur-md">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <div className="flex items-center gap-2 lg:gap-3 mb-2 lg:mb-3">
+                    <div className="bg-white/20 p-1.5 lg:p-2 rounded-lg lg:rounded-xl backdrop-blur-md shrink-0">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="lg:w-6 lg:h-6">
                         <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         <path d="M12 16V12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         <path d="M12 8H12.01" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     </div>
-                    <h3 className="text-2xl font-bold tracking-tight">
-                      Welcome to the TrackFlow Executive Dashboard
+                    <h3 className="text-lg lg:text-2xl font-bold tracking-tight">
+                      Welcome to TrackFlow Dashboard
                     </h3>
                   </div>
-                  <p className="text-white/80 text-[15px] font-medium leading-relaxed">
-                    TrackFlow provides a comprehensive overview of your agile portfolio's performance. The metrics below offer real-time insights into your team's progress and project health. For detailed explanations of the terminology and reporting metrics used throughout the application, please consult the <button onClick={() => setIsGuideOpen(true)} className="inline-flex items-center justify-center bg-white/20 hover:bg-white/30 transition-colors px-2 py-0.5 rounded-lg mx-1 font-bold text-white shadow-sm ring-1 ring-white/40 cursor-pointer hover:scale-105 active:scale-95"><Info size={14} className="mr-1" /> Guide</button>.
+                  <p className="text-white/80 text-xs lg:text-[15px] font-medium leading-relaxed">
+                    Comprehensive overview of your agile portfolio. <button onClick={() => setIsGuideOpen(true)} className="inline-flex items-center justify-center bg-white/20 hover:bg-white/30 transition-colors px-2 py-0.5 rounded-lg mx-1 font-bold text-white shadow-sm ring-1 ring-white/40 cursor-pointer hover:scale-105 active:scale-95"><Info size={12} className="lg:w-3.5 lg:h-3.5 mr-1" /> Guide</button>.
                   </p>
                 </div>
                 
-                <div className="relative z-10 flex items-center gap-3 w-full md:w-auto">
+                <div className="relative z-10 flex items-center gap-2 lg:gap-3 w-full md:w-auto">
                   <button 
                     onClick={() => setIsGuideOpen(true)}
-                    className="flex-1 md:flex-none px-6 py-3 bg-white text-slate-900 rounded-xl font-bold hover:bg-slate-100 transition-colors shadow-lg shadow-white/10 whitespace-nowrap"
+                    className="flex-1 md:flex-none px-4 lg:px-6 py-2 lg:py-3 bg-white text-slate-900 rounded-lg lg:rounded-xl font-bold hover:bg-slate-100 transition-colors shadow-lg shadow-white/10 whitespace-nowrap text-sm lg:text-base"
                   >
-                    Open Full Guide
+                    Open Guide
                   </button>
                   <button 
                     onClick={() => setShowBanner(false)}
-                    className="p-3 bg-white/10 text-white hover:bg-white/20 border border-white/20 rounded-xl transition-colors backdrop-blur-md"
-                    title="Dismiss Banner"
+                    className="p-2 lg:p-3 bg-white/10 text-white hover:bg-white/20 border border-white/20 rounded-lg lg:rounded-xl transition-colors backdrop-blur-md shrink-0"
+                    title="Dismiss"
                   >
-                    <X size={20} />
+                    <X size={18} className="lg:w-5 lg:h-5" />
                   </button>
                 </div>
               </div>
