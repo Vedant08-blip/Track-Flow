@@ -9,6 +9,7 @@ import { TimeTrackingProvider } from './context/TimeTrackingContext'
 import { SkillBasedAssignmentProvider } from './context/SkillBasedAssignmentContext'
 import { GitHubIntegrationProvider } from './context/GitHubIntegrationContext'
 import { GoogleCalendarProvider } from './context/GoogleCalendarContext'
+import { ChatProvider } from './context/ChatContext'
 import AppRouter from './routes/AppRouter'
 import './index.css'
 
