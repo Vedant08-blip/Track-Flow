@@ -20,18 +20,20 @@ function App() {
         <ToastProvider>
           <AuthProvider>
             <ProjectProvider>
-              <CollaborationProvider>
-                <TimeTrackingProvider>
-                  <SkillBasedAssignmentProvider>
-                    <GitHubIntegrationProvider>
-                      <GoogleCalendarProvider>
-                        <AppRouter />
-                        <ToastContainer />
-                      </GoogleCalendarProvider>
-                    </GitHubIntegrationProvider>
-                  </SkillBasedAssignmentProvider>
-                </TimeTrackingProvider>
-              </CollaborationProvider>
+              <ChatProvider>
+                <CollaborationProvider>
+                  <TimeTrackingProvider>
+                    <SkillBasedAssignmentProvider>
+                      <GitHubIntegrationProvider>
+                        <GoogleCalendarProvider>
+                          <AppRouter />
+                          <ToastContainer />
+                        </GoogleCalendarProvider>
+                      </GitHubIntegrationProvider>
+                    </SkillBasedAssignmentProvider>
+                  </TimeTrackingProvider>
+                </CollaborationProvider>
+              </ChatProvider>
             </ProjectProvider>
           </AuthProvider>
         </ToastProvider>
