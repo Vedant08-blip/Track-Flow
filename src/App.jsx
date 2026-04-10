@@ -5,6 +5,10 @@ import { ProjectProvider } from './context/ProjectContext'
 import { ToastProvider, ToastContainer } from './context/ToastContext'
 import { ThemeProvider } from './context/ThemeContext'
 import { CollaborationProvider } from './context/CollaborationContext'
+import { TimeTrackingProvider } from './context/TimeTrackingContext'
+import { SkillBasedAssignmentProvider } from './context/SkillBasedAssignmentContext'
+import { GitHubIntegrationProvider } from './context/GitHubIntegrationContext'
+import { GoogleCalendarProvider } from './context/GoogleCalendarContext'
 import AppRouter from './routes/AppRouter'
 import './index.css'
 
@@ -16,8 +20,16 @@ function App() {
           <AuthProvider>
             <ProjectProvider>
               <CollaborationProvider>
-                <AppRouter />
-                <ToastContainer />
+                <TimeTrackingProvider>
+                  <SkillBasedAssignmentProvider>
+                    <GitHubIntegrationProvider>
+                      <GoogleCalendarProvider>
+                        <AppRouter />
+                        <ToastContainer />
+                      </GoogleCalendarProvider>
+                    </GitHubIntegrationProvider>
+                  </SkillBasedAssignmentProvider>
+                </TimeTrackingProvider>
               </CollaborationProvider>
             </ProjectProvider>
           </AuthProvider>
