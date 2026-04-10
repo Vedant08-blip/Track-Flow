@@ -215,7 +215,7 @@ const TeamChat = () => {
             <div className="border-b border-gray-200 dark:border-slate-800 p-4 bg-white dark:bg-slate-800/50 backdrop-blur-sm">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-white font-bold text-sm">
+                  <div className="w-10 h-10 rounded-full bg-linear-to-br from-primary to-primary-dark flex items-center justify-center text-white font-bold text-sm">
                     {activeConversation.teamMemberName.charAt(0)}
                   </div>
                   <div>
@@ -235,7 +235,7 @@ const TeamChat = () => {
             </div>
 
             {/* Messages Container */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-transparent to-slate-50/50 dark:to-slate-800/20">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-linear-to-b from-transparent to-slate-50/50 dark:to-slate-800/20">
               {activeConversation.messages.length === 0 ? (
                 <div className="h-full flex items-center justify-center text-center">
                   <div>
@@ -260,7 +260,7 @@ const TeamChat = () => {
                     )}
                   >
                     {message.sender !== userProfile?.name && (
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-linear-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
                         {message.sender.charAt(0)}
                       </div>
                     )}
@@ -294,7 +294,7 @@ const TeamChat = () => {
                           </div>
                         ) : (
                           <>
-                            <p className="text-sm break-words">{message.content}</p>
+                            <p className="text-sm wrap-break-word">{message.content}</p>
                             {message.edited && (
                               <p className="text-xs opacity-70 mt-1">(edited)</p>
                             )}
@@ -315,7 +315,7 @@ const TeamChat = () => {
                                   : "bg-gray-100 dark:bg-slate-600 text-slate-900 dark:text-white"
                               )}
                             >
-                              <Paperclip className="w-4 h-4 flex-shrink-0" />
+                              <Paperclip className="w-4 h-4 shrink-0" />
                               <div className="flex-1 min-w-0">
                                 <p className="truncate font-medium text-xs">{attachment.name}</p>
                                 <p className="text-xs opacity-70">{attachment.size} MB</p>
