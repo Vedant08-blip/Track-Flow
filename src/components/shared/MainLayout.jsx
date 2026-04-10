@@ -49,6 +49,7 @@ const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [showThemeCustomizer, setShowThemeCustomizer] = useState(false);
   const [showMentionsModal, setShowMentionsModal] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const { searchTerm, setSearchTerm } = useProject();
@@ -84,13 +85,29 @@ const MainLayout = () => {
   const filteredNavItems = navItems.filter(item => !item.roles || item.roles.includes(user?.role));
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background dark:bg-slate-950 relative">
+    <div className="flex h-screen overflow-hidden bg-background dark:bg-slate-950 relative flex-col lg:flex-row">
       <AmbientBackground />
+      
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {showMobileMenu && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowMobileMenu(false)}
+            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          />
+        )}
+      </AnimatePresence>
+      
       {/* Sidebar */}
       <aside
         className={cn(
           "bg-sidebar dark:bg-slate-900/90 dark:border-r dark:border-slate-800 text-white p-4 transition-all duration-300 flex flex-col z-50 shadow-2xl relative backdrop-blur-xl",
-          collapsed ? "w-20" : "w-64"
+          "fixed lg:relative left-0 top-0 h-screen lg:h-auto",
+          showMobileMenu ? "translate-x-0 w-64" : "-translate-x-full lg:translate-x-0 w-64",
+          collapsed ? "lg:w-20" : "lg:w-64"
         )}
       >
         <div className="flex items-center justify-between mb-8 px-2 overflow-hidden">
@@ -104,8 +121,11 @@ const MainLayout = () => {
             <img src="/FFavicon.jpg" alt="TrackFlow Logo" className="w-10 h-10 rounded-full object-cover mx-auto" />
           )}
           <button
-            onClick={() => setCollapsed(!collapsed)}
-            className="p-1.5 rounded-md hover:bg-slate-800 text-slate-500 dark:text-slate-400 absolute -right-3 top-10 bg-sidebar border border-slate-700 md:flex hidden"
+            onClick={() => {
+              setCollapsed(!collapsed);
+              setShowMobileMenu(false);
+            }}
+            className="p-1.5 rounded-md hover:bg-slate-800 text-slate-500 dark:text-slate-400 absolute -right-3 top-10 bg-sidebar border border-slate-700 hidden lg:flex"
           >
             {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
           </button>
@@ -144,26 +164,29 @@ const MainLayout = () => {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative lg:flex-1">
         {/* Top Navbar */}
-        <header className="h-16 bg-white/70 dark:bg-slate-900/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-slate-800 flex items-center justify-between px-6 z-40 sticky top-0 shadow-sm shadow-slate-100 dark:shadow-none">
-          <div className="flex items-center gap-4 flex-1">
-            <button className="md:hidden p-2 hover:bg-gray-100 rounded-lg text-gray-500">
+        <header className="h-14 lg:h-16 bg-white/70 dark:bg-slate-900/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-slate-800 flex items-center justify-between px-4 lg:px-6 z-40 sticky top-0 shadow-sm shadow-slate-100 dark:shadow-none">
+          <div className="flex items-center gap-2 lg:gap-4 flex-1 min-w-0">
+            <button 
+              onClick={() => setShowMobileMenu(!showMobileMenu)}
+              className="lg:hidden p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg text-gray-500 dark:text-slate-400 flex-shrink-0"
+            >
               <Menu size={20} />
             </button>
-            <div className="relative max-w-md w-full md:flex hidden group">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors" size={18} />
+            <div className="relative max-w-sm lg:max-w-md w-full hidden sm:flex group">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors flex-shrink-0" size={16} />
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search stories, tasks, defects..."
-                className="w-full pl-10 pr-10 py-2 bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary dark:focus:ring-primary/20 dark:text-white transition-all text-sm backdrop-blur-sm"
+                placeholder="Search..."
+                className="w-full pl-9 pr-8 py-2 bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-800 rounded-lg lg:rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary dark:focus:ring-primary/20 dark:text-white transition-all text-sm backdrop-blur-sm"
               />
               {searchTerm && (
                 <button 
                   onClick={() => setSearchTerm('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary transition-colors"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary transition-colors flex-shrink-0"
                 >
                   <CloseIcon size={14} />
                 </button>
@@ -171,21 +194,21 @@ const MainLayout = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 lg:gap-4">
             {/* Theme Toggle */}
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={toggleTheme}
-              className="p-2 text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 dark:bg-slate-800 dark:hover:bg-slate-800 rounded-full transition-colors flex items-center justify-center relative overflow-hidden"
+              className="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full transition-colors flex items-center justify-center flex-shrink-0"
             >
               <AnimatePresence mode="wait">
                 {isDark ? (
                   <motion.div key="moon" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} transition={{ duration: 0.2 }}>
-                    <Moon size={20} />
+                    <Moon size={18} />
                   </motion.div>
                 ) : (
                   <motion.div key="sun" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 20, opacity: 0 }} transition={{ duration: 0.2 }}>
-                    <Sun size={20} />
+                    <Sun size={18} />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -195,35 +218,35 @@ const MainLayout = () => {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => setShowThemeCustomizer(true)}
-              className="p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 rounded-full transition-colors flex items-center justify-center"
-              title="Customize theme colors"
+              className="p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700 rounded-full transition-colors flex items-center justify-center hidden sm:flex flex-shrink-0"
+              title="Customize theme"
             >
-              <Palette size={20} />
+              <Palette size={18} />
             </motion.button>
 
-            <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1"></div>
+            <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
 
-            <div className="relative">
+            <div className="relative flex-shrink-0">
               <button
                 onClick={() => setShowMentionsModal(true)}
-                className="relative p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 rounded-full transition-colors focus:ring-2 focus:ring-primary/50 outline-none"
+                className="relative p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700 rounded-full transition-colors focus:ring-2 focus:ring-primary/50 outline-none"
               >
-                <Bell size={20} />
+                <Bell size={18} />
                 {unreadCount > 0 && (
-                  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900 animate-pulse"></span>
+                  <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border border-white dark:border-slate-900 animate-pulse"></span>
                 )}
               </button>
             </div>
 
-            <div className="h-8 w-px bg-gray-200 mx-1"></div>
+            <div className="h-8 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
 
-            <div className="flex items-center gap-3 pl-2">
-              <div className="text-right flex flex-col md:flex hidden">
-                <span className="text-sm font-semibold text-gray-900 leading-tight">{user?.name}</span>
-                <span className="text-[11px] font-medium text-gray-500 uppercase tracking-tighter">Premium Account</span>
+            <div className="flex items-center gap-2 lg:gap-3 pl-0 lg:pl-2">
+              <div className="text-right flex flex-col hidden md:flex">
+                <span className="text-xs lg:text-sm font-semibold text-gray-900 dark:text-white leading-tight">{user?.name}</span>
+                <span className="text-[10px] lg:text-[11px] font-medium text-gray-500 dark:text-slate-400 uppercase tracking-tighter">Account</span>
               </div>
-              <div className="relative group">
-                <div className="w-10 h-10 rounded-xl overflow-hidden ring-2 ring-transparent group-hover:ring-primary/20 transition-all cursor-pointer bg-gray-100 p-0.5">
+              <div className="relative group flex-shrink-0">
+                <div className="w-8 lg:w-10 h-8 lg:h-10 rounded-lg lg:rounded-xl overflow-hidden ring-2 ring-transparent group-hover:ring-primary/20 transition-all cursor-pointer bg-gray-100 p-0.5">
                   <img src={user?.avatar} alt={user?.name} className="w-full h-full object-cover rounded-lg" />
                 </div>
               </div>
@@ -232,7 +255,7 @@ const MainLayout = () => {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto p-8 scroll-smooth overflow-x-hidden relative">
+        <main className="flex-1 overflow-y-auto p-4 lg:p-8 scroll-smooth overflow-x-hidden relative">
           <AnimatePresence mode="wait">
             <PageWrapper key={location.pathname}>
               <Outlet />

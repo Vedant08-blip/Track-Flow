@@ -34,24 +34,24 @@ const StatCard = ({ title, value, icon: Icon, trend, trendValue, colorVariant = 
   return (
     <motion.div 
       whileHover={{ y: -4 }}
-      className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl p-6 rounded-[24px] border border-white/50 dark:border-slate-800/50 shadow-lg shadow-slate-200/20 dark:shadow-none flex flex-col relative overflow-hidden"
+      className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl p-4 lg:p-6 rounded-xl lg:rounded-[24px] border border-white/50 dark:border-slate-800/50 shadow-lg shadow-slate-200/20 dark:shadow-none flex flex-col relative overflow-hidden"
     >
       {/* Subtle top glare effect for glass */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5"></div>
       
-      <div className="flex items-center justify-between mb-4 relative z-10">
-        <div className={`p-4 rounded-[18px] ${colorMap[colorVariant]}`}>
-          <Icon size={24} />
+      <div className="flex items-center justify-between mb-3 lg:mb-4 relative z-10">
+        <div className={`p-2 lg:p-4 rounded-lg lg:rounded-[18px] ${colorMap[colorVariant]}`}>
+          <Icon size={20} className="lg:w-6 lg:h-6" />
         </div>
         {trend && (
-          <div className={`flex items-center gap-1 text-sm font-bold ${trendColor} bg-white/50 dark:bg-slate-800/50 border border-white/40 dark:border-slate-700/50 px-2.5 py-1 rounded-full backdrop-blur-md`}>
-            {trend === 'up' ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
+          <div className={`flex items-center gap-1 text-xs lg:text-sm font-bold ${trendColor} bg-white/50 dark:bg-slate-800/50 border border-white/40 dark:border-slate-700/50 px-2 lg:px-2.5 py-0.5 lg:py-1 rounded-full backdrop-blur-md`}>
+            {trend === 'up' ? <ArrowUpRight size={12} className="lg:w-3.5 lg:h-3.5" /> : <ArrowDownRight size={12} className="lg:w-3.5 lg:h-3.5" />}
             {trendValue}
           </div>
         )}
       </div>
-      <div className="text-slate-500 dark:text-slate-400 text-xs font-bold mb-1 uppercase tracking-widest relative z-10">{title}</div>
-      <div className="text-4xl font-bold text-slate-800 dark:text-white tracking-tight relative z-10">{value}</div>
+      <div className="text-slate-500 dark:text-slate-400 text-[10px] lg:text-xs font-bold mb-1 uppercase tracking-widest relative z-10">{title}</div>
+      <div className="text-2xl lg:text-4xl font-bold text-slate-800 dark:text-white tracking-tight relative z-10">{value}</div>
     </motion.div>
   );
 };
@@ -127,17 +127,17 @@ const DashboardPage = () => {
 
   return (
     <div className="relative min-h-screen">
-      <div className="space-y-8 max-w-7xl mx-auto pb-10 relative z-10">
+      <div className="space-y-6 lg:space-y-8 max-w-7xl mx-auto pb-10 relative z-10">
         {/* Header */}
-        <div className="flex items-center justify-between px-2">
-          <div>
-            <h1 className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">Executive Dashboard</h1>
-            <p className="text-slate-500 dark:text-slate-400 font-medium mt-2">Real-time portfolio health & team performance</p>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-0">
+          <div className="flex-1">
+            <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">Executive Dashboard</h1>
+            <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 font-medium mt-2">Real-time portfolio health & team performance</p>
           </div>
-          <div className="flex items-center gap-3 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-1.5 rounded-2xl border border-white/50 dark:border-slate-700/50 shadow-sm transition-all hover:shadow-md cursor-pointer group">
-            <div className="pl-4 pr-2 font-bold text-sm text-slate-600 dark:text-slate-300 transition-colors group-hover:text-primary">Q1 2025 Release</div>
-            <Calendar className="text-slate-500 dark:text-slate-400 group-hover:text-primary transition-colors" size={18} />
-            <div className="bg-primary/10 dark:bg-primary/20 text-primary dark:text-blue-400 px-3 py-1.5 rounded-xl text-xs font-bold ring-2 ring-primary/10">ACTIVE</div>
+          <div className="flex items-center gap-2 lg:gap-3 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-2 lg:p-1.5 rounded-lg lg:rounded-2xl border border-white/50 dark:border-slate-700/50 shadow-sm transition-all hover:shadow-md cursor-pointer group w-full sm:w-auto">
+            <div className="pl-2 lg:pl-4 pr-1 lg:pr-2 font-bold text-xs lg:text-sm text-slate-600 dark:text-slate-300 transition-colors group-hover:text-primary truncate">Q1 2025 Release</div>
+            <Calendar className="text-slate-500 dark:text-slate-400 group-hover:text-primary transition-colors flex-shrink-0" size={16} />
+            <div className="bg-primary/10 dark:bg-primary/20 text-primary dark:text-blue-400 px-2 lg:px-3 py-1 lg:py-1.5 rounded-lg lg:rounded-xl text-[10px] lg:text-xs font-bold ring-1 lg:ring-2 ring-primary/10 flex-shrink-0">ACTIVE</div>
           </div>
         </div>
 
@@ -194,7 +194,7 @@ const DashboardPage = () => {
         </AnimatePresence>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
           <StatCard title="Team Velocity" value={avgVelocity} icon={TrendingUp} trend="up" trendValue="+12%" colorVariant="primary" />
           <StatCard title="Stories Completed" value={storiesCompleted} icon={CheckCircle2} trend="up" trendValue="+5" colorVariant="success" />
           <StatCard title="Active Defects" value={activeDefects} icon={AlertCircle} trend={activeDefects > 5 ? "up" : "down"} trendValue={activeDefects} colorVariant="danger" />
