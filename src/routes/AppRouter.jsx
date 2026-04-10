@@ -11,6 +11,7 @@ import TimelinePage from '../pages/TimelinePage';
 import PortfolioPage from '../pages/PortfolioPage';
 import ReportsPage from '../pages/ReportsPage';
 import ThemeSettingsPage from '../pages/ThemeSettingsPage';
+import FeaturesShowcasePage from '../pages/FeaturesShowcasePage';
 import MainLayout from '../components/shared/MainLayout';
 
 const ProtectedRoute = ({ children, roles = [] }) => {
@@ -54,6 +55,7 @@ const AppRouter = () => {
         <Route path="portfolio" element={<PortfolioPage />} />
         <Route path="reports" element={<ReportsPage />} />
         <Route path="theme-settings" element={<ThemeSettingsPage />} />
+        <Route path="features" element={<FeaturesShowcasePage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

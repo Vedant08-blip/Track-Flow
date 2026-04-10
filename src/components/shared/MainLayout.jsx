@@ -17,7 +17,8 @@ import {
   Menu,
   Sun,
   Moon,
-  Palette
+  Palette,
+  Zap
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -80,6 +81,7 @@ const MainLayout = () => {
     { to: '/timeline', icon: GanttIcon, label: 'Timeline' },
     { to: '/portfolio', icon: Briefcase, label: 'Portfolio' },
     { to: '/reports', icon: FileText, label: 'Reports' },
+    { to: '/features', icon: Zap, label: 'Features' },
   ];
 
   const filteredNavItems = navItems.filter(item => !item.roles || item.roles.includes(user?.role));
