@@ -56,20 +56,6 @@ const FeaturesShowcasePage = () => {
 
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-linear-to-r from-slate-900 to-slate-800 dark:from-slate-900 dark:to-slate-800 rounded-2xl p-8 text-white"
-      >
-        <div className="max-w-3xl">
-          <h1 className="text-4xl font-bold mb-3">Advanced Features</h1>
-          <p className="text-lg text-slate-300">
-            Discover TrackFlow's enterprise-grade features designed to streamline your agile workflow.
-          </p>
-        </div>
-      </motion.div>
-
       {/* Feature Selector */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {features.map((feature) => {
