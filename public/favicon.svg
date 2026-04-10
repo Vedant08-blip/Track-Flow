@@ -1,21 +1,7 @@
-<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Circular background with gradient -->
-  <defs>
-    <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1B6BF5;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#0F2557;stop-opacity:1" />
-    </linearGradient>
-  </defs>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Blue background -->
+  <rect width="32" height="32" rx="6" fill="#3B82F6"/>
   
-  <!-- Perfect circle background -->
-  <circle cx="96" cy="96" r="96" fill="url(#circleGradient)"/>
-  
-  <!-- White inner circle for contrast -->
-  <circle cx="96" cy="96" r="88" fill="none" stroke="white" stroke-width="2" opacity="0.3"/>
-  
-  <!-- Letter T - TrackFlow Logo -->
-  <text x="96" y="115" font-family="'Outfit', 'Inter', sans-serif" font-size="80" font-weight="700" fill="white" text-anchor="middle" letter-spacing="-2">T</text>
-  
-  <!-- Subtle glow effect -->
-  <circle cx="96" cy="96" r="96" fill="none" stroke="white" stroke-width="1" opacity="0.2"/>
+  <!-- Simple formal "T" text -->
+  <text x="16" y="22" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="0">T</text>
 </svg>

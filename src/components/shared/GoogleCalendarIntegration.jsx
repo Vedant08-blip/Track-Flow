@@ -71,20 +71,20 @@ const GoogleCalendarIntegration = ({ storyId, storyTitle }) => {
   if (!calendarConfig.connected) {
     return (
       <motion.div
-        className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-slate-800 dark:to-slate-900 rounded-xl p-4 border border-orange-200/50 dark:border-slate-700/50"
+        className="rounded-xl p-4 border border-teal-200 dark:border-teal-700/50 dark:bg-slate-800 bg-teal-50"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
       >
         <div className="flex items-center gap-2 mb-3">
-          <Calendar className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+          <Calendar className="w-5 h-5 text-teal-600 dark:text-teal-400" />
           <h4 className="font-semibold text-slate-900 dark:text-white">Google Calendar</h4>
         </div>
-        <div className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+        <div className="text-sm text-slate-700 dark:text-slate-300 mb-3">
           Sync your calendar to schedule work sessions and meetings
         </div>
         <button
           onClick={() => connectGoogleCalendar('user@trackflow.com', 'primary')}
-          className="w-full px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-sm font-medium transition-colors"
+          className="w-full px-4 py-2 text-white rounded-lg text-sm font-medium bg-teal-600 hover:bg-teal-700 transition-colors"
         >
           Connect Google Calendar
         </button>
@@ -96,18 +96,18 @@ const GoogleCalendarIntegration = ({ storyId, storyTitle }) => {
     <div className="space-y-4">
       {/* Summary Card */}
       <motion.div
-        className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-slate-800 dark:to-slate-900 rounded-xl p-4 border border-orange-200/50 dark:border-slate-700/50"
+        className="rounded-xl p-4 border border-teal-200 dark:border-teal-700/50 dark:bg-slate-800 bg-teal-50"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
       >
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <Calendar className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+            <Calendar className="w-5 h-5 text-teal-600 dark:text-teal-400" />
             <h4 className="font-semibold text-slate-900 dark:text-white">Scheduled Time</h4>
           </div>
           <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="px-3 py-1.5 text-sm bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors"
+            onClick={() => setShowEventForm(!showEventForm)}
+            className="px-3 py-1.5 text-sm text-white rounded-lg bg-teal-600 hover:bg-teal-700 transition-colors"
           >
             {showEventForm ? 'Cancel' : 'Add Event'}
           </button>
@@ -142,7 +142,7 @@ const GoogleCalendarIntegration = ({ storyId, storyTitle }) => {
             <select
               value={eventType}
               onChange={(e) => setEventType(e.target.value)}
-              className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
             >
               <option value="work_session">Work Session</option>
               <option value="meeting">Meeting</option>
@@ -154,7 +154,7 @@ const GoogleCalendarIntegration = ({ storyId, storyTitle }) => {
               value={eventTitle}
               onChange={(e) => setEventTitle(e.target.value)}
               placeholder="Event title"
-              className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
 
             <div className="grid grid-cols-2 gap-2">
@@ -162,13 +162,13 @@ const GoogleCalendarIntegration = ({ storyId, storyTitle }) => {
                 type="datetime-local"
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
-                className="px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
               />
               <input
                 type="datetime-local"
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
-                className="px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
               />
             </div>
 
@@ -179,21 +179,21 @@ const GoogleCalendarIntegration = ({ storyId, storyTitle }) => {
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   placeholder="Location (optional)"
-                  className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
                 <input
                   type="text"
                   value={attendees}
                   onChange={(e) => setAttendees(e.target.value)}
                   placeholder="Attendees (comma-separated)"
-                  className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
               </>
             )}
 
             <button
               type="submit"
-              className="w-full px-3 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-sm font-medium transition-colors"
+              className="w-full px-3 py-2 text-white rounded-lg text-sm font-medium bg-teal-600 hover:bg-teal-700 transition-colors"
             >
               Create Event
             </button>
@@ -211,7 +211,7 @@ const GoogleCalendarIntegration = ({ storyId, storyTitle }) => {
                 key={event.id}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="p-3 bg-white/50 dark:bg-slate-800/50 rounded-lg border border-slate-200/50 dark:border-slate-700/50 hover:border-orange-300 dark:hover:border-orange-600/50 transition-colors"
+                className="p-3 bg-white/50 dark:bg-slate-800/50 rounded-lg border border-teal-200/50 dark:border-teal-700/50 hover:border-teal-300 dark:hover:border-teal-600 transition-colors"
               >
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1 min-w-0">
@@ -237,7 +237,7 @@ const GoogleCalendarIntegration = ({ storyId, storyTitle }) => {
                   </div>
                   <button
                     onClick={() => deleteCalendarEvent(event.id)}
-                    className="p-1 ml-2 text-slate-400 hover:bg-red-100 dark:hover:bg-red-900/30 hover:text-red-500 rounded transition-colors flex-shrink-0"
+                    className="p-1 ml-2 text-slate-400 hover:bg-red-100 dark:hover:bg-red-900/30 hover:text-red-500 rounded transition-colors shrink-0"
                   >
                     <X size={16} />
                   </button>

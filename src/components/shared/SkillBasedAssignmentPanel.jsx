@@ -57,7 +57,7 @@ const SkillBasedAssignmentPanel = ({ storyId, requiredSkills = [] }) => {
     <div className="space-y-4">
       {/* Current Assignment */}
       <motion.div
-        className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-slate-800 dark:to-slate-900 rounded-xl p-4 border border-purple-200/50 dark:border-slate-700/50"
+        className="bg-gradient-to-br from-violet-50 to-purple-50 dark:from-slate-800 dark:to-slate-900 rounded-xl p-4 border border-violet-200/50 dark:border-slate-700/50"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
       >
@@ -129,7 +129,7 @@ const SkillBasedAssignmentPanel = ({ storyId, requiredSkills = [] }) => {
             {/* Skill Gaps Alert */}
             {skillGaps.length > 0 && (
               <div className="flex gap-2 p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200/50 dark:border-amber-800/50">
-                <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+                <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <div className="text-xs font-medium text-amber-900 dark:text-amber-200">Skill Gaps Detected</div>
                   <div className="text-xs text-amber-800 dark:text-amber-300">{skillGaps.join(', ')}</div>

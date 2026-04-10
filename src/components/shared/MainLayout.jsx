@@ -31,7 +31,6 @@ import { PageWrapper } from './UIComponents';
 import { X as CloseIcon } from 'lucide-react';
 import ThemeCustomizer from './ThemeCustomizer';
 import MentionsNotifications from './MentionsNotifications';
-
 const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
   <NavLink
     to={to}
@@ -41,7 +40,7 @@ const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
       collapsed && "justify-center px-0"
     )}
   >
-    <Icon className="w-5 h-5 flex-shrink-0" />
+    <Icon className="w-5 h-5 shrink-0" />
     {!collapsed && <span className="font-medium whitespace-nowrap">{label}</span>}
   </NavLink>
 );
@@ -114,16 +113,14 @@ const MainLayout = () => {
       >
         <div className="flex items-center justify-between mb-8 px-2 overflow-hidden">
           {!collapsed && (
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full overflow-hidden shadow-lg shadow-primary/20 flex-shrink-0">
-                <img src="/favicon.svg" alt="TrackFlow Logo" className="w-full h-full object-cover" />
-              </div>
-              <h1 className="text-xl font-bold tracking-tight">TrackFlow</h1>
+            <div className="flex items-center gap-3 text-white">
+              <img src="/favicon.svg" alt="TrackFlow Logo" className="w-8 h-8 rounded-full object-cover" />
+              <span className="font-bold text-lg">TrackFlow</span>
             </div>
           )}
           {collapsed && (
-            <div className="w-10 h-10 rounded-full overflow-hidden shadow-lg shadow-primary/30 flex-shrink-0 mx-auto">
-              <img src="/favicon.svg" alt="TrackFlow Logo" className="w-full h-full object-cover" />
+            <div className="mx-auto">
+              <img src="/favicon.svg" alt="TrackFlow Logo" className="w-8 h-8 rounded-full object-cover" />
             </div>
           )}
           <button
@@ -152,7 +149,7 @@ const MainLayout = () => {
         <div className="mt-auto border-t border-slate-800 pt-4 px-2">
           {!collapsed && (
             <div className="mb-4 bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
-              <div className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold mb-1">Role</div>
+              <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold mb-1">Role</div>
               <div className="text-sm font-medium text-primary-flow">{user?.role}</div>
             </div>
           )}
@@ -163,7 +160,7 @@ const MainLayout = () => {
               collapsed && "justify-center px-0"
             )}
           >
-            <LogOut className="w-5 h-5 flex-shrink-0" />
+            <LogOut className="w-5 h-5 shrink-0" />
             {!collapsed && <span className="font-medium">Logout</span>}
           </button>
         </div>
@@ -176,12 +173,12 @@ const MainLayout = () => {
           <div className="flex items-center gap-2 lg:gap-4 flex-1 min-w-0">
             <button 
               onClick={() => setShowMobileMenu(!showMobileMenu)}
-              className="lg:hidden p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg text-gray-500 dark:text-slate-400 flex-shrink-0"
+              className="lg:hidden p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg text-gray-500 dark:text-slate-400 shrink-0"
             >
               <Menu size={20} />
             </button>
             <div className="relative max-w-sm lg:max-w-md w-full hidden sm:flex group">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors flex-shrink-0" size={16} />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors shrink-0" size={16} />
               <input
                 type="text"
                 value={searchTerm}
@@ -189,10 +186,9 @@ const MainLayout = () => {
                 placeholder="Search..."
                 className="w-full pl-9 pr-8 py-2 bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-800 rounded-lg lg:rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary dark:focus:ring-primary/20 dark:text-white transition-all text-sm backdrop-blur-sm"
               />
-              {searchTerm && (
-                <button 
+              {searchTerm && (                <button
                   onClick={() => setSearchTerm('')}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary transition-colors flex-shrink-0"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary transition-colors shrink-0"
                 >
                   <CloseIcon size={14} />
                 </button>
@@ -205,7 +201,7 @@ const MainLayout = () => {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={toggleTheme}
-              className="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full transition-colors flex items-center justify-center flex-shrink-0"
+              className="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full transition-colors flex items-center justify-center shrink-0"
             >
               <AnimatePresence mode="wait">
                 {isDark ? (
@@ -224,7 +220,7 @@ const MainLayout = () => {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => setShowThemeCustomizer(true)}
-              className="p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700 rounded-full transition-colors flex items-center justify-center hidden sm:flex flex-shrink-0"
+              className="p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700 rounded-full transition-colors hidden sm:flex items-center justify-center shrink-0"
               title="Customize theme"
             >
               <Palette size={18} />
@@ -232,7 +228,7 @@ const MainLayout = () => {
 
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
 
-            <div className="relative flex-shrink-0">
+            <div className="relative shrink-0">
               <button
                 onClick={() => setShowMentionsModal(true)}
                 className="relative p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700 rounded-full transition-colors focus:ring-2 focus:ring-primary/50 outline-none"
@@ -247,11 +243,11 @@ const MainLayout = () => {
             <div className="h-8 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
 
             <div className="flex items-center gap-2 lg:gap-3 pl-0 lg:pl-2">
-              <div className="text-right flex flex-col hidden md:flex">
+              <div className="text-right hidden md:flex flex-col">
                 <span className="text-xs lg:text-sm font-semibold text-gray-900 dark:text-white leading-tight">{user?.name}</span>
                 <span className="text-[10px] lg:text-[11px] font-medium text-gray-500 dark:text-slate-400 uppercase tracking-tighter">Account</span>
               </div>
-              <div className="relative group flex-shrink-0">
+              <div className="relative group shrink-0">
                 <div className="w-8 lg:w-10 h-8 lg:h-10 rounded-lg lg:rounded-xl overflow-hidden ring-2 ring-transparent group-hover:ring-primary/20 transition-all cursor-pointer bg-gray-100 p-0.5">
                   <img src={user?.avatar} alt={user?.name} className="w-full h-full object-cover rounded-lg" />
                 </div>
