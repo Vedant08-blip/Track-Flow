@@ -32,7 +32,7 @@ const FeaturesShowcasePage = () => {
       name: 'Skill-Based Assignment',
       icon: Users,
       description: 'Smart team member recommendations',
-      color: 'from-purple-500 to-pink-500',
+      color: 'from-purple-400 to-rose-400',
       stats: { match: '95%', available: '85%', score: '92%' }
     },
     {
@@ -40,7 +40,7 @@ const FeaturesShowcasePage = () => {
       name: 'GitHub Integration',
       icon: GitBranch,
       description: 'Link PRs, commits, and CI/CD status',
-      color: 'from-gray-700 to-gray-900',
+      color: 'from-slate-600 to-slate-800',
       stats: { prs: '3', commits: '12', coverage: '88%' }
     },
     {
@@ -48,7 +48,7 @@ const FeaturesShowcasePage = () => {
       name: 'Google Calendar',
       icon: Calendar,
       description: 'Schedule work sessions and meetings',
-      color: 'from-orange-500 to-red-500',
+      color: 'from-amber-500 to-orange-500',
       stats: { scheduled: '8h', upcoming: '4', synced: '100%' }
     }
   ];
@@ -392,23 +392,7 @@ const FeaturesShowcasePage = () => {
         )}
       </AnimatePresence>
 
-      {/* Implementation Notes */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-6 border border-emerald-200 dark:border-emerald-800/50"
-      >
-        <h3 className="font-bold text-emerald-900 dark:text-emerald-300 mb-3">✅ All Features Implemented</h3>
-        <p className="text-sm text-emerald-800 dark:text-emerald-400 mb-3">
-          All four advanced features are fully integrated into TrackFlow and ready for production use.
-        </p>
-        <ul className="text-sm text-emerald-800 dark:text-emerald-400 space-y-2">
-          <li>✓ <strong>Time Tracking:</strong> 15 hours of development - log hours, track variance, measure velocity</li>
-          <li>✓ <strong>Skill-Based Assignment:</strong> 12 hours of development - AI-powered team recommendations</li>
-          <li>✓ <strong>GitHub Integration:</strong> 10 hours of development - link PRs, commits, and CI/CD metrics</li>
-          <li>✓ <strong>Google Calendar:</strong> 8 hours of development - schedule work and sync with calendar</li>
-        </ul>
-      </motion.div>
+
     </div>
   );
 };
