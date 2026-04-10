@@ -53,20 +53,25 @@ const GitHubIntegration = ({ storyId }) => {
   if (!gitHubConfig.connected) {
     return (
       <motion.div
-        className="bg-gradient-to-br from-gray-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 rounded-xl p-4 border border-slate-200/50 dark:border-slate-700/50"
+        className="bg-linear-to-br from-gray-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 rounded-xl p-4 border border-slate-200/50 dark:border-slate-700/50 relative overflow-hidden"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <div className="flex items-center gap-2 mb-3">
+        {/* GitHub Logo Background */}
+        <div className="absolute top-2 right-2 opacity-5 dark:opacity-3">
+          <img src="/github.png" alt="GitHub" className="w-24 h-24 object-contain" />
+        </div>
+
+        <div className="relative z-10 flex items-center gap-2 mb-3">
           <GitBranch className="w-5 h-5 text-slate-400" />
           <h4 className="font-semibold text-slate-900 dark:text-white">GitHub Integration</h4>
         </div>
-        <div className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+        <div className="relative z-10 text-sm text-slate-600 dark:text-slate-400 mb-3">
           Connect your GitHub account to link pull requests and commits
         </div>
         <button
           onClick={() => setShowConnect(true)}
-          className="w-full px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-sm font-medium transition-colors"
+          className="relative z-10 w-full px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-sm font-medium transition-colors"
         >
           Connect GitHub
         </button>
@@ -75,11 +80,16 @@ const GitHubIntegration = ({ storyId }) => {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 relative">
+      {/* GitHub Logo Background */}
+      <div className="absolute top-0 right-0 opacity-5 dark:opacity-3 pointer-events-none">
+        <img src="/github.png" alt="GitHub" className="w-32 h-32 object-contain" />
+      </div>
+
       {/* CI Status Card */}
       {ciStatus && (
         <motion.div
-          className="bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-slate-800 dark:to-slate-900 rounded-xl p-4 border border-indigo-200/50 dark:border-slate-700/50"
+          className="bg-linear-to-br from-indigo-50 to-blue-50 dark:from-slate-800 dark:to-slate-900 rounded-xl p-4 border border-indigo-200/50 dark:border-slate-700/50"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
         >
@@ -184,7 +194,7 @@ const GitHubIntegration = ({ storyId }) => {
                       {pr.author} • {formatDistanceToNow(new Date(pr.createdAt), { addSuffix: true })}
                     </div>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-indigo-500 flex-shrink-0 ml-2" />
+                  <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-indigo-500 shrink-0 ml-2" />
                 </div>
 
                 <div className="flex items-center gap-2 mb-2">

@@ -98,9 +98,15 @@ const FeaturesShowcasePage = () => {
               />
 
               <div className="relative z-10">
-                <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 bg-linear-to-br ${feature.color} text-white`}>
-                  <Icon size={20} />
-                </div>
+                {feature.id === 'github-integration' ? (
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-3 bg-linear-to-br from-gray-700 to-gray-900 text-white">
+                    <img src="/github.png" alt="GitHub" className="w-6 h-6 object-contain" />
+                  </div>
+                ) : (
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 bg-linear-to-br ${feature.color} text-white`}>
+                    <Icon size={20} />
+                  </div>
+                )}
 
                 <h3 className="font-semibold text-slate-900 dark:text-white mb-1">
                   {feature.name}
@@ -175,14 +181,9 @@ const FeaturesShowcasePage = () => {
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-linear-to-r from-gray-50 to-slate-50 dark:from-gray-900 dark:to-slate-900 rounded-2xl p-6 border-2 border-gray-300 dark:border-gray-700 relative overflow-hidden"
+                    className="bg-linear-to-r from-gray-50 to-slate-50 dark:from-gray-900 dark:to-slate-900 rounded-2xl p-6 border-2 border-gray-300 dark:border-gray-700"
                   >
-                    {/* GitHub Logo Background */}
-                    <div className="absolute top-4 right-4 opacity-10 dark:opacity-5">
-                      <img src="/github.png" alt="GitHub" className="w-24 h-24 object-contain" />
-                    </div>
-
-                    <div className="flex items-start justify-between mb-6 relative z-10">
+                    <div className="flex items-start justify-between mb-6">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-3">
                           <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-bold rounded-full">✓ OPEN</span>
@@ -193,157 +194,7 @@ const FeaturesShowcasePage = () => {
                       <div className="text-right">
                         <div className="text-sm font-semibold text-gray-700 dark:text-gray-300">Build Status</div>
                         <div className="text-lg font-bold text-green-600 dark:text-green-400">✓ PASSING</div>
-                      </div>
-                    </div>
-
-                    {/* PR Stats Grid - Enhanced with Progress Visualization */}
-                    <div className="mb-6 space-y-4">
-                      {/* Top Row: Main Stats */}
-                      <div className="grid grid-cols-4 gap-4 p-4 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-gray-700">
-                        {/* Additions - Highlighted */}
-                        <motion.div 
-                          className="text-center relative group cursor-pointer"
-                          whileHover={{ scale: 1.08 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <div className="absolute inset-0 bg-blue-100 dark:bg-blue-900/40 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-                          <motion.div
-                            className="relative z-10 text-3xl font-bold bg-linear-to-r from-blue-600 to-blue-500 dark:from-blue-400 dark:to-blue-300 bg-clip-text text-transparent"
-                            animate={{ scale: [1, 1.05, 1] }}
-                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                          >
-                            +342
-                          </motion.div>
-                          <div className="relative z-10 text-xs font-semibold text-gray-700 dark:text-gray-300 mt-2 uppercase tracking-wide">Additions</div>
-                          <div className="relative z-10 text-xs text-blue-600 dark:text-blue-400 font-bold mt-1">↑ New Code</div>
-                        </motion.div>
-                        
-                        {/* Deletions */}
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-red-600 dark:text-red-400">-87</div>
-                          <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Deletions</div>
-                          <div className="text-xs text-red-500 dark:text-red-400 font-semibold mt-1">Cleanup</div>
-                        </div>
-                        
-                        {/* Commits */}
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">14</div>
-                          <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Commits</div>
-                          <div className="text-xs text-purple-500 dark:text-purple-400 font-semibold mt-1">Tracked</div>
-                        </div>
-                        
-                        {/* Files Changed */}
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-cyan-600 dark:text-cyan-400">3</div>
-                          <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Files</div>
-                          <div className="text-xs text-cyan-500 dark:text-cyan-400 font-semibold mt-1">Modified</div>
-                        </div>
-                      </div>
-
-                      {/* Code Change Composition Bar */}
-                      <motion.div
-                        className="p-4 bg-linear-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl border border-blue-200 dark:border-blue-800/50"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.3 }}
-                      >
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Code Change Composition</span>
-                          <span className="text-xs text-gray-500 dark:text-gray-400">Total: 429 lines</span>
-                        </div>
-                        <div className="flex gap-2 h-8 rounded-lg overflow-hidden shadow-md">
-                          {/* Additions Bar */}
-                          <motion.div
-                            className="bg-linear-to-r from-blue-500 to-blue-400 relative flex items-center justify-center group"
-                            style={{ width: '79.7%' }}
-                            initial={{ width: 0 }}
-                            animate={{ width: '79.7%' }}
-                            transition={{ duration: 1, ease: "easeOut" }}
-                            title="+342 additions (79.7%)"
-                          >
-                            <span className="text-xs font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity">+342</span>
-                          </motion.div>
-                          
-                          {/* Deletions Bar */}
-                          <motion.div
-                            className="bg-linear-to-r from-red-500 to-red-400 relative flex items-center justify-center group"
-                            style={{ width: '20.3%' }}
-                            initial={{ width: 0 }}
-                            animate={{ width: '20.3%' }}
-                            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-                            title="-87 deletions (20.3%)"
-                          >
-                            <span className="text-xs font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity">-87</span>
-                          </motion.div>
-                        </div>
-                        <div className="flex justify-between mt-2 text-xs text-gray-600 dark:text-gray-400">
-                          <span className="flex items-center gap-1">
-                            <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                            Additions: 79.7%
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                            Deletions: 20.3%
-                          </span>
-                        </div>
-                      </motion.div>
-                    </div>
-
-                    {/* Clear Action Buttons */}
-                    <div className="flex gap-3 mb-4">
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="flex-1 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
-                      >
-                        <span>✓</span>
-                        <span>APPROVE & MERGE</span>
-                      </motion.button>
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="flex-1 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
-                      >
-                        <span>👁️</span>
-                        <span>VIEW FULL PR</span>
-                      </motion.button>
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="flex-1 px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
-                      >
-                        <span>💬</span>
-                        <span>LEAVE REVIEW</span>
-                      </motion.button>
-                    </div>
-
-                    {/* Review Status */}
-                    <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
-                      <h4 className="font-bold text-slate-900 dark:text-white mb-3">Review Status</h4>
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <span className="text-lg">✅</span>
-                            <span className="text-sm text-slate-700 dark:text-slate-300"><strong>Alice</strong> approved</span>
-                          </div>
-                          <span className="text-xs text-gray-500">2 days ago</span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <span className="text-lg">✅</span>
-                            <span className="text-sm text-slate-700 dark:text-slate-300"><strong>Bob</strong> approved</span>
-                          </div>
-                          <span className="text-xs text-gray-500">1 day ago</span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <span className="text-lg">🔄</span>
-                            <span className="text-sm text-slate-700 dark:text-slate-300"><strong>Charlie</strong> requested changes</span>
-                          </div>
-                          <span className="text-xs text-gray-500">pending</span>
-                        </div>
-                      </div>
-                    </div>
+                      </div>                    </div>
                   </motion.div>
 
                   {/* Original Integration Component */}
