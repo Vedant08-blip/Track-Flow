@@ -164,12 +164,15 @@ const MainLayout = () => {
           <button
             onClick={() => setShowTeamSetup(true)}
             className={cn(
-              "flex items-center gap-3 w-full px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-all duration-200 mb-2",
-              collapsed && "justify-center px-0"
+              "flex items-center gap-3 w-full px-4 py-3 rounded-lg font-semibold transition-all duration-200 mb-2",
+              userProfile
+                ? "bg-linear-to-r from-primary/20 to-primary/10 text-primary hover:from-primary/30 hover:to-primary/20"
+                : "bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 hover:bg-yellow-500/30",
+              collapsed && "justify-center px-0 rounded-full"
             )}
           >
-            <Users className="w-5 h-5 shrink-0" />
-            {!collapsed && <span className="font-medium">Team Setup</span>}
+            <UserIcon className="w-5 h-5 shrink-0" />
+            {!collapsed && <span>{userProfile ? 'Edit Profile' : 'Complete Profile'}</span>}
           </button>
           <button
             onClick={handleLogout}
@@ -257,6 +260,17 @@ const MainLayout = () => {
                 )}
               </button>
             </div>
+
+            <div className="h-8 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
+
+            {/* User Details Button */}
+            <button
+              onClick={() => setShowTeamSetup(true)}
+              className="p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700 rounded-full transition-colors hidden sm:flex items-center justify-center shrink-0"
+              title="Manage user profile"
+            >
+              <UserIcon size={18} />
+            </button>
 
             <div className="h-8 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
 
