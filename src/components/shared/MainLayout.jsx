@@ -101,7 +101,7 @@ const MainLayout = () => {
             </div>
           )}
           {collapsed && (
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center font-bold text-xl mx-auto">T</div>
+            <img src="/Favicon.svg" alt="TrackFlow Logo" className="w-10 h-10 rounded-lg mx-auto" />
           )}
           <button
             onClick={() => setCollapsed(!collapsed)}
