@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ChevronRight, 
@@ -12,37 +12,36 @@ import {
   Calendar
 } from 'lucide-react';
 import { useSkillBasedAssignment } from '../../context/SkillBasedAssignmentContext';
+import useUserProfile from '../../hooks/useUserProfile';
 
 const UserOnboardingWizard = ({ isOpen, onComplete }) => {
   const { setTeamMembers } = useSkillBasedAssignment();
+  const { userProfile: savedProfile } = useUserProfile();
   const [currentStep, setCurrentStep] = useState(0);
   
   // User Profile
   const [userProfile, setUserProfile] = useState({
-    fullName: '',
-    email: '',
-    role: '',
-    seniority: 'mid-level',
-    department: '',
-    joinDate: new Date().toISOString().split('T')[0]
+    fullName: savedProfile?.name || '',
+    email: savedProfile?.email || '',
+    role: savedProfile?.role || '',
+    seniority: savedProfile?.seniority || 'mid-level',
+    department: savedProfile?.department || '',
+    joinDate: savedProfile?.joinDate || new Date().toISOString().split('T')[0]
   });
 
   // Skills
-  const [skills, setSkills] = useState([]);
+  const [skills, setSkills] = useState(savedProfile?.skills || []);
   const [newSkill, setNewSkill] = useState({ name: '', level: 3, years: 0 });
 
   // GitHub Integration
-  const [githubIntegration, setGithubIntegration] = useState({
-    username: '',
-    token: '',
-    connected: false
-  });
+  const [githubIntegration, setGithubIntegration] = useState(
+    savedProfile?.github || { username: '', token: '', connected: false }
+  );
 
   // Calendar Integration
-  const [calendarIntegration, setCalendarIntegration] = useState({
-    email: '',
-    connected: false
-  });
+  const [calendarIntegration, setCalendarIntegration] = useState(
+    savedProfile?.calendar || { email: '', connected: false }
+  );
 
   const steps = [
     { id: 'profile', title: 'Profile', icon: User },
