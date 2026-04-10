@@ -98,7 +98,7 @@ const SavedReports = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl p-4 rounded-[16px] border border-white/50 dark:border-slate-800/50 shadow-lg hover:shadow-xl transition-shadow group"
+              className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl p-4 rounded-[16px] border border-white/50 dark:border-slate-800/50 shadow-lg hover:shadow-xl transition-shadow group relative"
             >
               <div className="flex items-center justify-between">
                 <div className="flex-1">
@@ -185,7 +185,7 @@ const SavedReports = () => {
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
-                          className="absolute right-0 top-full mt-2 bg-white dark:bg-slate-800 rounded-[12px] shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden z-50"
+                          className="absolute right-0 top-full mt-2 bg-white dark:bg-slate-800 rounded-[12px] shadow-2xl border border-slate-200 dark:border-slate-700 overflow-visible z-50 min-w-[150px]"
                         >
                         <button className="w-full px-4 py-2 text-left text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2 transition-colors">
                           <Download size={16} />
@@ -201,7 +201,8 @@ const SavedReports = () => {
                         >
                           <Trash2 size={16} />
                           Delete
-                        </button>                        </motion.div>
+                        </button>
+                        </motion.div>
                       )}
                     </AnimatePresence>
                   </div>

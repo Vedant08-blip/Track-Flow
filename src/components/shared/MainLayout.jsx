@@ -96,7 +96,7 @@ const MainLayout = () => {
         <div className="flex items-center justify-between mb-8 px-2 overflow-hidden">
           {!collapsed && (
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center font-bold text-lg">T</div>
+              <img src="/Favicon.png" alt="TrackFlow Logo" className="w-8 h-8 rounded-lg" />
               <h1 className="text-xl font-bold tracking-tight">TrackFlow</h1>
             </div>
           )}
