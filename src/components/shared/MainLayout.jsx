@@ -18,7 +18,8 @@ import {
   Sun,
   Moon,
   Palette,
-  Zap
+  Zap,
+  Users
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -31,6 +32,8 @@ import { PageWrapper } from './UIComponents';
 import { X as CloseIcon } from 'lucide-react';
 import ThemeCustomizer from './ThemeCustomizer';
 import MentionsNotifications from './MentionsNotifications';
+import useUserProfile from '../../hooks/useUserProfile';
+import UserOnboardingWizard from './UserOnboardingWizard';
 const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
   <NavLink
     to={to}
@@ -50,10 +53,12 @@ const MainLayout = () => {
   const [showThemeCustomizer, setShowThemeCustomizer] = useState(false);
   const [showMentionsModal, setShowMentionsModal] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showTeamSetup, setShowTeamSetup] = useState(false);
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const { searchTerm, setSearchTerm } = useProject();
   const { getUnreadMentions } = useCollaboration();
+  const { userProfile, updateUserProfile, isOnboarded } = useUserProfile();
   const navigate = useNavigate();
   const location = useLocation();
 

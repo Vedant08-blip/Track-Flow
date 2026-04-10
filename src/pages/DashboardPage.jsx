@@ -217,7 +217,7 @@ const DashboardPage = () => {
                <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest bg-white/50 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg border border-white/40 dark:border-slate-700/50">Last 4 Sprints</div>
             </div>
             <div className="w-full h-[300px] min-w-0">
-              <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+              <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                 <BarChart data={dynamicVelocityData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#94a3b8" opacity={0.2} />
                   <XAxis dataKey="name" axisLine={false} tickLine={false} dy={10} tick={{ fontSize: 11, fontWeight: 600, fill: '#64748B' }} />
@@ -251,7 +251,7 @@ const DashboardPage = () => {
                </div>
             </div>
             <div className="w-full h-[300px] min-w-0">
-              <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+              <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                 <LineChart data={dynamicBurndownData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#94a3b8" opacity={0.2} />
                   <XAxis dataKey="day" axisLine={false} tickLine={false} dy={10} tick={{ fontSize: 11, fontWeight: 600, fill: '#64748B' }} />
