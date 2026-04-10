@@ -251,75 +251,141 @@ const FeaturesShowcasePage = () => {
                 </ul>
               </div>
 
-              {/* Integration Details */}
-              <div className="bg-white/50 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
-                <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                  <TrendingUp size={20} /> Integration Details
-                </h4>
-                {selectedTab === 'time-tracking' && (
-                  <div className="text-sm text-slate-600 dark:text-slate-400 space-y-3">
-                    <div>
-                      <div className="font-medium text-slate-900 dark:text-white mb-1">Context</div>
-                      <p>TimeTrackingContext with full CRUD operations</p>
+              {/* Integration Details & How It Works */}
+              <div className="space-y-4">
+                {/* Integration Details Card */}
+                <div className="bg-white/50 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                  <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                    <TrendingUp size={20} /> Integration Details
+                  </h4>
+                  {selectedTab === 'time-tracking' && (
+                    <div className="text-sm text-slate-600 dark:text-slate-400 space-y-3">
+                      <div>
+                        <div className="font-medium text-slate-900 dark:text-white mb-1">✓ Context Provider</div>
+                        <p className="text-xs">TimeTrackingContext wraps your app with state management</p>
+                      </div>
+                      <div>
+                        <div className="font-medium text-slate-900 dark:text-white mb-1">✓ Core Functions</div>
+                        <p className="text-xs">addTimeEntry() • deleteTimeEntry() • getTotalTimeByStory() • getTimeVariance() • getWeeklyTimeData()</p>
+                      </div>
+                      <div>
+                        <div className="font-medium text-slate-900 dark:text-white mb-1">✓ Tracked Metrics</div>
+                        <p className="text-xs">Logged hours, estimated hours, variance (over/under), team velocity, burndown</p>
+                      </div>
                     </div>
-                    <div>
-                      <div className="font-medium text-slate-900 dark:text-white mb-1">Features</div>
-                      <p>Estimate setting, time logging, variance tracking, velocity metrics</p>
+                  )}
+                  {selectedTab === 'skill-assignment' && (
+                    <div className="text-sm text-slate-600 dark:text-slate-400 space-y-3">
+                      <div>
+                        <div className="font-medium text-slate-900 dark:text-white mb-1">✓ AI Algorithm</div>
+                        <p className="text-xs">Weighted scoring system analyzing team capabilities</p>
+                      </div>
+                      <div>
+                        <div className="font-medium text-slate-900 dark:text-white mb-1">✓ Core Functions</div>
+                        <p className="text-xs">getRecommendedAssignees() • calculateSkillMatch() • assignStory() • getSkillGaps() • getTeamCapabilities()</p>
+                      </div>
+                      <div>
+                        <div className="font-medium text-slate-900 dark:text-white mb-1">✓ Recommendation Score</div>
+                        <p className="text-xs">Skills (50% weight) + Availability (30%) + Workload Balance (20%)</p>
+                      </div>
                     </div>
-                    <div>
-                      <div className="font-medium text-slate-900 dark:text-white mb-1">Data Stored</div>
-                      <p>Time entries, story estimates, user tracking</p>
+                  )}
+                  {selectedTab === 'github-integration' && (
+                    <div className="text-sm text-slate-600 dark:text-slate-400 space-y-3">
+                      <div>
+                        <div className="font-medium text-slate-900 dark:text-white mb-1">✓ GitHub API v3</div>
+                        <p className="text-xs">Real-time sync with your GitHub repository</p>
+                      </div>
+                      <div>
+                        <div className="font-medium text-slate-900 dark:text-white mb-1">✓ Core Functions</div>
+                        <p className="text-xs">linkPullRequest() • getPullRequestsForStory() • getStoryCIStatus() • updatePullRequestStatus()</p>
+                      </div>
+                      <div>
+                        <div className="font-medium text-slate-900 dark:text-white mb-1">✓ CI/CD Pipeline</div>
+                        <p className="text-xs">Build status, test coverage (88%), code review scores, deployment status</p>
+                      </div>
                     </div>
-                  </div>
-                )}
-                {selectedTab === 'skill-assignment' && (
-                  <div className="text-sm text-slate-600 dark:text-slate-400 space-y-3">
-                    <div>
-                      <div className="font-medium text-slate-900 dark:text-white mb-1">Context</div>
-                      <p>SkillBasedAssignmentContext with AI-powered recommendations</p>
+                  )}
+                  {selectedTab === 'calendar-integration' && (
+                    <div className="text-sm text-slate-600 dark:text-slate-400 space-y-3">
+                      <div>
+                        <div className="font-medium text-slate-900 dark:text-white mb-1">✓ Google Calendar API</div>
+                        <p className="text-xs">Two-way sync with Google Calendar ecosystem</p>
+                      </div>
+                      <div>
+                        <div className="font-medium text-slate-900 dark:text-white mb-1">✓ Core Functions</div>
+                        <p className="text-xs">createWorkSession() • createMeeting() • getUpcomingEvents() • getTotalScheduledHours() • getTeamCalendarAvailability()</p>
+                      </div>
+                      <div>
+                        <div className="font-medium text-slate-900 dark:text-white mb-1">✓ Event Types</div>
+                        <p className="text-xs">Work sessions, team meetings, planning sessions, sprint reviews</p>
+                      </div>
                     </div>
-                    <div>
-                      <div className="font-medium text-slate-900 dark:text-white mb-1">Algorithm</div>
-                      <p>Weighted scoring: Skills (50%) + Availability (30%) + Workload (20%)</p>
+                  )}
+                </div>
+
+                {/* How It Works Card */}
+                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800/50">
+                  <h4 className="font-bold text-blue-900 dark:text-blue-300 mb-4 flex items-center gap-2">
+                    <Zap size={20} /> How It Works
+                  </h4>
+                  {selectedTab === 'time-tracking' && (
+                    <div className="text-sm text-blue-800 dark:text-blue-400 space-y-3">
+                      <ol className="space-y-2 list-decimal list-inside">
+                        <li><strong>Set Estimate:</strong> When creating a story, add the estimated hours for completion</li>
+                        <li><strong>Log Time:</strong> Team members log actual hours spent on work, meetings, and reviews</li>
+                        <li><strong>Track Variance:</strong> System calculates difference between estimated vs actual hours</li>
+                        <li><strong>Analyze Patterns:</strong> View weekly data to identify productivity trends and bottlenecks</li>
+                        <li><strong>Improve Forecasts:</strong> Use historical velocity to improve future sprint estimations</li>
+                      </ol>
+                      <div className="bg-white/60 dark:bg-blue-900/30 p-3 rounded-lg mt-3 border border-blue-200 dark:border-blue-700/50">
+                        <p className="text-xs font-medium">💡 <strong>Pro Tip:</strong> Review variance reports weekly to understand team capacity and identify over/under-estimation patterns.</p>
+                      </div>
                     </div>
-                    <div>
-                      <div className="font-medium text-slate-900 dark:text-white mb-1">Data Tracked</div>
-                      <p>Team members, skills, certifications, workload, expertise areas</p>
+                  )}
+                  {selectedTab === 'skill-assignment' && (
+                    <div className="text-sm text-blue-800 dark:text-blue-400 space-y-3">
+                      <ol className="space-y-2 list-decimal list-inside">
+                        <li><strong>Team Profile Setup:</strong> Add team members with their skills, certifications, and expertise levels</li>
+                        <li><strong>Match Requirements:</strong> Specify required skills and seniority level for each story</li>
+                        <li><strong>AI Recommendation:</strong> System analyzes 5 key factors and ranks best matches</li>
+                        <li><strong>View Score Breakdown:</strong> See exactly why someone is recommended (95% match, 85% available, 92% score)</li>
+                        <li><strong>Smart Assignment:</strong> Assign with confidence knowing it optimizes skills and workload balance</li>
+                      </ol>
+                      <div className="bg-white/60 dark:bg-blue-900/30 p-3 rounded-lg mt-3 border border-blue-200 dark:border-blue-700/50">
+                        <p className="text-xs font-medium">💡 <strong>Pro Tip:</strong> Use skill gaps to plan training and onboarding. The system identifies missing expertise across your team.</p>
+                      </div>
                     </div>
-                  </div>
-                )}
-                {selectedTab === 'github-integration' && (
-                  <div className="text-sm text-slate-600 dark:text-slate-400 space-y-3">
-                    <div>
-                      <div className="font-medium text-slate-900 dark:text-white mb-1">API Integration</div>
-                      <p>GitHub API v3 compatible for PR and commit tracking</p>
+                  )}
+                  {selectedTab === 'github-integration' && (
+                    <div className="text-sm text-blue-800 dark:text-blue-400 space-y-3">
+                      <ol className="space-y-2 list-decimal list-inside">
+                        <li><strong>Connect GitHub:</strong> Authenticate with your GitHub account in settings</li>
+                        <li><strong>Link Pull Requests:</strong> Associate GitHub PRs with TrackFlow stories by PR number</li>
+                        <li><strong>Track CI/CD:</strong> Monitor build status, test coverage, and deployment progress automatically</li>
+                        <li><strong>Review Status:</strong> See code review status (Approved ✅ / Pending 🔄 / Changes Requested ❌)</li>
+                        <li><strong>View Commits:</strong> Browse commits linked to story, author info, and timestamps</li>
+                      </ol>
+                      <div className="bg-white/60 dark:bg-blue-900/30 p-3 rounded-lg mt-3 border border-blue-200 dark:border-blue-700/50">
+                        <p className="text-xs font-medium">💡 <strong>Pro Tip:</strong> Link PRs early to get real-time CI/CD status. This helps identify blocked work immediately.</p>
+                      </div>
                     </div>
-                    <div>
-                      <div className="font-medium text-slate-900 dark:text-white mb-1">CI/CD Metrics</div>
-                      <p>Build status, test coverage, code review scores, deployment status</p>
+                  )}
+                  {selectedTab === 'calendar-integration' && (
+                    <div className="text-sm text-blue-800 dark:text-blue-400 space-y-3">
+                      <ol className="space-y-2 list-decimal list-inside">
+                        <li><strong>Connect Calendar:</strong> Authorize Google Calendar access for seamless sync</li>
+                        <li><strong>Schedule Work Sessions:</strong> Create focused work blocks on calendar for specific stories</li>
+                        <li><strong>Plan Team Meetings:</strong> Schedule standup, planning, and review sessions with team</li>
+                        <li><strong>Check Availability:</strong> System shows team member availability before scheduling</li>
+                        <li><strong>Auto-Sync:</strong> Events sync automatically - changes in TrackFlow update calendar and vice versa</li>
+                      </ol>
+                      <div className="bg-white/60 dark:bg-blue-900/30 p-3 rounded-lg mt-3 border border-blue-200 dark:border-blue-700/50">
+                        <p className="text-xs font-medium">💡 <strong>Pro Tip:</strong> Use work sessions to protect team focus time. Schedule blocking sessions to reduce context switching.</p>
+                      </div>
                     </div>
-                    <div>
-                      <div className="font-medium text-slate-900 dark:text-white mb-1">Linked Data</div>
-                      <p>Pull requests, commits, code metrics per story</p>
-                    </div>
-                  </div>
-                )}
-                {selectedTab === 'calendar-integration' && (
-                  <div className="text-sm text-slate-600 dark:text-slate-400 space-y-3">
-                    <div>
-                      <div className="font-medium text-slate-900 dark:text-white mb-1">API Integration</div>
-                      <p>Google Calendar API for event sync and scheduling</p>
-                    </div>
-                    <div>
-                      <div className="font-medium text-slate-900 dark:text-white mb-1">Features</div>
-                      <p>Work sessions, meetings, planning sessions with reminders</p>
-                    </div>
-                    <div>
-                      <div className="font-medium text-slate-900 dark:text-white mb-1">Availability</div>
-                      <p>Team member availability tracking and conflict detection</p>
-                    </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </motion.div>
           </motion.div>
