@@ -18,7 +18,8 @@ import {
   Sun,
   Moon,
   Palette,
-  Zap
+  Zap,
+  MessageSquare
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -80,6 +81,7 @@ const MainLayout = () => {
     { to: '/timeline', icon: GanttIcon, label: 'Timeline' },
     { to: '/portfolio', icon: Briefcase, label: 'Portfolio' },
     { to: '/reports', icon: FileText, label: 'Reports' },
+    { to: '/chat', icon: MessageSquare, label: 'Team Chat' },
     { to: '/features', icon: Zap, label: 'Features' },
   ];
 

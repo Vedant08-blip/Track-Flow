@@ -12,6 +12,7 @@ import PortfolioPage from '../pages/PortfolioPage';
 import ReportsPage from '../pages/ReportsPage';
 import ThemeSettingsPage from '../pages/ThemeSettingsPage';
 import FeaturesShowcasePage from '../pages/FeaturesShowcasePage';
+import TeamChatPage from '../pages/TeamChatPage';
 import MainLayout from '../components/shared/MainLayout';
 
 const ProtectedRoute = ({ children, roles = [] }) => {
@@ -54,6 +55,7 @@ const AppRouter = () => {
         <Route path="timeline" element={<TimelinePage />} />
         <Route path="portfolio" element={<PortfolioPage />} />
         <Route path="reports" element={<ReportsPage />} />
+        <Route path="chat" element={<TeamChatPage />} />
         <Route path="theme-settings" element={<ThemeSettingsPage />} />
         <Route path="features" element={<FeaturesShowcasePage />} />
       </Route>
