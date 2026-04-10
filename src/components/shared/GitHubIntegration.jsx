@@ -134,9 +134,21 @@ const GitHubIntegration = ({ storyId }) => {
           </h4>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${
+              isOpen
+                ? 'bg-red-500 hover:bg-red-600 text-white'
+                : 'bg-indigo-500 hover:bg-indigo-600 text-white shadow-md hover:shadow-lg'
+            }`}
           >
-            {isOpen ? <X size={18} /> : <Plus size={18} />}
+            {isOpen ? (
+              <>
+                <X size={16} /> Cancel
+              </>
+            ) : (
+              <>
+                <Plus size={16} /> Create Pull Request
+              </>
+            )}
           </button>
         </div>
 
@@ -147,25 +159,35 @@ const GitHubIntegration = ({ storyId }) => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               onSubmit={handleLinkPR}
-              className="space-y-2 mb-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700"
+              className="space-y-3 mb-4 p-5 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl border-2 border-indigo-200 dark:border-indigo-800/50"
             >
-              <input
-                type="number"
-                value={prNumber}
-                onChange={(e) => setPrNumber(e.target.value)}
-                placeholder="PR #"
-                className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              />
-              <input
-                type="url"
-                value={prUrl}
-                onChange={(e) => setPrUrl(e.target.value)}
-                placeholder="https://github.com/..."
-                className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              />
+              <div className="mb-4">
+                <h5 className="text-sm font-bold text-slate-900 dark:text-white mb-1">Link GitHub Pull Request</h5>
+                <p className="text-xs text-slate-600 dark:text-slate-400">Link an existing GitHub PR to this story</p>
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-900 dark:text-white mb-1.5">PR Number</label>
+                <input
+                  type="number"
+                  value={prNumber}
+                  onChange={(e) => setPrNumber(e.target.value)}
+                  placeholder="e.g., 2847"
+                  className="w-full px-3 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-slate-400"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-900 dark:text-white mb-1.5">GitHub PR URL</label>
+                <input
+                  type="url"
+                  value={prUrl}
+                  onChange={(e) => setPrUrl(e.target.value)}
+                  placeholder="https://github.com/owner/repo/pull/2847"
+                  className="w-full px-3 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-slate-400"
+                />
+              </div>
               <button
                 type="submit"
-                className="w-full px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg text-sm font-medium transition-colors"
+                className="w-full px-4 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg text-sm font-semibold transition-colors shadow-md hover:shadow-lg"
               >
                 Link Pull Request
               </button>
