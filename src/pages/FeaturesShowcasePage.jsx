@@ -56,6 +56,24 @@ const FeaturesShowcasePage = () => {
 
   return (
     <div className="space-y-8">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-linear-to-r from-slate-900 to-slate-800 dark:from-slate-900 dark:to-slate-800 rounded-2xl p-8 text-white"
+      >
+        <div className="max-w-3xl">
+          <h1 className="text-4xl font-bold mb-3">Advanced Features</h1>
+          <p className="text-lg text-slate-300 mb-6">
+            Discover TrackFlow's enterprise-grade features designed to streamline your agile workflow.
+          </p>
+          <div className="flex items-center gap-2 text-sm text-slate-400">
+            <Zap size={16} />
+            <span>All features are fully integrated and production-ready</span>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Feature Selector */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {features.map((feature) => {
@@ -149,8 +167,11 @@ const FeaturesShowcasePage = () => {
 
               {selectedTab === 'skill-assignment' && (
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Skill-Based Assignment Demo</h3>
-                  <SkillBasedAssignmentPanel />
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Smart Assignment Demo</h3>
+                  <SkillBasedAssignmentPanel 
+                    storyId="US-101" 
+                    requiredSkills={['React', 'TypeScript', 'AWS']}
+                  />
                 </div>
               )}
 
@@ -340,7 +361,180 @@ const FeaturesShowcasePage = () => {
                     </div>
                   </motion.div>
 
+                  {/* Code Quality Metrics - Enhanced GitHub Style */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700"
+                  >
+                    <h4 className="font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500 mr-2"></span> Code Quality Metrics
+                    </h4>
+                    <div className="grid grid-cols-2 gap-4">
+                      {/* Test Coverage */}
+                      <div className="bg-linear-to-br from-green-50 to-emerald-50 dark:from-green-900/25 dark:to-emerald-900/25 rounded-lg p-5 border-l-4 border-green-500">
+                        <div className="text-sm text-green-700 dark:text-green-400 font-semibold mb-2">Test Coverage</div>
+                        <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">88%</div>
+                        <div className="h-1 bg-green-200 dark:bg-green-900/50 rounded-full overflow-hidden">
+                          <div className="h-full bg-green-500 rounded-full" style={{ width: '88%' }}></div>
+                        </div>
+                        <div className="text-xs text-green-600 dark:text-green-400 mt-2 font-medium">+3% from last commit</div>
+                      </div>
 
+                      {/* Code Quality */}
+                      <div className="bg-linear-to-br from-blue-50 to-cyan-50 dark:from-blue-900/25 dark:to-cyan-900/25 rounded-lg p-5 border-l-4 border-blue-500">
+                        <div className="text-sm text-blue-700 dark:text-blue-400 font-semibold mb-2">Code Quality Score</div>
+                        <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">A+</div>
+                        <div className="h-1 bg-blue-200 dark:bg-blue-900/50 rounded-full overflow-hidden">
+                          <div className="h-full bg-blue-500 rounded-full" style={{ width: '95%' }}></div>
+                        </div>
+                        <div className="text-xs text-blue-600 dark:text-blue-400 mt-2 font-medium">No critical issues</div>
+                      </div>
+
+                      {/* Build Status */}
+                      <div className="bg-linear-to-br from-purple-50 to-pink-50 dark:from-purple-900/25 dark:to-pink-900/25 rounded-lg p-5 border-l-4 border-purple-500">
+                        <div className="text-sm text-purple-700 dark:text-purple-400 font-semibold mb-2">Build Status</div>
+                        <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2 flex items-center gap-2">
+                          <span className="animate-pulse">✓</span> Passing
+                        </div>
+                        <div className="h-1 bg-purple-200 dark:bg-purple-900/50 rounded-full overflow-hidden">
+                          <div className="h-full bg-purple-500 rounded-full" style={{ width: '100%' }}></div>
+                        </div>
+                        <div className="text-xs text-purple-600 dark:text-purple-400 mt-2 font-medium">All checks passed</div>
+                      </div>
+
+                      {/* Performance */}
+                      <div className="bg-linear-to-br from-amber-50 to-orange-50 dark:from-amber-900/25 dark:to-orange-900/25 rounded-lg p-5 border-l-4 border-amber-500">
+                        <div className="text-sm text-amber-700 dark:text-amber-400 font-semibold mb-2">Performance</div>
+                        <div className="text-3xl font-bold text-amber-600 dark:text-amber-400 mb-2">+2.1%</div>
+                        <div className="h-1 bg-amber-200 dark:bg-amber-900/50 rounded-full overflow-hidden">
+                          <div className="h-full bg-amber-500 rounded-full" style={{ width: '75%' }}></div>
+                        </div>
+                        <div className="text-xs text-amber-600 dark:text-amber-400 mt-2 font-medium">Bundle size optimized</div>
+                      </div>
+                    </div>
+
+                    {/* Additional Metrics */}
+                    <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                      <h5 className="text-sm font-semibold text-slate-900 dark:text-white mb-4">Advanced Metrics</h5>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-4">
+                          <div className="text-xs text-slate-600 dark:text-slate-400 font-medium mb-2">Cyclomatic Complexity</div>
+                          <div className="text-2xl font-bold text-slate-900 dark:text-white">4.2</div>
+                          <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">Average complexity per function</div>
+                        </div>
+                        <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-4">
+                          <div className="text-xs text-slate-600 dark:text-slate-400 font-medium mb-2">Security Issues</div>
+                          <div className="text-2xl font-bold text-green-600 dark:text-green-400">0</div>
+                          <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">Critical vulnerabilities</div>
+                        </div>
+                        <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-4">
+                          <div className="text-xs text-slate-600 dark:text-slate-400 font-medium mb-2">Code Duplication</div>
+                          <div className="text-2xl font-bold text-slate-900 dark:text-white">2.1%</div>
+                          <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">Duplicated lines of code</div>
+                        </div>
+                        <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-4">
+                          <div className="text-xs text-slate-600 dark:text-slate-400 font-medium mb-2">Dependencies</div>
+                          <div className="text-2xl font-bold text-slate-900 dark:text-white">42</div>
+                          <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">Production packages</div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* GitHub API Status & Deployments */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700"
+                  >
+                    <h4 className="font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500 mr-2"></span> Deployments & API Status
+                    </h4>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      {/* Deployment Status */}
+                      <div>
+                        <h5 className="text-sm font-semibold text-slate-900 dark:text-white mb-4">Recent Deployments</h5>
+                        <div className="space-y-3">
+                          {[
+                            { env: 'Production', status: 'active', version: 'v2.4.1', time: '2 hours ago', commits: 3 },
+                            { env: 'Staging', status: 'active', version: 'v2.5.0-beta', time: '30 minutes ago', commits: 8 },
+                            { env: 'Development', status: 'building', version: 'main', time: 'In progress', commits: 12 }
+                          ].map((deploy, idx) => (
+                            <div key={idx} className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
+                              <div className="flex items-start justify-between mb-2">
+                                <div>
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <span className={`w-2 h-2 rounded-full ${deploy.status === 'active' ? 'bg-green-500' : deploy.status === 'building' ? 'bg-yellow-500' : 'bg-red-500'}`}></span>
+                                    <span className="font-semibold text-slate-900 dark:text-white">{deploy.env}</span>
+                                  </div>
+                                  <div className="text-xs text-slate-600 dark:text-slate-400 font-mono">{deploy.version}</div>
+                                </div>
+                                <span className={`px-2 py-1 rounded text-xs font-semibold ${
+                                  deploy.status === 'active' 
+                                    ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400' 
+                                    : deploy.status === 'building'
+                                    ? 'bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400'
+                                    : 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400'
+                                }`}>
+                                  {deploy.status === 'building' ? 'Building...' : deploy.status.charAt(0).toUpperCase() + deploy.status.slice(1)}
+                                </span>
+                              </div>
+                              <div className="text-xs text-slate-600 dark:text-slate-400">
+                                {deploy.time} • {deploy.commits} commits included
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* GitHub API Status */}
+                      <div>
+                        <h5 className="text-sm font-semibold text-slate-900 dark:text-white mb-4">GitHub API Status</h5>
+                        <div className="space-y-3">
+                          {[
+                            { endpoint: 'REST API', status: 'operational', latency: '125ms', uptime: '99.98%' },
+                            { endpoint: 'GraphQL API', status: 'operational', latency: '142ms', uptime: '99.99%' },
+                            { endpoint: 'Webhooks', status: 'operational', latency: '87ms', uptime: '99.95%' }
+                          ].map((api, idx) => (
+                            <div key={idx} className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
+                              <div className="flex items-start justify-between mb-2">
+                                <div>
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                                    <span className="font-semibold text-slate-900 dark:text-white">{api.endpoint}</span>
+                                  </div>
+                                  <div className="text-xs text-slate-600 dark:text-slate-400">Response time: {api.latency}</div>
+                                </div>
+                                <div className="text-right">
+                                  <div className="text-xs font-semibold text-green-700 dark:text-green-400">Operational</div>
+                                  <div className="text-xs text-slate-600 dark:text-slate-400">{api.uptime} uptime</div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* API Rate Limits */}
+                        <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800/50">
+                          <div className="text-xs font-semibold text-blue-900 dark:text-blue-300 mb-3">API Rate Limits</div>
+                          <div className="space-y-2">
+                            <div>
+                              <div className="flex items-center justify-between text-xs mb-1">
+                                <span className="text-blue-800 dark:text-blue-400">Requests: 4,500 / 5,000</span>
+                                <span className="text-blue-700 dark:text-blue-400 font-semibold">90%</span>
+                              </div>
+                              <div className="h-1.5 bg-blue-200 dark:bg-blue-900/50 rounded-full overflow-hidden">
+                                <div className="h-full bg-blue-500 rounded-full" style={{ width: '90%' }}></div>
+                              </div>
+                            </div>
+                            <div className="text-xs text-blue-700 dark:text-blue-400">Reset in 45 minutes</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
                 </div>
               )}
 

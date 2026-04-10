@@ -18,8 +18,7 @@ import {
   Sun,
   Moon,
   Palette,
-  Zap,
-  MessageSquare
+  Zap
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -32,8 +31,6 @@ import { PageWrapper } from './UIComponents';
 import { X as CloseIcon } from 'lucide-react';
 import ThemeCustomizer from './ThemeCustomizer';
 import MentionsNotifications from './MentionsNotifications';
-import useUserProfile from '../../hooks/useUserProfile';
-import UserOnboardingWizard from './UserOnboardingWizard';
 const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
   <NavLink
     to={to}
@@ -53,12 +50,10 @@ const MainLayout = () => {
   const [showThemeCustomizer, setShowThemeCustomizer] = useState(false);
   const [showMentionsModal, setShowMentionsModal] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [showTeamSetup, setShowTeamSetup] = useState(false);
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const { searchTerm, setSearchTerm } = useProject();
   const { getUnreadMentions } = useCollaboration();
-  const { userProfile, updateUserProfile, isOnboarded } = useUserProfile();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -85,7 +80,6 @@ const MainLayout = () => {
     { to: '/timeline', icon: GanttIcon, label: 'Timeline' },
     { to: '/portfolio', icon: Briefcase, label: 'Portfolio' },
     { to: '/reports', icon: FileText, label: 'Reports' },
-    { to: '/chat', icon: MessageSquare, label: 'Team Chat' },
     { to: '/features', icon: Zap, label: 'Features' },
   ];
 
@@ -155,26 +149,10 @@ const MainLayout = () => {
         <div className="mt-auto border-t border-slate-800 pt-4 px-2">
           {!collapsed && (
             <div className="mb-4 bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
-              <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold mb-1">Profile</div>
-              <div className="text-sm font-medium text-primary-flow">{userProfile?.name || user?.name || 'Setup Profile'}</div>
-              {userProfile?.role && (
-                <div className="text-xs text-slate-400 mt-1">{userProfile.role}</div>
-              )}
+              <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold mb-1">Role</div>
+              <div className="text-sm font-medium text-primary-flow">{user?.role}</div>
             </div>
           )}
-          <button
-            onClick={() => setShowTeamSetup(true)}
-            className={cn(
-              "flex items-center gap-3 w-full px-4 py-3 rounded-lg font-semibold transition-all duration-200 mb-2",
-              userProfile
-                ? "bg-linear-to-r from-primary/20 to-primary/10 text-primary hover:from-primary/30 hover:to-primary/20"
-                : "bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 hover:bg-yellow-500/30",
-              collapsed && "justify-center px-0 rounded-full"
-            )}
-          >
-            <UserIcon className="w-5 h-5 shrink-0" />
-            {!collapsed && <span>{userProfile ? 'Edit Profile' : 'Complete Profile'}</span>}
-          </button>
           <button
             onClick={handleLogout}
             className={cn(
@@ -264,29 +242,14 @@ const MainLayout = () => {
 
             <div className="h-8 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
 
-            {/* User Details Button */}
-            <button
-              onClick={() => setShowTeamSetup(true)}
-              className="p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700 rounded-full transition-colors hidden sm:flex items-center justify-center shrink-0"
-              title="Manage user profile"
-            >
-              <UserIcon size={18} />
-            </button>
-
-            <div className="h-8 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
-
             <div className="flex items-center gap-2 lg:gap-3 pl-0 lg:pl-2">
               <div className="text-right hidden md:flex flex-col">
-                <span className="text-xs lg:text-sm font-semibold text-gray-900 dark:text-white leading-tight">
-                  {userProfile?.name || user?.name}
-                </span>
-                <span className="text-[10px] lg:text-[11px] font-medium text-gray-500 dark:text-slate-400 uppercase tracking-tighter">
-                  {userProfile?.role || user?.role || 'User'}
-                </span>
+                <span className="text-xs lg:text-sm font-semibold text-gray-900 dark:text-white leading-tight">{user?.name}</span>
+                <span className="text-[10px] lg:text-[11px] font-medium text-gray-500 dark:text-slate-400 uppercase tracking-tighter">Account</span>
               </div>
               <div className="relative group shrink-0">
                 <div className="w-8 lg:w-10 h-8 lg:h-10 rounded-lg lg:rounded-xl overflow-hidden ring-2 ring-transparent group-hover:ring-primary/20 transition-all cursor-pointer bg-gray-100 p-0.5">
-                  <img src={user?.avatar} alt={userProfile?.name || user?.name} className="w-full h-full object-cover rounded-lg" />
+                  <img src={user?.avatar} alt={user?.name} className="w-full h-full object-cover rounded-lg" />
                 </div>
               </div>
             </div>
@@ -308,15 +271,6 @@ const MainLayout = () => {
 
       {/* Mentions & Notifications Modal */}
       <MentionsNotifications isOpen={showMentionsModal} onClose={() => setShowMentionsModal(false)} />
-
-      {/* Team Setup Onboarding Wizard */}
-      <UserOnboardingWizard 
-        isOpen={showTeamSetup}
-        onComplete={(profile) => {
-          updateUserProfile(profile);
-          setShowTeamSetup(false);
-        }}
-      />
     </div>
   );
 };
