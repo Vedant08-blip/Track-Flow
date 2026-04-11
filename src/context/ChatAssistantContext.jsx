@@ -164,8 +164,16 @@ export const ChatAssistantProvider = ({ children }) => {
   }, [stories, iterations, teams, user]);
 
   const getSuggestedQueries = () => [
-    "What are the blockers?", "Show me my tasks", "Sprint status",
-    "Team overview", "High priority tasks", "Completed work", "Project summary"
+    "What are the blockers?",
+    "Show me my tasks",
+    "Sprint status",
+    "Team overview",
+    "High priority tasks",
+    "Completed work",
+    "Project summary",
+    "What's overdue?",
+    "Team velocity",
+    "Task breakdown"
   ];
 
   return (

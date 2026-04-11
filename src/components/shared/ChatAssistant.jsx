@@ -75,7 +75,7 @@ const ChatAssistant = () => {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: idx * 0.05 }}
-                className="p-3 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-slate-800/50 dark:to-slate-700/50 rounded-lg text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-slate-700 hover:shadow-md transition-shadow"
+                className="p-3 bg-linear-to-r from-gray-50 to-gray-100 dark:from-slate-800/50 dark:to-slate-700/50 rounded-lg text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-slate-700 hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex-1">
@@ -108,7 +108,7 @@ const ChatAssistant = () => {
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: idx * 0.05 }}
-                        className="p-2 bg-gradient-to-r from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 rounded text-xs text-gray-700 dark:text-gray-300 flex items-center gap-2 border border-primary/20 dark:border-primary/30 hover:bg-gradient-to-r hover:from-primary/10 hover:to-primary/15 transition-all"
+                        className="p-2 bg-linear-to-r from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 rounded text-xs text-gray-700 dark:text-gray-300 flex items-center gap-2 border border-primary/20 dark:border-primary/30 hover:bg-linear-to-r hover:from-primary/10 hover:to-primary/15 transition-all"
                       >
                         <span className="text-primary font-bold">✓</span> {feature}
                       </motion.div>
@@ -122,7 +122,7 @@ const ChatAssistant = () => {
                   key={key}
                   initial={{ opacity: 0, y: -5 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="p-3 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-slate-800/50 dark:to-slate-700/50 rounded-lg text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-slate-700 hover:shadow-md transition-shadow"
+                  className="p-3 bg-linear-to-r from-gray-50 to-gray-100 dark:from-slate-800/50 dark:to-slate-700/50 rounded-lg text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-slate-700 hover:shadow-md transition-shadow"
                 >
                   <p className="text-gray-500 dark:text-gray-400 capitalize text-[10px] font-bold tracking-wider mb-1">{key.replace(/([A-Z])/g, ' $1').trim()}</p>
                   <p className="font-bold text-gray-900 dark:text-white text-base">{value}</p>
