@@ -310,10 +310,6 @@ const MainLayout = () => {
                 />
               </motion.button>
               
-              {/* New badge */}
-              <div className="absolute -top-2 -right-2 bg-linear-to-br from-yellow-400 to-orange-500 text-white text-[10px] font-black px-2 py-1 rounded-full shadow-lg animate-bounce">
-                NEW
-              </div>
             </div>
           </div>
         </header>
