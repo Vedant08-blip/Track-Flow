@@ -9,6 +9,7 @@ import { TimeTrackingProvider } from './context/TimeTrackingContext'
 import { SkillBasedAssignmentProvider } from './context/SkillBasedAssignmentContext'
 import { GitHubIntegrationProvider } from './context/GitHubIntegrationContext'
 import { GoogleCalendarProvider } from './context/GoogleCalendarContext'
+import { ChatAssistantProvider } from './context/ChatAssistantContext'
 import AppRouter from './routes/AppRouter'
 import './index.css'
 
@@ -24,8 +25,10 @@ function App() {
                   <SkillBasedAssignmentProvider>
                     <GitHubIntegrationProvider>
                       <GoogleCalendarProvider>
-                        <AppRouter />
-                        <ToastContainer />
+                        <ChatAssistantProvider>
+                          <AppRouter />
+                          <ToastContainer />
+                        </ChatAssistantProvider>
                       </GoogleCalendarProvider>
                     </GitHubIntegrationProvider>
                   </SkillBasedAssignmentProvider>
