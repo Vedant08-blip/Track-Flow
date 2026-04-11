@@ -34,6 +34,7 @@ import ThemeCustomizer from './ThemeCustomizer';
 import MentionsNotifications from './MentionsNotifications';
 import UserOnboardingWizard from './UserOnboardingWizard';
 import AvatarSelector from './AvatarSelector';
+import ChatAssistant from './ChatAssistant';
 const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
   <NavLink
     to={to}
@@ -344,6 +345,9 @@ const MainLayout = () => {
           setShowAvatarSelector(false);
         }}
       />
+
+      {/* AI Chat Assistant */}
+      <ChatAssistant />
     </div>
   );
 };
