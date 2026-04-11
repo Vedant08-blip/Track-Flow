@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, Sparkles, MessageCircle, AlertCircle, Users, CheckCircle, TrendingUp, Zap } from 'lucide-react';
+import { X, Send, Sparkles, MessageCircle, AlertCircle, Users, CheckCircle, TrendingUp, Zap, RotateCcw, Trash2 } from 'lucide-react';
 import { useChatAssistant } from '../../context/ChatAssistantContext';
 import { useTheme } from '../../context/ThemeContext';
 import { cn } from '../../utils/helpers';
@@ -11,7 +11,7 @@ const ChatAssistant = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const { isDark } = useTheme();
-  const { messages, sendMessage, getSuggestedQueries } = useChatAssistant();
+  const { messages, sendMessage, getSuggestedQueries, clearMessages } = useChatAssistant();
 
   const suggestedQueries = getSuggestedQueries();
 
@@ -70,46 +70,63 @@ const ChatAssistant = () => {
         {content.data && Array.isArray(content.data) && content.data.length > 0 && (
           <div className="mt-3 space-y-2 max-h-48 overflow-y-auto">
             {content.data.map((item, idx) => (
-              <div
+              <motion.div
                 key={idx}
-                className="p-2 bg-gray-50 dark:bg-slate-800/50 rounded text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-slate-700"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.05 }}
+                className="p-3 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-slate-800/50 dark:to-slate-700/50 rounded-lg text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-slate-700 hover:shadow-md transition-shadow"
               >
-                <p className="font-medium">{item.title || item.name || item.id}</p>
-                {item.assignee && <p className="text-gray-500">👤 {item.assignee}</p>}
-                {item.priority && <p className="text-gray-500">🎯 {item.priority}</p>}
-                {item.status && <p className="text-gray-500">📊 {item.status}</p>}
-              </div>
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1">
+                    <p className="font-bold text-gray-900 dark:text-white text-sm">{item.title || item.name || item.id}</p>
+                    <div className="mt-2 space-y-1">
+                      {item.assignee && <p className="text-gray-500 dark:text-gray-400">👤 <span className="font-medium">{item.assignee}</span></p>}
+                      {item.priority && <p className="text-gray-500 dark:text-gray-400">🎯 <span className="font-medium">{item.priority}</span></p>}
+                      {item.status && <p className="text-gray-500 dark:text-gray-400">📊 <span className="font-medium">{item.status}</span></p>}
+                      {item.dueDate && <p className="text-gray-500 dark:text-gray-400">📅 <span className="font-medium">{new Date(item.dueDate).toLocaleDateString()}</span></p>}
+                      {item.members && <p className="text-gray-500 dark:text-gray-400">👥 <span className="font-medium">{item.members} members</span></p>}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
         )}
 
         {/* Render summary data */}
         {content.data && typeof content.data === 'object' && !Array.isArray(content.data) && (
-          <div className="mt-3 grid grid-cols-2 gap-2">
+          <div className="mt-3 space-y-2">
             {Object.entries(content.data).map(([key, value]) => {
               if (key === 'features' && Array.isArray(value)) {
                 return (
                   <div key={key} className="col-span-2 space-y-2">
+                    <p className="text-xs font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-2">Available Queries</p>
                     {value.map((feature, idx) => (
-                      <div
+                      <motion.div
                         key={idx}
-                        className="p-2 bg-gray-50 dark:bg-slate-800/50 rounded text-xs text-gray-700 dark:text-gray-300 flex items-center gap-2"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: idx * 0.05 }}
+                        className="p-2 bg-gradient-to-r from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 rounded text-xs text-gray-700 dark:text-gray-300 flex items-center gap-2 border border-primary/20 dark:border-primary/30 hover:bg-gradient-to-r hover:from-primary/10 hover:to-primary/15 transition-all"
                       >
-                        <span className="text-primary">✓</span> {feature}
-                      </div>
+                        <span className="text-primary font-bold">✓</span> {feature}
+                      </motion.div>
                     ))}
                   </div>
                 );
               }
 
               return (
-                <div
+                <motion.div
                   key={key}
-                  className="p-2 bg-gray-50 dark:bg-slate-800/50 rounded text-xs text-gray-700 dark:text-gray-300"
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-3 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-slate-800/50 dark:to-slate-700/50 rounded-lg text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-slate-700 hover:shadow-md transition-shadow"
                 >
-                  <p className="text-gray-500 capitalize">{key}</p>
-                  <p className="font-semibold text-gray-900 dark:text-white">{value}</p>
-                </div>
+                  <p className="text-gray-500 dark:text-gray-400 capitalize text-[10px] font-bold tracking-wider mb-1">{key.replace(/([A-Z])/g, ' $1').trim()}</p>
+                  <p className="font-bold text-gray-900 dark:text-white text-base">{value}</p>
+                </motion.div>
               );
             })}
           </div>
@@ -117,16 +134,24 @@ const ChatAssistant = () => {
 
         {/* Suggested actions */}
         {content.suggestedActions && content.suggestedActions.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-2">
-            {content.suggestedActions.map((action, idx) => (
-              <button
-                key={idx}
-                onClick={() => handleSuggestedQuery(action)}
-                className="px-2 py-1 text-xs bg-primary/10 hover:bg-primary/20 text-primary rounded transition-colors"
-              >
-                {action}
-              </button>
-            ))}
+          <div className="mt-4 pt-3 border-t border-gray-200 dark:border-slate-700">
+            <p className="text-xs font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-2">Next Steps</p>
+            <div className="flex flex-wrap gap-2">
+              {content.suggestedActions.map((action, idx) => (
+                <motion.button
+                  key={idx}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: idx * 0.05 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleSuggestedQuery(action)}
+                  className="px-3 py-1.5 text-xs bg-primary/10 hover:bg-primary/20 dark:bg-primary/20 dark:hover:bg-primary/30 text-primary dark:text-blue-300 rounded-lg transition-all border border-primary/20 dark:border-primary/30 font-medium"
+                >
+                  → {action}
+                </motion.button>
+              ))}
+            </div>
           </div>
         )}
       </div>
@@ -196,12 +221,31 @@ const ChatAssistant = () => {
                 <Sparkles size={20} />
                 <span className="font-semibold">Project Assistant</span>
               </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="p-1 hover:bg-white/20 rounded-lg transition-colors"
-              >
-                <X size={18} />
-              </button>
+              <div className="flex items-center gap-2">
+                {messages.length > 0 && (
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => {
+                      clearMessages();
+                      setInputValue('');
+                    }}
+                    className="p-1.5 hover:bg-white/20 rounded-lg transition-colors group relative"
+                    title="Clear chat history"
+                  >
+                    <Trash2 size={16} />
+                    <span className="absolute bottom-full right-0 mb-2 px-2 py-1 bg-slate-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                      Clear chat
+                    </span>
+                  </motion.button>
+                )}
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="p-1 hover:bg-white/20 rounded-lg transition-colors"
+                >
+                  <X size={18} />
+                </button>
+              </div>
             </div>
 
             {/* Messages Area */}
