@@ -1,76 +1,60 @@
-// Avatar metadata with creative names and descriptions matching each avatar's vibe
+// Avatar metadata — names & descriptions matched exactly to rendered avatar images
 export const avatarMetadata = [
   {
     id: 1,
-    file: '/Avatar /Avatar-1.avif',
-    name: 'Rosebud',
-    description: 'Sweet, cheerful & always glowing ✨',
+    file: '/Avatar /Avatar-1.avif.jpeg',
+    name: 'Cherry Blossom',
+    description: 'Sweet, blushy & always glowing 🌸',
     emoji: '🌸',
-    color: 'from-pink-300 to-rose-500'
+    color: 'from-pink-300 to-rose-400'
   },
   {
     id: 2,
-    file: '/Avatar /avatar-2.avif',
-    name: 'Sage',
-    description: 'Calm energy, soft power, quiet storms 🍃',
-    emoji: '🌿',
-    color: 'from-green-300 to-stone-400'
+    file: '/Avatar /Avatar-2.avif.jpeg',
+    name: 'Grumpchief',
+    description: 'Unbothered. Built different 😤',
+    emoji: '😤',
+    color: 'from-neutral-200 to-stone-500'
   },
   {
     id: 3,
     file: '/Avatar /Avatar-3.avif.jpeg',
-    name: 'Phantom',
-    description: 'No face. No limits. Pure mystery 🖤',
-    emoji: '🌑',
-    color: 'from-slate-400 to-indigo-300'
+    name: 'Voltskull',
+    description: 'Silver hair, blue lightning, untouchable ⚡',
+    emoji: '⚡',
+    color: 'from-cyan-400 to-blue-700'
+  },
+  {
+    id: 4,
+    file: '/Avatar /Avatar-4.avif.jpeg',
+    name: 'Mellow',
+    description: 'Calm vibes, soft power 🍃',
+    emoji: '🍃',
+    color: 'from-stone-300 to-slate-400'
   },
   {
     id: 5,
     file: '/Avatar /Avatar-5.avif.jpeg',
-    name: 'Rift',
-    description: 'Cracked open, glowing from within ⚡',
-    emoji: '💥',
-    color: 'from-purple-600 to-violet-900'
+    name: 'Voidette',
+    description: 'No face. Pure mystery 🌑',
+    emoji: '🌑',
+    color: 'from-slate-300 to-indigo-300'
   },
   {
     id: 6,
     file: '/Avatar /Avatar-6.avif.jpeg',
-    name: 'Deadbeats',
-    description: 'Too cool to care. Built different 💀',
+    name: 'DeathBeats',
+    description: 'Skull + red cans, vibing eternally 💀',
     emoji: '🎧',
-    color: 'from-neutral-200 to-stone-400'
+    color: 'from-purple-500 to-violet-800'
   },
   {
     id: 7,
     file: '/Avatar /Avatar-7.avif.jpeg',
-    name: 'Reaper',
-    description: 'Skull face, red cans, zero apologies 🔴',
-    emoji: '💀',
-    color: 'from-purple-500 to-violet-800'
-  },
-  {
-    id: 8,
-    file: '/Avatar /Avatar-8.avif.jpeg',
-    name: 'Gojo',
-    description: 'Lightning fast. Blindfolded and still winning ⚡',
-    emoji: '🥶',
-    color: 'from-cyan-400 to-blue-700'
-  },
-  {
-    id: 9,
-    file: '/Avatar /Avatar-9.avif.jpeg',
-    name: 'Avatar Nine',
-    description: 'Patient and thorough',
-    emoji: '👤',
-    color: 'from-teal-400 to-teal-600'
-  },
-  {
-    id: 10,
-    file: '/Avatar /Avatar-10.avif.jpeg',
-    name: 'Avatar Ten',
-    description: 'Wise and insightful',
-    emoji: '👤',
-    color: 'from-purple-400 to-purple-600'
+    name: 'NightRift',
+    description: 'Cracked, glowing, on fire 🔥',
+    emoji: '🔮',
+    color: 'from-purple-700 to-violet-950'
   }
 ];
 
@@ -82,4 +66,14 @@ export const getAvatarById = (id) => {
 // Get all avatars
 export const getAllAvatars = () => {
   return avatarMetadata;
+};
+
+// Get avatar index for grid display
+export const getAvatarIndex = (id) => {
+  return avatarMetadata.findIndex(avatar => avatar.id === id);
+};
+
+// Total avatar count
+export const getTotalAvatars = () => {
+  return avatarMetadata.length;
 };
