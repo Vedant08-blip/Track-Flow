@@ -32,6 +32,7 @@ import { PageWrapper } from './UIComponents';
 import { X as CloseIcon } from 'lucide-react';
 import ThemeCustomizer from './ThemeCustomizer';
 import MentionsNotifications from './MentionsNotifications';
+import UserOnboardingWizard from './UserOnboardingWizard';
 const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
   <NavLink
     to={to}
@@ -51,6 +52,7 @@ const MainLayout = () => {
   const [showThemeCustomizer, setShowThemeCustomizer] = useState(false);
   const [showMentionsModal, setShowMentionsModal] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showSkillsWizard, setShowSkillsWizard] = useState(false);
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const { searchTerm, setSearchTerm } = useProject();
@@ -244,15 +246,54 @@ const MainLayout = () => {
 
             <div className="h-8 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
 
-            <div className="flex items-center gap-2 lg:gap-3 pl-0 lg:pl-2">
-              <div className="text-right hidden md:flex flex-col">
-                <span className="text-xs lg:text-sm font-semibold text-gray-900 dark:text-white leading-tight">{user?.name}</span>
-                <span className="text-[10px] lg:text-[11px] font-medium text-gray-500 dark:text-slate-400 uppercase tracking-tighter">Account</span>
+            {/* Enhanced Profile Section */}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setShowSkillsWizard(true)}
+              className="relative hidden sm:flex items-center gap-2.5 px-5 py-2.5 ml-2 rounded-xl transition-all duration-300 overflow-hidden group"
+              title="Complete your profile and add skills"
+            >
+              {/* Animated background gradient */}
+              <div className="absolute inset-0 bg-linear-to-r from-primary via-primary/80 to-primary rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              {/* Shine effect on hover */}
+              <div className="absolute inset-0 rounded-xl overflow-hidden">
+                <div className="absolute inset-0 translate-x-full group-hover:translate-x-0 transition-transform duration-500 bg-linear-to-r from-transparent via-white/20 to-transparent"></div>
               </div>
-              <div className="relative group shrink-0">
-                <div className="w-8 lg:w-10 h-8 lg:h-10 rounded-lg lg:rounded-xl overflow-hidden ring-2 ring-transparent group-hover:ring-primary/20 transition-all cursor-pointer bg-gray-100 p-0.5">
-                  <img src={user?.avatar} alt={user?.name} className="w-full h-full object-cover rounded-lg" />
+
+              {/* Content */}
+              <div className="relative flex items-center gap-2.5 z-10">
+                <div className="relative">
+                  <UserIcon size={18} className="text-white font-bold" />
+                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
                 </div>
+                <div className="flex flex-col items-start">
+                  <span className="text-sm font-bold text-white leading-tight">Complete Profile</span>
+                  <span className="text-[10px] text-white/80 font-medium">Add skills & links</span>
+                </div>
+              </div>
+
+              {/* Decorative background glow */}
+              <div className="absolute inset-0 rounded-xl bg-primary/30 group-hover:bg-primary/50 blur-lg transition-all duration-300 -z-10 group-hover:scale-110"></div>
+
+              {/* Static background */}
+              <div className="absolute inset-0 bg-linear-to-r from-primary/90 via-primary/80 to-primary/90 rounded-xl -z-20"></div>
+            </motion.button>
+
+            {/* Profile Avatar with Enhanced Styling */}
+            <div className="relative group shrink-0 ml-1">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                onClick={() => setShowSkillsWizard(true)}
+                className="w-10 h-10 rounded-xl overflow-hidden ring-3 ring-primary/40 group-hover:ring-primary/70 transition-all cursor-pointer bg-linear-to-br from-gray-200 to-gray-300 dark:from-slate-700 dark:to-slate-800 p-0.5 shadow-lg hover:shadow-xl duration-300"
+              >
+                <img src={user?.avatar} alt={user?.name} className="w-full h-full object-cover rounded-lg" />
+              </motion.button>
+              
+              {/* New badge */}
+              <div className="absolute -top-2 -right-2 bg-linear-to-br from-yellow-400 to-orange-500 text-white text-[10px] font-black px-2 py-1 rounded-full shadow-lg animate-bounce">
+                NEW
               </div>
             </div>
           </div>
@@ -273,6 +314,9 @@ const MainLayout = () => {
 
       {/* Mentions & Notifications Modal */}
       <MentionsNotifications isOpen={showMentionsModal} onClose={() => setShowMentionsModal(false)} />
+
+      {/* Skills & Profile Wizard */}
+      <UserOnboardingWizard isOpen={showSkillsWizard} onClose={() => setShowSkillsWizard(false)} />
     </div>
   );
 };
