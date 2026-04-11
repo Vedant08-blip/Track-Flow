@@ -70,26 +70,26 @@ const PortfolioPage = () => {
   };
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto pb-20">
+    <div className="space-y-6 lg:space-y-8 max-w-7xl mx-auto pb-20 relative px-2 md:px-0">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 px-2">
-        <div>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Portfolio Vision</h1>
-          <p className="text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium mt-1">Strategic initiatives & roadmap execution</p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+        <div className="flex-1 min-w-0">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Portfolio Vision</h1>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">Strategic initiatives & roadmap execution</p>
         </div>
-        <div className="flex items-center gap-4">
-           <div className="flex flex-col items-end">
-              <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest leading-none">Global Health</span>
-              <span className="text-xl font-black text-success leading-tight">Excellent</span>
+        <div className="flex items-center gap-2 lg:gap-4 flex-shrink-0">
+           <div className="flex flex-col items-end text-right">
+              <span className="text-[9px] sm:text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest leading-none">Global Health</span>
+              <span className="text-lg sm:text-xl font-black text-emerald-600 dark:text-emerald-500 leading-tight">Excellent</span>
            </div>
-           <div className="w-12 h-12 rounded-2xl bg-success/10 flex items-center justify-center text-success border border-success/20">
-             <TrendingUp size={24} />
+           <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-500 border border-emerald-200 dark:border-emerald-800">
+             <TrendingUp size={20} className="sm:w-6 sm:h-6" />
            </div>
         </div>
       </div>
 
       {/* Initiatives List */}
-      <div className="space-y-6">
+      <div className="space-y-4 lg:space-y-6">
         {filteredInitiatives.map((initiative) => (
           <motion.div 
             key={initiative.id}
