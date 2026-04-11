@@ -63,6 +63,18 @@ const MainLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Load saved avatar from localStorage on mount
+  useEffect(() => {
+    const savedAvatar = localStorage.getItem('trackflow_selected_avatar');
+    if (savedAvatar) {
+      try {
+        setSelectedAvatar(JSON.parse(savedAvatar));
+      } catch (error) {
+        console.error('Failed to parse saved avatar:', error);
+      }
+    }
+  }, []);
+
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [notifications, setNotifications] = useState([
     { id: 1, title: 'New story assigned', message: 'You were assigned to "Implement Login UI"', time: '2m ago', read: false },
@@ -291,7 +303,11 @@ const MainLayout = () => {
                 onClick={() => setShowAvatarSelector(true)}
                 className="w-10 h-10 rounded-xl overflow-hidden ring-3 ring-primary/40 group-hover:ring-primary/70 transition-all cursor-pointer bg-linear-to-br from-gray-200 to-gray-300 dark:from-slate-700 dark:to-slate-800 p-0.5 shadow-lg hover:shadow-xl duration-300"
               >
-                <img src={user?.avatar} alt={user?.name} className="w-full h-full object-cover rounded-lg" />
+                <img 
+                  src={selectedAvatar?.file || user?.avatar} 
+                  alt={selectedAvatar?.name || user?.name} 
+                  className="w-full h-full object-cover rounded-lg" 
+                />
               </motion.button>
               
               {/* New badge */}
