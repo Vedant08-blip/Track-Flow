@@ -33,6 +33,7 @@ import { X as CloseIcon } from 'lucide-react';
 import ThemeCustomizer from './ThemeCustomizer';
 import MentionsNotifications from './MentionsNotifications';
 import UserOnboardingWizard from './UserOnboardingWizard';
+import AvatarSelector from './AvatarSelector';
 const SidebarItem = ({ to, icon: Icon, label, collapsed }) => (
   <NavLink
     to={to}
@@ -53,6 +54,8 @@ const MainLayout = () => {
   const [showMentionsModal, setShowMentionsModal] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showSkillsWizard, setShowSkillsWizard] = useState(false);
+  const [showAvatarSelector, setShowAvatarSelector] = useState(false);
+  const [selectedAvatar, setSelectedAvatar] = useState(null);
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const { searchTerm, setSearchTerm } = useProject();
@@ -285,7 +288,7 @@ const MainLayout = () => {
             <div className="relative group shrink-0 ml-1">
               <motion.button
                 whileHover={{ scale: 1.1 }}
-                onClick={() => setShowSkillsWizard(true)}
+                onClick={() => setShowAvatarSelector(true)}
                 className="w-10 h-10 rounded-xl overflow-hidden ring-3 ring-primary/40 group-hover:ring-primary/70 transition-all cursor-pointer bg-linear-to-br from-gray-200 to-gray-300 dark:from-slate-700 dark:to-slate-800 p-0.5 shadow-lg hover:shadow-xl duration-300"
               >
                 <img src={user?.avatar} alt={user?.name} className="w-full h-full object-cover rounded-lg" />
@@ -316,7 +319,19 @@ const MainLayout = () => {
       <MentionsNotifications isOpen={showMentionsModal} onClose={() => setShowMentionsModal(false)} />
 
       {/* Skills & Profile Wizard */}
-      <UserOnboardingWizard isOpen={showSkillsWizard} onClose={() => setShowSkillsWizard(false)} />
+      <UserOnboardingWizard isOpen={showSkillsWizard} onClose={() => setShowSkillsWizard(false)} selectedAvatar={selectedAvatar} />
+
+      {/* Avatar Selector Modal */}
+      <AvatarSelector
+        isOpen={showAvatarSelector}
+        onClose={() => setShowAvatarSelector(false)}
+        onSelect={(avatar) => {
+          console.log('Avatar selected:', avatar);
+          setSelectedAvatar(avatar);
+          localStorage.setItem('trackflow_selected_avatar', JSON.stringify(avatar));
+          setShowAvatarSelector(false);
+        }}
+      />
     </div>
   );
 };
