@@ -207,6 +207,7 @@ export const ThemeProvider = ({ children }) => {
     <ThemeContext.Provider
       value={{
         isDark,
+        setIsDark,
         toggleTheme,
         colorScheme,
         changeColorScheme,
