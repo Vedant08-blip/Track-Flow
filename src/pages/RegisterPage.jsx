@@ -195,11 +195,11 @@ const RegisterPage = () => {
 
           <div className="space-y-5">
             {[
-              { icon: '⚡', title: 'Real-time Collaboration', desc: 'Keep your team aligned with instant updates and shared boards.' },
-              { icon: '🤖', title: 'AI Insights', desc: 'Get intelligent recommendations for better sprint planning.' },
-              { icon: '📊', title: 'Smart Analytics', desc: 'Track velocity, burndown, and team performance with detailed metrics.' },
-              { icon: '⏱️', title: 'Time Tracking', desc: 'Monitor focus time and productivity across your entire team.' },
-              { icon: '🔧', title: 'Custom Workflows', desc: 'Tailor TrackFlow to match your team\'s unique process.' }
+              { title: 'Real-time Collaboration', desc: 'Keep your team aligned with instant updates and shared boards.' },
+              { title: 'AI Insights', desc: 'Get intelligent recommendations for better sprint planning.' },
+              { title: 'Smart Analytics', desc: 'Track velocity, burndown, and team performance with detailed metrics.' },
+              { title: 'Time Tracking', desc: 'Monitor focus time and productivity across your entire team.' },
+              { title: 'Custom Workflows', desc: 'Tailor TrackFlow to match your team\'s unique process.' }
             ].map((feature, idx) => (
               <motion.div 
                 key={idx}
@@ -208,7 +208,9 @@ const RegisterPage = () => {
                 transition={{ delay: 0.2 + idx * 0.1 }}
                 className="flex gap-4 group cursor-pointer"
               >
-                <div className="h-10 w-10 rounded-lg bg-linear-to-br from-primary/20 to-blue-500/20 text-primary flex items-center justify-center font-bold text-lg shrink-0 group-hover:scale-110 transition-transform">{feature.icon}</div>
+                <div className="h-10 w-10 rounded-lg bg-linear-to-br from-primary/20 to-blue-500/20 text-primary flex items-center justify-center font-black text-lg shrink-0 group-hover:scale-110 transition-transform">
+                  {String(idx + 1).padStart(2, '0')}
+                </div>
                 <div className="pt-0.5">
                   <p className="text-white font-semibold group-hover:text-primary transition-colors">{feature.title}</p>
                   <p className="text-slate-400 text-sm mt-1">{feature.desc}</p>
