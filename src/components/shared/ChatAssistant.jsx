@@ -158,6 +158,13 @@ const ChatAssistant = () => {
     );
   };
 
+  const formatTimestamp = (timestamp) => {
+    if (!timestamp) return '';
+    const date = timestamp instanceof Date ? timestamp : new Date(timestamp);
+    if (Number.isNaN(date.getTime())) return '';
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
   return (
     <>
       {/* Chat Button - Fixed at bottom right */}
@@ -208,18 +215,26 @@ const ChatAssistant = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className={cn(
-              "fixed bottom-24 right-6 z-50 rounded-2xl shadow-2xl overflow-hidden w-96 max-h-96 flex flex-col",
+              "fixed bottom-24 right-6 z-50 rounded-2xl shadow-2xl overflow-hidden w-[92vw] max-w-[440px] max-h-[70vh] flex flex-col",
               "border",
               isDark
-                ? "bg-slate-900 border-slate-700"
-                : "bg-white border-gray-200"
+                ? "bg-slate-900/90 border-slate-700/70 backdrop-blur-xl"
+                : "bg-white/90 border-white/60 backdrop-blur-xl"
             )}
           >
             {/* Header */}
             <div className="p-4 bg-linear-to-r from-primary to-primary/80 text-white flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Sparkles size={20} />
-                <span className="font-semibold">Project Assistant</span>
+                <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
+                  <Sparkles size={18} />
+                </div>
+                <div>
+                  <p className="font-semibold leading-tight">Project Assistant</p>
+                  <p className="text-[11px] text-white/80 flex items-center gap-1">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-300" />
+                    Ready to help
+                  </p>
+                </div>
               </div>
               <div className="flex items-center gap-2">
                 {messages.length > 0 && (
@@ -250,12 +265,14 @@ const ChatAssistant = () => {
 
             {/* Messages Area */}
             <div className={cn(
-              "flex-1 overflow-y-auto p-4 space-y-4",
-              isDark ? "bg-slate-900/50" : "bg-gray-50"
+              "flex-1 overflow-y-auto p-4 space-y-5",
+              isDark ? "bg-slate-900/60" : "bg-gradient-to-b from-white/60 to-gray-50"
             )}>
               {messages.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center space-y-4">
-                  <Sparkles size={32} className="text-primary/50" />
+                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                    <Sparkles size={26} className="text-primary/70" />
+                  </div>
                   <p className={cn(
                     "text-center text-sm font-medium",
                     isDark ? "text-gray-300" : "text-gray-600"
@@ -264,20 +281,22 @@ const ChatAssistant = () => {
                   </p>
 
                   {/* Suggested queries */}
-                  <div className="w-full space-y-2 mt-4">
+                  <div className="w-full flex flex-col gap-2 mt-4">
                     {suggestedQueries.map((query, idx) => (
-                      <button
+                      <motion.button
                         key={idx}
                         onClick={() => handleSuggestedQuery(query)}
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.98 }}
                         className={cn(
-                          "w-full px-3 py-2 text-sm rounded-lg transition-colors text-left hover:bg-primary/10",
+                          "w-full px-3 py-2 text-sm rounded-lg transition-colors text-left border",
                           isDark
-                            ? "bg-slate-800 text-gray-300 hover:bg-primary/20"
-                            : "bg-gray-200 text-gray-700 hover:bg-primary/10"
+                            ? "bg-slate-800/80 text-gray-300 hover:bg-primary/20 border-slate-700/60"
+                            : "bg-white text-gray-700 hover:bg-primary/5 border-gray-200"
                         )}
                       >
                         💬 {query}
-                      </button>
+                      </motion.button>
                     ))}
                   </div>
                 </div>
@@ -302,21 +321,35 @@ const ChatAssistant = () => {
                         </div>
                       )}
 
-                      <div
-                        className={cn(
-                          "max-w-[70%] px-4 py-3 rounded-lg",
-                          message.type === 'user'
-                            ? "bg-primary text-white rounded-br-none"
-                            : isDark
-                              ? "bg-slate-800 text-gray-100"
-                              : "bg-gray-100 text-gray-900"
-                        )}
-                      >
-                        {message.type === 'user' ? (
-                          <p className="text-sm">{message.content}</p>
-                        ) : (
-                          renderMessageContent(message.content)
-                        )}
+                      <div className="max-w-[70%]">
+                        <div
+                          className={cn(
+                            "px-4 py-3 rounded-lg shadow-sm",
+                            message.type === 'user'
+                              ? "bg-primary text-white rounded-br-none"
+                              : isDark
+                                ? "bg-slate-800 text-gray-100 border border-slate-700/60"
+                                : "bg-white text-gray-900 border border-gray-200"
+                          )}
+                        >
+                          {message.type === 'user' ? (
+                            <p className="text-sm">{message.content}</p>
+                          ) : (
+                            renderMessageContent(message.content)
+                          )}
+                        </div>
+                        <p
+                          className={cn(
+                            "mt-1 text-[10px] tracking-wide",
+                            message.type === 'user'
+                              ? "text-right text-white/70"
+                              : isDark
+                                ? "text-gray-400"
+                                : "text-gray-500"
+                          )}
+                        >
+                          {formatTimestamp(message.timestamp)}
+                        </p>
                       </div>
                     </motion.div>
                   ))}
@@ -337,12 +370,29 @@ const ChatAssistant = () => {
                           <Sparkles size={16} className="text-primary" />
                         </motion.div>
                       </div>
-                      <span className={cn(
-                        "text-sm",
-                        isDark ? "text-gray-400" : "text-gray-500"
+                      <div className={cn(
+                        "px-3 py-2 rounded-full text-sm",
+                        isDark ? "bg-slate-800 text-gray-300" : "bg-white text-gray-600 border border-gray-200"
                       )}>
-                        Analyzing...
-                      </span>
+                        <span className="inline-flex items-center gap-1">
+                          <span>Analyzing</span>
+                          <motion.span
+                            className="inline-block w-1.5 h-1.5 rounded-full bg-primary/70"
+                            animate={{ opacity: [0.2, 1, 0.2] }}
+                            transition={{ duration: 1, repeat: Infinity }}
+                          />
+                          <motion.span
+                            className="inline-block w-1.5 h-1.5 rounded-full bg-primary/70"
+                            animate={{ opacity: [0.2, 1, 0.2] }}
+                            transition={{ duration: 1, repeat: Infinity, delay: 0.2 }}
+                          />
+                          <motion.span
+                            className="inline-block w-1.5 h-1.5 rounded-full bg-primary/70"
+                            animate={{ opacity: [0.2, 1, 0.2] }}
+                            transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
+                          />
+                        </span>
+                      </div>
                     </motion.div>
                   )}
                   <div ref={messagesEndRef} />
