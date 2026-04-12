@@ -53,19 +53,114 @@ Whether you're managing a solo side project or coordinating across a team, Track
 
 ---
 
-## 🏗️ Architecture
-trackflow/
-├── src/
-│   ├── components/        # Reusable UI components (Kanban, modals, charts, etc.)
-│   ├── context/           # Global state providers (auth, theme, project)
-│   ├── pages/             # Route-level page components
-│   ├── routes/            # App router configuration
-│   └── utils/             # Helper functions and data generators
+## 🏗️ Project Structure
+
+```
+TrackFlow/
+├── 📁 src/                          # Frontend (React + Vite)
+│   ├── components/
+│   │   ├── auth/                    # Login, register components
+│   │   ├── backlog/                 # Backlog management UI
+│   │   ├── board/                   # Kanban board components
+│   │   ├── dashboard/               # Dashboard & overview
+│   │   ├── planning/                # Sprint planning components
+│   │   ├── portfolio/               # Portfolio view
+│   │   ├── reports/                 # Reporting & exports
+│   │   ├── shared/                  # Reusable components (buttons, modals, etc.)
+│   │   └── timeline/                # Timeline/Gantt components
+│   │
+│   ├── context/                     # Global state management
+│   │   ├── AuthContext.jsx          # Authentication state
+│   │   ├── ProjectContext.jsx       # Project state
+│   │   ├── ThemeContext.jsx         # Theme switching
+│   │   ├── ChatAssistantContext.jsx # AI chat state
+│   │   ├── TimeTrackingContext.jsx  # Time tracking state
+│   │   ├── GitHubIntegrationContext.jsx
+│   │   └── CollaborationContext.jsx # Real-time collaboration
+│   │
+│   ├── pages/                       # Route-level pages
+│   │   ├── LoginPage.jsx
+│   │   ├── RegisterPage.jsx
+│   │   ├── DashboardPage.jsx
+│   │   ├── BoardPage.jsx
+│   │   ├── BacklogPage.jsx
+│   │   ├── PlanningPage.jsx
+│   │   ├── ReportsPage.jsx
+│   │   └── PortfolioPage.jsx
+│   │
+│   ├── routes/                      # Router configuration
+│   │   └── AppRouter.jsx
+│   │
+│   ├── utils/                       # Helper functions
+│   │   ├── helpers.js
+│   │   ├── mockData.js
+│   │   └── reportGenerator.js
+│   │
+│   ├── hooks/                       # Custom React hooks
+│   │   └── useUserProfile.js
+│   │
+│   ├── data/                        # Static data
+│   │   └── avatarMetadata.js
+│   │
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
 │
-└── backend/
-├── server.js          # Express server entry point
-├── routes/            # API route handlers
-└── models/            # Mongoose data models
+├── 📁 backend/                      # Backend (Node.js + Express)
+│   ├── server.js                    # Express server entry point
+│   │
+│   ├── config/
+│   │   └── database.js              # MongoDB connection
+│   │
+│   ├── models/                      # Mongoose schemas
+│   │   ├── User.js
+│   │   ├── Project.js
+│   │   └── schemas.js
+│   │
+│   ├── routes/                      # API route handlers
+│   │   ├── auth.js
+│   │   ├── projectRoutes.js
+│   │   ├── storyRoutes.js
+│   │   ├── iterationRoutes.js
+│   │   ├── chatRoutes.js
+│   │   ├── teamRoutes.js
+│   │   ├── commentRoutes.js
+│   │   └── index.js
+│   │
+│   ├── controllers/                 # Business logic
+│   │   ├── userController.js
+│   │   ├── projectController.js
+│   │   ├── storyController.js
+│   │   ├── iterationController.js
+│   │   ├── chatController.js
+│   │   ├── teamController.js
+│   │   └── commentController.js
+│   │
+│   ├── middleware/                  # Express middleware
+│   │   ├── authMiddleware.js        # JWT verification
+│   │   ├── errorMiddleware.js
+│   │   └── validationMiddleware.js
+│   │
+│   ├── services/                    # External service integrations
+│   │   └── databaseService.js
+│   │
+│   ├── utils/                       # Helper utilities
+│   │   ├── constants.js
+│   │   ├── helpers.js
+│   │   └── logger.js
+│   │
+│   └── package.json
+│
+├── 📁 public/                       # Static assets
+│   ├── screenshots/
+│   ├── Avatar/
+│   └── favicon.svg
+│
+├── vite.config.js
+├── package.json
+├── README.md
+└── LICENSE
+```
 
 ---
 
