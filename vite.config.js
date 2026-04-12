@@ -10,12 +10,18 @@ export default defineConfig({
   ],
   server: {
     host: true,
-    strictPort: true,
+    strictPort: false, // Allow auto-increment if port is in use
     port: process.env.PORT ? parseInt(process.env.PORT) : 5173,
+    middlewareMode: false,
+    hmr: {
+      protocol: 'ws',
+      host: 'localhost',
+      port: 5173,
+    },
   },
   preview: {
     host: true,
-    strictPort: true,
+    strictPort: false, // Allow auto-increment if port is in use
     port: process.env.PORT ? parseInt(process.env.PORT) : 4173,
   }
 })

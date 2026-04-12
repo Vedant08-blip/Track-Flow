@@ -4,10 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
+    "dev": "lsof -i :5173 | grep -v COMMAND | awk '{print $2}' | xargs kill -9 2>/dev/null; sleep 1; vite --host 0.0.0.0",
+    "dev:alt": "vite --host 0.0.0.0 --port 5174",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview --host 0.0.0.0 --port ${PORT:-4173}"
+    "preview": "vite preview --host 0.0.0.0 --port ${PORT:-4173}",
+    "kill-port": "lsof -i :5173 | grep -v COMMAND | awk '{print $2}' | xargs kill -9 2>/dev/null || echo 'Port 5173 is free'"
   },
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
