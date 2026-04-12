@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { LogIn, Mail, Lock, ArrowRight, Eye, EyeOff, Users, CheckCircle2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import AmbientBackground from '../components/shared/AmbientBackground';
 
 const LoginPage = () => {
@@ -74,6 +74,40 @@ const LoginPage = () => {
     Developer: 'Task execution & collaboration',
   };
 
+  const MagneticStat = ({ label, value }) => {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    const springX = useSpring(x, { stiffness: 180, damping: 18, mass: 0.3 });
+    const springY = useSpring(y, { stiffness: 180, damping: 18, mass: 0.3 });
+
+    const onMove = (event) => {
+      const rect = event.currentTarget.getBoundingClientRect();
+      const offsetX = event.clientX - rect.left - rect.width / 2;
+      const offsetY = event.clientY - rect.top - rect.height / 2;
+      x.set(offsetX * 0.1);
+      y.set(offsetY * 0.1);
+    };
+
+    const onLeave = () => {
+      x.set(0);
+      y.set(0);
+    };
+
+    return (
+      <motion.div
+        onMouseMove={onMove}
+        onMouseLeave={onLeave}
+        style={{ x: springX, y: springY }}
+        className="bg-white/5 rounded-xl py-3 transition-colors duration-300 hover:bg-white/10"
+        whileHover={{ scale: 1.02 }}
+        transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+      >
+        <p className="text-slate-300 text-xs uppercase tracking-wider">{label}</p>
+        <p className="text-white font-black text-lg">{value}</p>
+      </motion.div>
+    );
+  };
+
   return (
     <div className="min-h-screen w-screen bg-gradient-to-br from-slate-950 to-slate-900 dark:from-slate-950 dark:to-slate-900 flex items-center justify-center p-6 relative overflow-hidden">
       <AmbientBackground />
@@ -104,42 +138,54 @@ const LoginPage = () => {
 
               <div className="space-y-4">
                 <div className="flex gap-4">
-                  <div className="h-9 w-9 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold">1</div>
+                  <div className="h-9 w-9 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold">
+                    1
+                  </div>
                   <div>
                     <p className="text-white font-semibold">Team & Collaboration</p>
                     <p className="text-slate-300 text-sm">Keep squads aligned with shared boards, updates, and goals.</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="h-9 w-9 rounded-full bg-blue-500/20 text-blue-300 flex items-center justify-center font-bold">2</div>
+                  <div className="h-9 w-9 rounded-full bg-blue-500/20 text-blue-300 flex items-center justify-center font-bold">
+                    2
+                  </div>
                   <div>
                     <p className="text-white font-semibold">AI & Intelligence</p>
                     <p className="text-slate-300 text-sm">Chat Assistant and Intelligent Analysis for faster decisions.</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="h-9 w-9 rounded-full bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold">3</div>
+                  <div className="h-9 w-9 rounded-full bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold">
+                    3
+                  </div>
                   <div>
                     <p className="text-white font-semibold">Custom Design & Theme</p>
                     <p className="text-slate-300 text-sm">Personalize the workspace to match your team’s style.</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="h-9 w-9 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold">4</div>
+                  <div className="h-9 w-9 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold">
+                    4
+                  </div>
                   <div>
                     <p className="text-white font-semibold">Time Tracking & Analytics</p>
                     <p className="text-slate-300 text-sm">Measure focus time and performance with clear insights.</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="h-9 w-9 rounded-full bg-fuchsia-500/20 text-fuchsia-300 flex items-center justify-center font-bold">5</div>
+                  <div className="h-9 w-9 rounded-full bg-fuchsia-500/20 text-fuchsia-300 flex items-center justify-center font-bold">
+                    5
+                  </div>
                   <div>
                     <p className="text-white font-semibold">GitHub Integration</p>
                     <p className="text-slate-300 text-sm">Repository & issue linking for seamless development flow.</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="h-9 w-9 rounded-full bg-cyan-500/20 text-cyan-300 flex items-center justify-center font-bold">6</div>
+                  <div className="h-9 w-9 rounded-full bg-cyan-500/20 text-cyan-300 flex items-center justify-center font-bold">
+                    6
+                  </div>
                   <div>
                     <p className="text-white font-semibold">Professional Reports</p>
                     <p className="text-slate-300 text-sm">Generate PDF and CSV reports ready for stakeholders.</p>
@@ -148,18 +194,9 @@ const LoginPage = () => {
               </div>
 
               <div className="mt-8 pt-6 border-t border-white/10 dark:border-slate-700/40 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-                <div className="bg-white/5 rounded-xl py-3">
-                  <p className="text-slate-300 text-xs uppercase tracking-wider">Lines of Code</p>
-                  <p className="text-white font-black text-lg">7,000+</p>
-                </div>
-                <div className="bg-white/5 rounded-xl py-3">
-                  <p className="text-slate-300 text-xs uppercase tracking-wider">Data Privacy</p>
-                  <p className="text-white font-black text-lg">100% client-side</p>
-                </div>
-                <div className="bg-white/5 rounded-xl py-3">
-                  <p className="text-slate-300 text-xs uppercase tracking-wider">Load Time</p>
-                  <p className="text-white font-black text-lg">&lt; 2 seconds</p>
-                </div>
+                <MagneticStat label="Lines of Code" value="7,000+" />
+                <MagneticStat label="Data Privacy" value="100% client-side" />
+                <MagneticStat label="Load Time" value="< 2 seconds" />
               </div>
             </div>
           </motion.div>
@@ -172,6 +209,13 @@ const LoginPage = () => {
             className="w-full max-w-md justify-self-center lg:justify-self-end"
           >
         <div className="bg-white/85 dark:bg-slate-900/85 backdrop-blur-3xl rounded-2xl shadow-2xl shadow-slate-300/40 dark:shadow-black/60 p-8 border border-white/80 dark:border-slate-700/60 overflow-hidden relative group">
+          {/* Micro shine sweep */}
+          <motion.div
+            className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-40"
+            initial={{ x: '-120%' }}
+            animate={{ x: '220%' }}
+            transition={{ duration: 1.6, ease: 'easeInOut', delay: 0.2, repeat: Infinity, repeatDelay: 3.4 }}
+          />
           
           {/* Animated gradient background */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-blue-600/5 dark:from-primary/10 dark:to-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
