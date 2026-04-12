@@ -125,7 +125,7 @@ const LoginPage = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.05 }}
-            className="w-full"
+            className="w-full order-2 lg:order-1"
           >
             <div className="space-y-6">
               <div>
@@ -206,7 +206,7 @@ const LoginPage = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
-            className="w-full max-w-md justify-self-center lg:justify-self-end"
+            className="w-full max-w-md justify-self-center lg:justify-self-end order-1 lg:order-2"
           >
         <div className="bg-white/85 dark:bg-slate-900/85 backdrop-blur-3xl rounded-2xl shadow-2xl shadow-slate-300/40 dark:shadow-black/60 p-8 border border-white/80 dark:border-slate-700/60 overflow-hidden relative group">
           {/* Micro shine sweep */}
