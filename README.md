@@ -207,25 +207,6 @@ API runs at `http://localhost:5000/api/v1`
 
 ---
 
-## 🔐 Environment Variables
-
-### Frontend (`.env`)
-```env
-VITE_API_BASE_URL=http://localhost:5000/api/v1
-```
-
-### Backend (`.env`)
-```env
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/trackflow
-JWT_SECRET=your_secret_here
-FRONTEND_URL=http://localhost:5173
-API_VERSION=v1
-```
-
-> ⚠️ Never commit `.env` files. Add them to `.gitignore`.
-
----
 
 ## 📡 API Reference
 
