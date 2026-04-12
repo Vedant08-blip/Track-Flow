@@ -249,5 +249,5 @@ This project is licensed under the **BSD 2-Clause License**. See the [LICENSE](.
 ---
 
 <div align="center">
-  Made with ☕ and consistency — 122 commits and counting.
+  Made with ☕ and consistency — 122 commits and still counting.
 </div>
