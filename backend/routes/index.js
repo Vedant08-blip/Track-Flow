@@ -1,5 +1,7 @@
 const express = require('express');
 const config = require('../config/database');
+const authRoutes = require('./auth');
+const projectRoutes = require('./projects');
 
 const router = express.Router();
 
@@ -12,26 +14,8 @@ router.get('/health', (req, res) => {
   });
 });
 
-router.post('/auth/register', (req, res) => {
-  res.status(501).json({
-    message: 'Register endpoint not implemented yet.',
-    hint: 'Wire controllers in backend/controllers and models in backend/models.',
-  });
-});
-
-router.post('/auth/login', (req, res) => {
-  res.status(501).json({
-    message: 'Login endpoint not implemented yet.',
-    hint: 'Wire controllers in backend/controllers and models in backend/models.',
-  });
-});
-
-router.get('/projects', (req, res) => {
-  res.status(200).json({
-    data: [],
-    message: 'Projects list placeholder.',
-  });
-});
+router.use('/auth', authRoutes);
+router.use('/projects', projectRoutes);
 
 router.get('/stories', (req, res) => {
   res.status(200).json({

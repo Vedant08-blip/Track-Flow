@@ -1,19 +1,23 @@
-// Authentication Middleware
-// To be implemented:
-// - verifyToken()
-// - authenticate()
-// - authorize()
+const jwt = require('jsonwebtoken');
+const config = require('../config/database');
 
-// Error Handling Middleware
-// To be implemented:
-// - errorHandler()
-// - notFound()
+const authenticate = (req, res, next) => {
+  const header = req.headers.authorization || '';
+  const token = header.startsWith('Bearer ') ? header.slice(7) : null;
 
-// Validation Middleware
-// To be implemented:
-// - validateInput()
-// - sanitizeInput()
+  if (!token) {
+    return res.status(401).json({ error: 'Unauthorized', message: 'Missing token.' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, config.jwt.secret);
+    req.user = decoded;
+    return next();
+  } catch (error) {
+    return res.status(401).json({ error: 'Unauthorized', message: 'Invalid token.' });
+  }
+};
 
 module.exports = {
-  // TODO: Implement middleware
+  authenticate,
 };

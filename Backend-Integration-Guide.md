@@ -4,7 +4,7 @@ This project now includes a basic backend service in `backend/`. It exposes a mi
 
 ## What Was Added
 - `backend/server.js` to boot an Express server with security headers, logging, JSON parsing, and CORS.
-- `backend/routes/index.js` with a health check and placeholder endpoints.
+- `backend/routes/index.js` with a health check and real auth + projects routes.
 - A basic integration path for the frontend via API base URL.
 
 ## Backend Structure
@@ -39,6 +39,14 @@ Example usage:
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
 fetch(`${API_BASE}/health`);
 ```
+
+## Basic Working Endpoints
+- `POST /api/v1/auth/register`
+- `POST /api/v1/auth/login`
+- `GET /api/v1/projects` (requires Bearer token)
+- `POST /api/v1/projects` (requires Bearer token)
+- `PUT /api/v1/projects/:id` (requires Bearer token)
+- `DELETE /api/v1/projects/:id` (requires Bearer token)
 
 ## Repo-Friendly Notes
 - No secrets are stored in code. Use `.env` for local values.
