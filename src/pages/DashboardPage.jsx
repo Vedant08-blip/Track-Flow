@@ -169,7 +169,7 @@ const DashboardPage = () => {
                     </h3>
                   </div>
                   <p className="text-white/80 text-xs lg:text-[15px] font-medium leading-relaxed">
-                    Comprehensive overview of your agile portfolio. <button onClick={() => setIsGuideOpen(true)} className="inline-flex items-center justify-center bg-white/20 hover:bg-white/30 transition-colors px-2 py-0.5 rounded-lg mx-1 font-bold text-white shadow-sm ring-1 ring-white/40 cursor-pointer hover:scale-105 active:scale-95"><Info size={12} className="lg:w-3.5 lg:h-3.5 mr-1" /> Guide</button>.
+                    See your project at a glance with real numbers. <button onClick={() => setIsGuideOpen(true)} className="inline-flex items-center justify-center bg-white/20 hover:bg-white/30 transition-colors px-2 py-0.5 rounded-lg mx-1 font-bold text-white shadow-sm ring-1 ring-white/40 cursor-pointer hover:scale-105 active:scale-95"><Info size={12} className="lg:w-3.5 lg:h-3.5 mr-1" /> Learn More</button>.
                   </p>
                 </div>
                 
@@ -195,10 +195,10 @@ const DashboardPage = () => {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
-          <StatCard title="Team Velocity" value={avgVelocity} icon={TrendingUp} trend="up" trendValue="+12%" colorVariant="primary" />
-          <StatCard title="Stories Completed" value={storiesCompleted} icon={CheckCircle2} trend="up" trendValue="+5" colorVariant="success" />
-          <StatCard title="Active Defects" value={activeDefects} icon={AlertCircle} trend={activeDefects > 5 ? "up" : "down"} trendValue={activeDefects} colorVariant="danger" />
-          <StatCard title="Capacity Load" value={`${capacityLoad}%`} icon={Activity} trend={capacityLoad > 90 ? "up" : "down"} trendValue={capacityLoad > 100 ? "OVER" : "SAFE"} colorVariant="accent" />
+          <StatCard title="Work Done Per Sprint" value={avgVelocity} icon={TrendingUp} trend="up" trendValue="+12%" colorVariant="primary" />
+          <StatCard title="Tasks Completed" value={storiesCompleted} icon={CheckCircle2} trend="up" trendValue="+5" colorVariant="success" />
+          <StatCard title="Bug Count" value={activeDefects} icon={AlertCircle} trend={activeDefects > 5 ? "up" : "down"} trendValue={activeDefects} colorVariant="danger" />
+          <StatCard title="Team Workload" value={`${capacityLoad}%`} icon={Activity} trend={capacityLoad > 90 ? "up" : "down"} trendValue={capacityLoad > 100 ? "OVER" : "SAFE"} colorVariant="accent" />
         </div>
 
         {/* Charts Grid */}
@@ -210,8 +210,8 @@ const DashboardPage = () => {
                <div className="flex items-center gap-3">
                  <div className="w-1.5 h-6 bg-primary rounded-full"></div>
                  <h3 className="text-xl font-bold dark:text-white flex items-center gap-2">
-                   Team Velocity
-                   <InfoTooltip content="Velocity measures how much work your team typically completes in a single sprint. It helps accurately predict how much you can handle in the future." />
+                   Work Done Per Sprint
+                   <InfoTooltip content="Shows how many tasks your team completes each sprint. Higher = team is getting faster! Use this to estimate how much work you can do in future sprints." />
                  </h3>
                </div>
                <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest bg-white/50 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg border border-white/40 dark:border-slate-700/50">Last 4 Sprints</div>
@@ -241,8 +241,8 @@ const DashboardPage = () => {
                <div className="flex items-center gap-3">
                  <div className="w-1.5 h-6 bg-teal-500 rounded-full"></div>
                  <h3 className="text-xl font-bold dark:text-white flex items-center gap-2">
-                   Sprint Burndown
-                   <InfoTooltip content="Shows work remaining over the sprint. The solid line is actual work left; the dashed line is the ideal pace. If actual is below ideal, you're ahead of schedule!" />
+                   Sprint Progress
+                   <InfoTooltip content="The solid line shows work still left. The dashed line shows the ideal speed. If solid line is below dashed = you're ahead! If above = you're behind." />
                  </h3>
                </div>
                <div className="flex items-center gap-2 bg-white/50 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg border border-white/40 dark:border-slate-700/50">
@@ -274,8 +274,8 @@ const DashboardPage = () => {
               <div className="p-2.5 bg-primary/10 rounded-[14px]">
                 <Users className="text-primary" size={20} />
               </div>
-              Team Allocation
-              <InfoTooltip content="Shows how much of each team's maximum capacity is currently assigned to active items." position="left" />
+              Team Workload
+              <InfoTooltip content="Shows how busy each team is. Green = good balance. Red = too much work. 100% = at full capacity. Over 100% = overloaded." position="left" />
             </h4>
             <div className="space-y-7">
               {teams.map(team => {
@@ -317,9 +317,9 @@ const DashboardPage = () => {
                <div className="flex items-start justify-between">
                   <div>
                     <h3 className="text-3xl flex items-center gap-3 font-bold mb-2 tracking-tight text-white hover:text-white transition-colors">
-                      Portfolio Milestone Reached! <span className="text-3xl">🎯</span>
+                      🎯 Great Work! Phase 1 Done
                     </h3>
-                    <p className="text-white/60 font-medium text-[15px]">Cloud Migration Phase 1 is now 100% complete.</p>
+                    <p className="text-white/60 font-medium text-[15px]">Cloud Migration Phase 1 completed successfully. Team is ready for Phase 2.</p>
                   </div>
                   <div className="bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/10 shadow-lg">
                      <TrendingUp size={28} className="text-teal-400" />
@@ -328,12 +328,12 @@ const DashboardPage = () => {
                <div className="mt-12 flex flex-col sm:flex-row items-center gap-4">
                   <div className="p-5 overflow-hidden relative bg-white/5 rounded-[20px] backdrop-blur-xl border border-white/10 flex-1 w-full text-center hover:bg-white/10 transition-colors group">
                     <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div className="text-white/50 text-[10px] font-bold uppercase tracking-widest mb-1.5">Efficiency</div>
+                    <div className="text-white/50 text-[10px] font-bold uppercase tracking-widest mb-1.5">Speed Gain</div>
                     <div className="text-3xl font-bold text-white">+18%</div>
                   </div>
                   <div className="p-5 overflow-hidden relative bg-white/5 rounded-[20px] backdrop-blur-xl border border-white/10 flex-1 w-full text-center hover:bg-white/10 transition-colors group">
                     <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div className="text-white/50 text-[10px] font-bold uppercase tracking-widest mb-1.5">Quality</div>
+                    <div className="text-white/50 text-[10px] font-bold uppercase tracking-widest mb-1.5">Reliability</div>
                     <div className="text-3xl font-bold text-white">99.2%</div>
                   </div>
                   <div className="p-5 overflow-hidden relative bg-white/5 rounded-[20px] backdrop-blur-xl border border-white/10 flex-1 w-full text-center hover:bg-white/10 transition-colors group">

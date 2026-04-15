@@ -7,43 +7,43 @@ import { cn } from '../../utils/helpers';
 const guideSteps = [
   {
     id: 'dashboard',
-    title: 'Executive Dashboard',
+    title: 'Dashboard',
     icon: TrendingUp,
     color: 'text-primary',
     bg: 'bg-primary/10',
     border: 'border-primary/20',
-    short: 'Your high-level portfolio overview.',
-    details: 'The Dashboard gives you instant visual feedback on project health. Important terms: \n\n • Velocity: How many points of work your team finishes in a cycle.\n • Sprint Burndown: Tracks if you are completing work fast enough to meet your deadline.\n • Capacity: How much of your team\'s potential is currently assigned.'
+    short: 'See your project\'s health at a glance.',
+    details: 'The Dashboard shows you quick numbers about your project:\n\n • Work Done Per Sprint = How many tasks your team completes each 2 weeks\n • Tasks Completed = Total tasks finished\n • Bug Count = How many bugs are open\n • Team Workload = How busy your team is (100% = full)'
   },
   {
     id: 'backlog',
-    title: 'The Backlog',
+    title: 'Backlog',
     icon: Layers,
     color: 'text-purple-500',
     bg: 'bg-purple-500/10',
     border: 'border-purple-500/20',
-    short: 'The master list of all future work.',
-    details: 'Think of the Backlog as your "To-Do" yard for the entire project. Whenever a new feature, bug, or idea is conceived, it gets thrown here first. It acts as a single source of truth that you can constantly groom, rank, and assign point values to based on complexity.'
+    short: 'Your to-do list for the whole project.',
+    details: 'The Backlog is like a master to-do list for everything your project needs. Every new feature, bug fix, or idea goes here first. You can:\n\n • Rank items by importance\n • Estimate how hard each task is\n • See everything in one place\n\nThis helps you decide what to work on next.'
   },
   {
     id: 'planning',
-    title: 'Iteration Planning',
+    title: 'Planning',
     icon: CalendarRange,
     color: 'text-amber-500',
     bg: 'bg-amber-500/10',
     border: 'border-amber-500/20',
-    short: 'Grouping work into actionable timeframes.',
-    details: 'In Agile, we don\'t do everything at once. "Planning" is where you pull items from your Backlog and commit to doing them in a short timeframe called a "Sprint" or "Iteration" (usually 2 weeks long). You drag work into empty sprint buckets here until your team hits their capacity.'
+    short: 'Pick work for the next 2 weeks.',
+    details: 'Planning is where you pick which tasks your team will do in the next 2-week period (called a Sprint). You:\n\n • Pull items from Backlog\n • Add them to the Sprint\n • Stop when your team is full\n\nThis keeps work focused and manageable.'
   },
   {
     id: 'board',
-    title: 'The Board',
+    title: 'Board',
     icon: Kanban,
     color: 'text-emerald-500',
     bg: 'bg-emerald-500/10',
     border: 'border-emerald-500/20',
-    short: 'Where work actually gets done.',
-    details: 'The Board visualizes the flow of active work. Once an item is planned, it shows up here in the "Defined" column. Engineers drag cards to "In Progress" when they start coding, and to "Completed" when finished. It provides total transparency on team progress.'
+    short: 'Watch work move from start to finish.',
+    details: 'The Board shows your tasks moving through stages:\n\n • Defined = Ready to work on\n • In Progress = Someone is working on it\n • Completed = Done!\n\nDrag cards across as they progress. Everyone can see exactly where each task is.'
   }
 ];
 
@@ -62,8 +62,8 @@ const AppGuideModal = ({ isOpen, onClose }) => {
             <CheckCircle2 className="text-primary w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-xl font-bold dark:text-white leading-tight">How TrackFlow Works</h2>
-            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-0.5">Your essential guide to agile terminology.</p>
+            <h2 className="text-xl font-bold dark:text-white leading-tight">TrackFlow 101</h2>
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-0.5">Learn the basics in 2 minutes.</p>
           </div>
         </div>
       }
